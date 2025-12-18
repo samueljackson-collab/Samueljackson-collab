@@ -54,11 +54,9 @@ The following projects represent planned portfolio work demonstrating various te
 ---
 ## 📊 Portfolio Status Board
 
-> **Note:** This board reflects the actual implementation status of portfolio projects. Each project listed here has a corresponding architectural reference in the [Portfolio Blueprints](#-portfolio-blueprints) section above, which provides design documentation regardless of implementation status.
+> **Note:** This Status Board tracks the actual implementation and delivery progress of portfolio projects. The [Portfolio Blueprints](#-portfolio-blueprints) section provides the corresponding architectural references and planned structures.
 
 🟢 Done · 🟠 In Progress · 🔵 Planned
-
-> **Note:** This Status Board reflects implementation status of completed work. The **Portfolio Blueprints** section above provides architectural references and planned project structures, while this board tracks actual delivery progress.
 
 **🟢 Done**
 - **Project 1: AWS Infrastructure Automation**
