@@ -178,7 +178,7 @@ System-minded engineer specializing in building, securing, and operating infrast
 
 ### Homelab & Secure Network Build
 **Status:** 🟢 Complete · 📝 Docs pending  
-**Description** Designed and wired a home network from scratch: rack-mounted gear, VLAN segmentation, and secure Wi-Fi for isolated IoT, guest, and trusted networks.  
+**Description:** Designed and wired a home network from scratch: rack-mounted gear, VLAN segmentation, and secure Wi-Fi for isolated IoT, guest, and trusted networks.  
 **Links**: [Project README](./projects/06-homelab/PRJ-HOME-001/) · [Evidence/Diagrams](./projects/06-homelab/PRJ-HOME-001/assets) *(being prepared)*
 
 **Architecture (logical)**
