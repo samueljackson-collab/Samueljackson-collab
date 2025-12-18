@@ -32,19 +32,19 @@ System-minded engineer specializing in building, securing, and operating infrast
 ---
 ## 📘 Guides
 
-> **Note:** Documentation files are currently being prepared and will be added as the repository structure is built out.
+> **Note:** Documentation files are being prepared and will be added as the repository structure is built out.
 
 - [Wiki.js Setup Guide](./docs/wiki-js-setup-guide.md) — Complete walkthrough to deploy, harden, and populate a Wiki.js instance for portfolio documentation. *(coming soon)*
 
 ## 💻 UI Components
 
-> **Note:** Component files are currently being prepared and will be added as the repository structure is built out.
+> **Note:** Component files are being prepared and will be added as the repository structure is built out.
 
 - [EnterpriseWiki](./src/components/EnterpriseWiki.tsx) — React component that renders interactive learning paths for SDE, DevOps, QA, and architecture roles. *(coming soon)*
 
 ## 📦 Portfolio Blueprints
 
-> **Note:** Project directories are currently being prepared and will be added as the repository structure is built out. Links below represent the planned structure.
+> **Note:** Project directories are being prepared and will be added as the repository structure is built out. The links below show the planned project structure.
 
 - [Project 1: AWS Infrastructure Automation](./projects/1-aws-infrastructure-automation) — Multi-tool infrastructure-as-code implementation covering Terraform, AWS CDK, and Pulumi with reusable deploy scripts.
 - [Project 2: Database Migration Platform](./projects/2-database-migration) — Change data capture pipelines and automation for zero-downtime migrations.
