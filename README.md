@@ -44,7 +44,7 @@ System-minded engineer specializing in building, securing, and operating infrast
 
 ## 📦 Portfolio Blueprints
 
-> **Note:** Project directories are being created as work progresses. See the [Portfolio Status Board](#-portfolio-status-board) below for current status of each project (🟢 Done, 🟠 In Progress, 🔵 Planned).
+> **Note:** Project directories are being created as work progresses. See the [Portfolio Status Board](#portfolio-status-board) below for current status of each project (🟢 Done, 🟠 In Progress, 🔵 Planned).
 
 - [Project 1: AWS Infrastructure Automation](./projects/1-aws-infrastructure-automation) — Multi-tool infrastructure-as-code implementation covering Terraform, AWS CDK, and Pulumi with reusable deploy scripts.
 - [Project 2: Database Migration Platform](./projects/2-database-migration) — Change data capture pipelines and automation for zero-downtime migrations.
