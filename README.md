@@ -75,6 +75,8 @@ System-minded engineer specializing in building, securing, and operating infrast
 ---
 ## 📊 Portfolio Status Board
 
+> **Note:** This board reflects the actual implementation status of portfolio projects. Each project listed here has a corresponding architectural reference in the [Portfolio Blueprints](#-portfolio-blueprints) section above, which provides design documentation regardless of implementation status.
+
 🟢 Done · 🟠 In Progress · 🔵 Planned
 
 > **Note:** This Status Board reflects implementation status of completed work. The **Portfolio Blueprints** section above provides architectural references and planned project structures, while this board tracks actual delivery progress.
