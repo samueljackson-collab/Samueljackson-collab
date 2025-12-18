@@ -5,6 +5,8 @@
 
 **Status key:** 🟢 Done · 🟠 In Progress · 🔵 Planned · 🔄 Recovery/Rebuild · 📝 Documentation Pending
 
+**Documentation:** Evidence for every project is now centralized in the [Portfolio-Project repository](https://github.com/samueljackson-collab/Portfolio-Project). Each project entry below links directly to its evidence bundle (design docs, runbooks, IaC, tests, and screenshots).
+
 > **Portfolio Note:** This repository is actively being built. Projects marked 🟢 are technically complete but documentation/evidence is being prepared (📝). Projects marked 🔵 are planned roadmap items, and 🔄 indicates recovery/rebuild efforts are underway.
 >
 > **Note:** Project directories and documentation are currently being structured and will be added progressively.
@@ -62,48 +64,59 @@ The following projects represent planned portfolio work demonstrating various te
 - **Project 1: AWS Infrastructure Automation**
   - What it is: Terraform/CDK/Pulumi baseline for AWS with reusable deploy scripts.
   - What’s done: CI for fmt/validate/tfsec/plan/apply; 250+ lines of pytest coverage validating variables, outputs, and security controls.
+  - Evidence: [Portfolio-Project › AWS Infrastructure Automation](https://github.com/samueljackson-collab/Portfolio-Project/tree/main/aws-infrastructure-automation)
 
 - **Project 2: Database Migration Platform**
   - What it is: Debezium + AWS DMS–driven zero-downtime migration orchestrator.
   - What’s done: 680-line orchestrator, Dockerized runtime, 300+ lines of unit tests, CI for lint/test/build/publish, Debezium connector config.
+  - Evidence: [Portfolio-Project › Database Migration Platform](https://github.com/samueljackson-collab/Portfolio-Project/tree/main/database-migration-platform)
 
 - **Project 3: Kubernetes CI/CD Pipeline**
   - What it is: GitOps-ready CI/CD for Kubernetes with progressive delivery.
   - What’s done: GitHub Actions with YAML/K8s validation, image builds, Trivy scans, ArgoCD sync, blue-green deploys, automated rollbacks.
+  - Evidence: [Portfolio-Project › Kubernetes CI/CD Pipeline](https://github.com/samueljackson-collab/Portfolio-Project/tree/main/kubernetes-cicd-pipeline)
 
 - **Project 4: DevSecOps Pipeline**
   - What it is: Security-first pipeline covering SAST, SCA, secrets, SBOM, and DAST.
   - What’s done: Semgrep, Bandit, CodeQL, Gitleaks/TruffleHog, Syft SBOM, Trivy/Dockle, OWASP ZAP, and compliance policy validation.
+  - Evidence: [Portfolio-Project › DevSecOps Pipeline](https://github.com/samueljackson-collab/Portfolio-Project/tree/main/devsecops-pipeline)
 
 - **Project 23: Advanced Monitoring & Observability**
   - What it is: Monitoring stack for metrics, logs, and tracing across services.
   - What’s done: Automated Prometheus/Grafana/Loki/Otel deployment, dashboard linting, alert rule checks, health verification.
+  - Evidence: [Portfolio-Project › Advanced Monitoring & Observability](https://github.com/samueljackson-collab/Portfolio-Project/tree/main/advanced-monitoring-observability)
 
 
 **🟠 In Progress**
 - **Project 6: Machine Learning Pipeline**
   - Focus: Phase 2 expansion—experiment tracking, model promotion gates, Docker images for training/serving.
   - Next: Integrate experiment registry and CI hooks for promotion approvals.
+  - Evidence: [Portfolio-Project › Machine Learning Pipeline](https://github.com/samueljackson-collab/Portfolio-Project/tree/main/machine-learning-pipeline)
 
 - **Project 7: Serverless Data Processing**
   - Focus: Lambda/Step Functions pipelines with IaC and CDC ingestion.
   - Next: Add unit tests and failure-handling paths; wire to validation harness.
+  - Evidence: [Portfolio-Project › Serverless Data Processing](https://github.com/samueljackson-collab/Portfolio-Project/tree/main/serverless-data-processing)
 
 - **Project 8: Advanced AI Chatbot**
   - Focus: RAG pipeline and tool-execution flow with evaluation harness.
   - Next: Containerize services, add retrieval evals, and wire telemetry.
+  - Evidence: [Portfolio-Project › Advanced AI Chatbot](https://github.com/samueljackson-collab/Portfolio-Project/tree/main/advanced-ai-chatbot)
 
 - **Project 10: Blockchain Smart Contract Platform**
   - Focus: Hardhat-based contracts with audits and deployment automation.
   - Next: Expand CI coverage, add audit scripts, and release pipelines.
+  - Evidence: [Portfolio-Project › Blockchain Smart Contract Platform](https://github.com/samueljackson-collab/Portfolio-Project/tree/main/blockchain-smart-contract-platform)
 
 - **Project 15: Real-time Collaborative Platform**
   - Focus: CRDT/OT engine for collaborative editing.
   - Next: Conflict resolution tests, latency simulations, and deploy automation.
+  - Evidence: [Portfolio-Project › Real-time Collaborative Platform](https://github.com/samueljackson-collab/Portfolio-Project/tree/main/real-time-collaboration-platform)
 
 - **Project 25: Portfolio Website & Documentation Hub**
   - Focus: VitePress site hosting portfolio docs and reports.
   - Next: Improve navigation/badges, automate report publishing, and add status cards.
+  - Evidence: [Portfolio-Project › Portfolio Website & Documentation Hub](https://github.com/samueljackson-collab/Portfolio-Project/tree/main/portfolio-website-documentation-hub)
 
 
 **🔵 Planned**
@@ -164,9 +177,9 @@ The following projects represent planned portfolio work demonstrating various te
 ## 🟢 Completed Projects (📝 Documentation in Progress)
 
 ### Homelab & Secure Network Build
-**Status:** 🟢 Complete · 📝 Docs pending  
-**Description:** Designed and wired a home network from scratch: rack-mounted gear, VLAN segmentation, and secure Wi-Fi for isolated IoT, guest, and trusted networks.  
-*Documentation being prepared*
+**Status:** 🟢 Complete · 📝 Docs pending
+**Description:** Designed and wired a home network from scratch: rack-mounted gear, VLAN segmentation, and secure Wi-Fi for isolated IoT, guest, and trusted networks.
+*Documentation:* [Portfolio-Project › Homelab & Secure Network Build](https://github.com/samueljackson-collab/Portfolio-Project/tree/main/homelab-secure-network-build)
 
 **Architecture (logical)**
 ```mermaid
@@ -180,14 +193,14 @@ flowchart LR
 ```
 
 ### Virtualization & Core Services
-**Status:** 🟢 Complete · 📝 Docs pending  
-**Description** Proxmox/TrueNAS host running Wiki.js, Home Assistant, and Immich behind a reverse proxy with TLS.  
-*Documentation being prepared*
+**Status:** 🟢 Complete · 📝 Docs pending
+**Description** Proxmox/TrueNAS host running Wiki.js, Home Assistant, and Immich behind a reverse proxy with TLS.
+*Documentation:* [Portfolio-Project › Virtualization & Core Services](https://github.com/samueljackson-collab/Portfolio-Project/tree/main/virtualization-core-services)
 
 ### Observability & Backups Stack
-**Status:** 🟢 Complete · 📝 Docs pending  
-**Description** Monitoring/alerting stack using Prometheus, Grafana, Loki, and Alertmanager, integrated with Proxmox Backup Server.  
-*Documentation being prepared*
+**Status:** 🟢 Complete · 📝 Docs pending
+**Description** Monitoring/alerting stack using Prometheus, Grafana, Loki, and Alertmanager, integrated with Proxmox Backup Server.
+*Documentation:* [Portfolio-Project › Observability & Backups Stack](https://github.com/samueljackson-collab/Portfolio-Project/tree/main/observability-backups-stack)
 
 ---
 ## 🔄 Past Projects Requiring Recovery
@@ -195,9 +208,9 @@ flowchart LR
 Older commercial efforts live in cold storage while I recreate code, processes, and documentation that were lost when a retired workstation took the original knowledge base with it. Fresh assets will be published as they’re rebuilt.
 
 ### Commercial E-commerce & Booking Systems (Rebuild in Progress)
-**Status:** 🔄 Recovery in progress  
-**Description** Previously built and managed: resort booking site; high-SKU flooring store; tours site with complex variations. Code and process docs are being rebuilt for publication.  
-*Documentation pending recovery*
+**Status:** 🔄 Recovery in progress
+**Description** Previously built and managed: resort booking site; high-SKU flooring store; tours site with complex variations. Code and process docs are being rebuilt for publication.
+*Documentation:* [Portfolio-Project › Commercial E-commerce & Booking Systems](https://github.com/samueljackson-collab/Portfolio-Project/tree/main/commercial-ecommerce-booking-systems)
 
 > **Recovery plan & timeline:** Catalog and restore SQL workflows and automation scripts (Week 1), re-document content management processes and deployment steps (Week 2), publish refreshed artifacts (Week 3+).
 
