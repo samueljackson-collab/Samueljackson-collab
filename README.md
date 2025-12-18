@@ -177,8 +177,8 @@ The following projects represent planned portfolio work demonstrating various te
 ## 🟢 Completed Projects (📝 Documentation in Progress)
 
 ### Homelab & Secure Network Build
-**Status:** 🟢 Complete · 📝 Docs pending
-**Description:** Designed and wired a home network from scratch: rack-mounted gear, VLAN segmentation, and secure Wi-Fi for isolated IoT, guest, and trusted networks.
+**Status:** 🟢 Complete · 📝 Docs pending  
+**Description:** Designed and wired a home network from scratch: rack-mounted gear, VLAN segmentation, and secure Wi-Fi for isolated IoT, guest, and trusted networks.  
 *Documentation:* [Portfolio-Project › Homelab & Secure Network Build](https://github.com/samueljackson-collab/Portfolio-Project/tree/main/homelab-secure-network-build)
 
 **Architecture (logical)**
