@@ -177,7 +177,7 @@ The following projects represent planned portfolio work demonstrating various te
   - Roadmap: P0 template library + CLI scaffold → P1 CI batch publishing + packaging → P2 recruiter-ready bundles + change log.
   - Timeline: Sprint 1 (templates/CLI) · Sprint 2 (CI publishing) · Sprint 3 (bundles/changelog)
 
-**Planned Project Timeline Snapshot (rolling 9-week view)**
+**Planned Project Timeline Snapshot**
 
 ```mermaid
 gantt
