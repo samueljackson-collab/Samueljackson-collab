@@ -237,7 +237,7 @@ Older commercial efforts live in cold storage while I recreate code, processes, 
 - **Selenium + PyTest CI**: Automate UI sanity runs in GitHub Actions · *Test automation*
 
 ### Infrastructure Expansion
-- **Multi-OS Lab**: Kali, SlackoPuppy, Ubuntu lab for comparative analysis · *Homelab expansion*
+- **Multi-OS Lab**: Kali, Slacko Puppy, Ubuntu lab for comparative analysis · *Homelab expansion*
 
 ### Automation & Tooling
 - **Document Packaging Pipeline**: One-click generation of Docs/PDFs/XLSX from prompts · *Documentation automation*
