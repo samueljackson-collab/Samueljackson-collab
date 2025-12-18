@@ -11,12 +11,12 @@
 >
 > **Note:** Some project directories referenced below contain planning documentation and structure but are awaiting evidence/asset uploads. Check individual project READMEs for current status.
 >
-> 📚 **New:** [Missing Documents Analysis](./MISSING_DOCUMENTS_ANALYSIS.md) | [Quick Start Guide](./QUICK_START_GUIDE.md) | [Completion Checklist](./PROJECT_COMPLETION_CHECKLIST.md)
+> 📚 **Planned documentation:** Missing Documents Analysis · Quick Start Guide · Project Completion Checklist — these documents are planned and will be added to the repository; links are intentionally omitted until files are present.
 
 ---
 ## 🧭 Reviewer Fast Reference
 
-- **Reviewer Checklist:** For a detailed validation checklist covering top metrics, interview workflow, and file map, please see [**PORTFOLIO_VALIDATION.md**](./PORTFOLIO_VALIDATION.md). This file serves as the single source of truth for validation runs.
+- **Reviewer Checklist:** A detailed validation checklist covering top metrics, interview workflow, and file map will be documented in **PORTFOLIO_VALIDATION.md** (planned). This forthcoming file will serve as the single source of truth for validation runs once added to the repository.
 
 ---
 ## 🎯 Summary
@@ -76,6 +76,8 @@ System-minded engineer specializing in building, securing, and operating infrast
 ## 📊 Portfolio Status Board
 
 🟢 Done · 🟠 In Progress · 🔵 Planned
+
+> **Note:** This Status Board reflects implementation status of completed work. The **Portfolio Blueprints** section above provides architectural references and planned project structures, while this board tracks actual delivery progress.
 
 **🟢 Done**
 - **Project 1: AWS Infrastructure Automation**
@@ -185,7 +187,7 @@ System-minded engineer specializing in building, securing, and operating infrast
 ### Homelab & Secure Network Build
 **Status:** 🟢 Complete · 📝 Docs pending  
 **Description:** Designed and wired a home network from scratch: rack-mounted gear, VLAN segmentation, and secure Wi-Fi for isolated IoT, guest, and trusted networks.  
-**Links**: [Project README](./projects/06-homelab/PRJ-HOME-001/) · [Evidence/Diagrams](./projects/06-homelab/PRJ-HOME-001/assets) *(being prepared)*
+**Links:** [Project README](./projects/06-homelab/PRJ-HOME-001/) · [Evidence/Diagrams](./projects/06-homelab/PRJ-HOME-001/assets) *(being prepared)*
 
 **Architecture (logical)**
 ```mermaid
@@ -200,13 +202,13 @@ flowchart LR
 
 ### Virtualization & Core Services
 **Status:** 🟢 Complete · 📝 Docs pending  
-**Description** Proxmox/TrueNAS host running Wiki.js, Home Assistant, and Immich behind a reverse proxy with TLS.  
-**Links**: [Project README](./projects/06-homelab/PRJ-HOME-002/) · [Backup Logs](./projects/06-homelab/PRJ-HOME-002/assets) *(being prepared)*
+**Description:** Proxmox/TrueNAS host running Wiki.js, Home Assistant, and Immich behind a reverse proxy with TLS.  
+**Links:** [Project README](./projects/06-homelab/PRJ-HOME-002/) · [Backup Logs](./projects/06-homelab/PRJ-HOME-002/assets) *(being prepared)*
 
 ### Observability & Backups Stack
 **Status:** 🟢 Complete · 📝 Docs pending  
-**Description** Monitoring/alerting stack using Prometheus, Grafana, Loki, and Alertmanager, integrated with Proxmox Backup Server.  
-**Links**: [Project README](./projects/01-sde-devops/PRJ-SDE-002/) · [Dashboards](./projects/01-sde-devops/PRJ-SDE-002/assets)
+**Description:** Monitoring/alerting stack using Prometheus, Grafana, Loki, and Alertmanager, integrated with Proxmox Backup Server.  
+**Links:** [Project README](./projects/01-sde-devops/PRJ-SDE-002/) · [Dashboards](./projects/01-sde-devops/PRJ-SDE-002/assets)
 
 ---
 ## 🔄 Past Projects Requiring Recovery
@@ -215,13 +217,15 @@ Older commercial efforts live in cold storage while I recreate code, processes, 
 
 ### Commercial E-commerce & Booking Systems (Rebuild in Progress)
 **Status:** 🔄 Recovery in progress  
-**Description** Previously built and managed: resort booking site; high-SKU flooring store; tours site with complex variations. Code and process docs are being rebuilt for publication.  
-**Links**: [Project README & Recovery Plan](./projects/08-web-data/PRJ-WEB-001/) · [Evidence](./projects/08-web-data/PRJ-WEB-001/assets) *(pending recovery)*
+**Description:** Previously built and managed: resort booking site; high-SKU flooring store; tours site with complex variations. Code and process docs are being rebuilt for publication.  
+**Links:** [Project README & Recovery Plan](./projects/08-web-data/PRJ-WEB-001/) · [Evidence](./projects/08-web-data/PRJ-WEB-001/assets) *(pending recovery)*
 
 > **Recovery plan & timeline:** Catalog and restore SQL workflows and automation scripts (Week 1), re-document content management processes and deployment steps (Week 2), publish refreshed artifacts (Week 3+).
 
 ---
 ## 🟠 In-Progress Projects (Milestones)
+> This section details active work items that are currently marked 🟠 on the **Portfolio Status Board**.  
+> When milestones are fully delivered and documented, they move into **Completed Projects**.
 - **Database Infrastructure Module (Terraform RDS)** · [Project README](./projects/01-sde-devops/PRJ-SDE-001/) · ✅ Module complete, expanding to full-stack
 - **Resume Set (SDE/Cloud/QA/Net/Cyber)** · [Project README](./professional/resume/) · 📝 Structure created, content in progress
 
@@ -271,7 +275,7 @@ flowchart TD
 
 ---
 ## 💼 Experience
-**Desktop Support Technician — 3DM (Redmond, WA) · Feb 2025–Present**  
+**Desktop Support Technician — 3DM (Redmond, WA) · Feb 2024–Present**  
 **Freelance IT & Web Manager — Self-employed · 2015–2022**  
 **Web Designer, Content & SEO — IPM Corp. (Cambodia) · 2013–2014**
 
