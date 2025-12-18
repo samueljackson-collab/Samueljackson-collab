@@ -54,6 +54,8 @@ The following projects represent planned portfolio work demonstrating various te
 ---
 ## 📊 Portfolio Status Board
 
+> **Note:** This Status Board tracks the actual implementation and delivery progress of portfolio projects. The [Portfolio Blueprints](#-portfolio-blueprints) section provides the corresponding architectural references and planned structures.
+
 🟢 Done · 🟠 In Progress · 🔵 Planned
 
 **🟢 Done**
@@ -250,7 +252,7 @@ flowchart TD
 
 ---
 ## 💼 Experience
-**Desktop Support Technician — 3DM (Redmond, WA) · Feb 2025–Present**  
+**Desktop Support Technician — 3DM (Redmond, WA) · Feb 2024–Present**  
 **Freelance IT & Web Manager — Self-employed · 2015–2022**  
 **Web Designer, Content & SEO — IPM Corp. (Cambodia) · 2013–2014**
 
