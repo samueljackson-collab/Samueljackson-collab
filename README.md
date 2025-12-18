@@ -109,46 +109,384 @@ The following projects represent planned portfolio work demonstrating various te
 **🔵 Planned**
 - **Project 5: Real-time Data Streaming**
   - Plan: Kafka/Flink data plane with schema registry, CDC ingestion, and stream quality checks.
+  - Roadmap: P0 build producer/consumer harness → P1 add Flink jobs + schema registry → P2 integrate quality gates + latency SLOs.
+  - Timeline: Sprint 1 (foundation) · Sprint 2 (jobs + registry) · Sprint 3 (quality/SLO evidence)
 
 - **Project 9: Multi-Region Disaster Recovery**
   - Plan: DR drills, replication validation, automated failover tests, and runbooks.
+  - Roadmap: P0 document RPO/RTO targets → P1 automate replication checks → P2 run failover game days with evidence capture.
+  - Timeline: Sprint 1 (RPO/RTO + replication) · Sprint 2 (failover automation) · Sprint 3 (runbook + reporting)
 
 - **Project 11: IoT Data Ingestion & Analytics**
   - Plan: Edge telemetry simulators feeding stream processing and dashboards.
+  - Roadmap: P0 device simulators + gateway → P1 stream processors + storage → P2 dashboarding + anomaly alerts.
+  - Timeline: Sprint 1 (sim + gateway) · Sprint 2 (processing/storage) · Sprint 3 (dashboards/alerts)
 
 - **Project 12: Quantum Computing Integration**
   - Plan: Qiskit hybrid workflows for optimization experiments.
+  - Roadmap: P0 define optimization targets → P1 wire classical optimizer → P2 hybrid loop + error mitigation evidence.
+  - Timeline: Sprint 1 (problem framing) · Sprint 2 (hybrid loops) · Sprint 3 (mitigation + results)
 
 - **Project 13: Advanced Cybersecurity Platform**
   - Plan: SOAR pipeline with enrichment adapters, detections, and response playbooks.
+  - Roadmap: P0 detection catalog + SOAR skeleton → P1 enrichment adapters → P2 response playbooks + audit trails.
+  - Timeline: Sprint 1 (detections) · Sprint 2 (enrichment) · Sprint 3 (response + evidence)
 
 - **Project 14: Edge AI Inference Platform**
   - Plan: ONNX Runtime service for Jetson-class deployments with perf tuning and telemetry.
+  - Roadmap: P0 model selection/quantization → P1 runtime packaging + perf tests → P2 telemetry/export + OTA updates.
+  - Timeline: Sprint 1 (models) · Sprint 2 (runtime/perf) · Sprint 3 (telemetry/OTA)
 
 - **Project 16: Advanced Data Lake & Analytics**
   - Plan: Medallion architecture, Delta Lake transformations, and data quality checks.
+  - Roadmap: P0 raw/bronze ingestion → P1 silver/gold transformations → P2 data quality + BI dashboards.
+  - Timeline: Sprint 1 (raw/bronze) · Sprint 2 (silver/gold) · Sprint 3 (DQ + BI)
 
 - **Project 17: Multi-Cloud Service Mesh**
   - Plan: Istio multi-cluster blueprint with mTLS, policy controls, and failover scenarios.
+  - Roadmap: P0 base Istio install + mTLS → P1 multi-cluster linking + policy overlay → P2 failover drills + tracing dashboards.
+  - Timeline: Sprint 1 (install/mTLS) · Sprint 2 (multi-cluster/policy) · Sprint 3 (failover + obs)
 
 - **Project 18: GPU-Accelerated Computing**
   - Plan: CuPy-powered Monte Carlo workloads and orchestration patterns.
+  - Roadmap: P0 GPU runners + job scheduler → P1 Monte Carlo kernels + profiling → P2 scaling + cost/perf reports.
+  - Timeline: Sprint 1 (runners) · Sprint 2 (kernels/profiles) · Sprint 3 (scaling/reports)
 
 - **Project 19: Advanced Kubernetes Operators**
   - Plan: Kopf-based operator managing portfolio lifecycle automation.
+  - Roadmap: P0 CRD design + reconciliation loop → P1 lifecycle automation flows → P2 status/telemetry exports + chaos tests.
+  - Timeline: Sprint 1 (CRDs) · Sprint 2 (automation flows) · Sprint 3 (telemetry/chaos)
 
 - **Project 20: Blockchain Oracle Service**
   - Plan: Chainlink adapters plus consumer contracts with monitoring hooks.
+  - Roadmap: P0 adapter scaffold + mock feeds → P1 consumer contracts + tests → P2 monitoring hooks + on-chain proof reports.
+  - Timeline: Sprint 1 (adapter) · Sprint 2 (consumers/tests) · Sprint 3 (monitoring/proofs)
 
 - **Project 21: Quantum-Safe Cryptography**
   - Plan: Hybrid Kyber + ECDH key exchange prototype with interoperability tests.
+  - Roadmap: P0 hybrid handshake design → P1 interoperability harness + perf tests → P2 docs + compatibility matrix.
+  - Timeline: Sprint 1 (design) · Sprint 2 (interop/perf) · Sprint 3 (docs/matrix)
 
 - **Project 22: Autonomous DevOps Platform**
   - Plan: Event-driven remediation flows, runbooks-as-code, and policy-driven automation.
+  - Roadmap: P0 event taxonomy + bus → P1 runbooks-as-code automation → P2 policy/approval gates + evidence export.
+  - Timeline: Sprint 1 (taxonomy/bus) · Sprint 2 (runbooks) · Sprint 3 (policy/evidence)
 
 - **Project 24: Portfolio Report Generator**
   - Plan: Jinja2-driven document factory with CLI/CI hooks for batch publishing and evidence packaging.
+  - Roadmap: P0 template library + CLI scaffold → P1 CI batch publishing + packaging → P2 recruiter-ready bundles + change log.
+  - Timeline: Sprint 1 (templates/CLI) · Sprint 2 (CI publishing) · Sprint 3 (bundles/changelog)
 
+**Planned Project Timeline Snapshot (rolling 9-week view)**
+
+```mermaid
+gantt
+    title Planned Portfolio Delivery Timeline
+    dateFormat  YYYY-MM-DD
+    axisFormat  %b %d
+
+    section Data & Streaming
+    Real-time Data Streaming       :active, stream_p0, 2024-07-01, 21d
+    Advanced Data Lake & Analytics :datalake_p0, 2024-07-08, 21d
+
+    section Resilience & Security
+    Multi-Region DR                :dr_p0, 2024-07-01, 21d
+    Cybersecurity Platform         :detection_p0, 2024-07-15, 21d
+
+    section Platforms & Automation
+    Multi-Cloud Service Mesh       :mesh_p0, 2024-07-08, 21d
+    Autonomous DevOps Platform     :auto_p0, 2024-07-22, 21d
+
+    section Evidence & Reporting
+    Portfolio Report Generator     :report_p0, 2024-07-15, 21d
+```
+
+
+---
+## 🧭 Portfolio Blueprints & Evidence
+
+> High-level diagrams synthesized from the [Portfolio-Project](https://github.com/samueljackson-collab/Portfolio-Project) repository to show architecture and delivery patterns. Each blueprint is intentionally concise for quick recruiter review and will be accompanied by deeper runbooks and artifacts as they are published.
+
+<details><summary><strong>🟢 Completed Blueprints</strong></summary>
+
+**Project 1: AWS Infrastructure Automation**
+
+```mermaid
+flowchart TD
+  Dev[Developer] --> CI[CI: fmt/validate/tfsec]
+  CI --> Plan[Plan & Policy Checks]
+  Plan --> Apply[Terraform/CDK/Pulumi Apply]
+  Apply --> AWS[AWS Accounts]
+  AWS --> Reports[Evidence: tfstate, SBOM, test logs]
+```
+
+**Project 2: Database Migration Platform**
+
+```mermaid
+flowchart LR
+  SrcDB[(Source DB)] --> Debezium[Debezium Connector]
+  Debezium --> Kafka[Kafka Change Stream]
+  Kafka --> Orchestrator[Migration Orchestrator]
+  Orchestrator --> DMS[AWS DMS Tasks]
+  DMS --> Target[(Target DB)]
+  Orchestrator --> Tests[pytest + CI evidence]
+```
+
+**Project 3: Kubernetes CI/CD Pipeline**
+
+```mermaid
+flowchart TD
+  Commit[Repo Commit] --> GH[GitHub Actions]
+  GH --> Build[Build & Scan Images]
+  Build --> Argo[ArgoCD Sync]
+  Argo --> Cluster[Kubernetes]
+  Cluster --> Deploy[Blue/Green + Rollbacks]
+  Deploy --> Telemetry[Telemetry & Health Checks]
+```
+
+**Project 4: DevSecOps Pipeline**
+
+```mermaid
+flowchart LR
+  Code[Code Push] --> SAST[Semgrep/Bandit]
+  Code --> SCA[Dependency Scans]
+  Code --> Secrets[Secrets Hunting]
+  SAST --> SBOM[Syft SBOM]
+  SCA --> SBOM
+  SBOM --> Container[Trivy/Dockle]
+  Container --> DAST[OWASP ZAP]
+  DAST --> Policy[Policy-as-Code Gate]
+```
+
+**Project 23: Advanced Monitoring & Observability**
+
+```mermaid
+flowchart TD
+  Apps[Services] --> Metrics[Prometheus]
+  Apps --> Logs[Loki]
+  Apps --> Traces[OpenTelemetry]
+  Metrics --> Grafana[Grafana Dashboards]
+  Logs --> Grafana
+  Traces --> Grafana
+  Grafana --> Alerts[Alertmanager]
+```
+
+</details>
+
+<details><summary><strong>🟠 In-Progress Blueprints</strong></summary>
+
+**Project 6: Machine Learning Pipeline**
+
+```mermaid
+flowchart TD
+  Data[Feature Store] --> Train[Training Jobs]
+  Train --> Track[Experiment Registry]
+  Track --> Gate[Promotion Gates]
+  Gate --> Serve[Model Serving Images]
+  Serve --> Telemetry[Telemetry + Drift]
+```
+
+**Project 7: Serverless Data Processing**
+
+```mermaid
+flowchart LR
+  Events[Ingestion Events] --> Lambda[AWS Lambda]
+  Lambda --> Steps[Step Functions]
+  Steps --> Dynamo[DynamoDB]
+  Steps --> CDC[CDC Validation]
+  Dynamo --> Reports[Evidence Buckets]
+```
+
+**Project 8: Advanced AI Chatbot**
+
+```mermaid
+flowchart TD
+  User[User Query] --> API[Gateway/API]
+  API --> RAG[Retriever + Vector Search]
+  RAG --> LLM[Tool-using LLM]
+  LLM --> Eval[Evaluation Harness]
+  Eval --> Metrics[Quality & Latency Metrics]
+```
+
+**Project 10: Blockchain Smart Contract Platform**
+
+```mermaid
+flowchart LR
+  Devs[Contract Authors] --> Hardhat[Hardhat CI]
+  Hardhat --> Audits[Audit Scripts]
+  Audits --> Deploys[Network Deployments]
+  Deploys --> Staking[Staking/Rewards Contracts]
+  Deploys --> Dashboards[Monitoring + SBOM]
+```
+
+**Project 15: Real-time Collaborative Platform**
+
+```mermaid
+flowchart TD
+  Clients[Clients] --> Gateway[Collaboration Gateway]
+  Gateway --> OT[OT/CRDT Engine]
+  OT --> Storage[State Store]
+  Storage --> Sync[Conflict Resolver]
+  Sync --> Clients
+  Gateway --> Telemetry[Latency Simulations]
+```
+
+**Project 25: Portfolio Website & Documentation Hub**
+
+```mermaid
+flowchart LR
+  Docs[VitePress Content] --> Build[Static Build]
+  Build --> CDN[CDN/Pages]
+  Docs --> Reports[Automated Report Publishing]
+  Reports --> Badges[Status Cards & Badges]
+  CDN --> Readers[Recruiters/Reviewers]
+```
+
+</details>
+
+<details><summary><strong>🔵 Planned Blueprints</strong></summary>
+
+**Project 5: Real-time Data Streaming**
+
+```mermaid
+flowchart TD
+  Producers[Producers] --> Kafka[Kafka]
+  Kafka --> Flink[Flink Jobs]
+  Flink --> Registry[Schema Registry]
+  Flink --> Sinks[OLAP/OLTP Sinks]
+  Sinks --> Dashboards[Monitoring & SLAs]
+```
+
+**Project 9: Multi-Region Disaster Recovery**
+
+```mermaid
+flowchart LR
+  RegionA[Primary Region] --> Replication[Cross-Region Replication]
+  Replication --> RegionB[Secondary Region]
+  RegionB --> Failover[Automated Failover]
+  Failover --> Runbooks[DR Runbooks + Tests]
+```
+
+**Project 11: IoT Data Ingestion & Analytics**
+
+```mermaid
+flowchart TD
+  Devices[Edge Devices] --> Gateway[MQTT/HTTP Gateway]
+  Gateway --> Stream[Stream Processing]
+  Stream --> Storage[Time-series DB]
+  Storage --> Dashboards[Real-time Dashboards]
+```
+
+**Project 12: Quantum Computing Integration**
+
+```mermaid
+flowchart LR
+  Optimizer[Classical Optimizer] --> QPU[Qiskit/QPU Calls]
+  QPU --> Results[Results + Error Mitigation]
+  Results --> Loop[Hybrid Feedback Loop]
+```
+
+**Project 13: Advanced Cybersecurity Platform**
+
+```mermaid
+flowchart TD
+  Alerts[SOAR Alerts] --> Enrich[Enrichment Adapters]
+  Enrich --> Playbooks[Automated Playbooks]
+  Playbooks --> Response[Response Actions]
+  Response --> Audit[Audit & Evidence]
+```
+
+**Project 14: Edge AI Inference Platform**
+
+```mermaid
+flowchart LR
+  Models[Optimized ONNX Models] --> Runtime[Jetson Runtime]
+  Runtime --> Stream[Video/Telemetry Streams]
+  Stream --> Insights[On-device Insights]
+  Insights --> CloudSync[Cloud Sync for Analytics]
+```
+
+**Project 16: Advanced Data Lake & Analytics**
+
+```mermaid
+flowchart TD
+  Raw[Raw Zone] --> Bronze[Bronze]
+  Bronze --> Silver[Silver]
+  Silver --> Gold[Gold]
+  Gold --> Lakehouse[Delta Lake]
+  Lakehouse --> BI[BI Dashboards]
+```
+
+**Project 17: Multi-Cloud Service Mesh**
+
+```mermaid
+flowchart LR
+  ClusterA[K8s Cluster A] <-->|mTLS| Mesh[Istio Mesh]
+  ClusterB[K8s Cluster B] <-->|mTLS| Mesh
+  Mesh --> Policy[Network/Policy Overlay]
+  Mesh --> Observability[Tracing + Metrics]
+```
+
+**Project 18: GPU-Accelerated Computing**
+
+```mermaid
+flowchart TD
+  Jobs[Monte Carlo Jobs] --> Scheduler[GPU Scheduler]
+  Scheduler --> GPU[CUDA Nodes]
+  GPU --> Results[Results Store]
+  Results --> Reports[Performance Reports]
+```
+
+**Project 19: Advanced Kubernetes Operators**
+
+```mermaid
+flowchart LR
+  Events[K8s Events] --> Operator[Kopf Operator]
+  Operator --> Recon[Reconciliation Logic]
+  Recon --> CRDs[Lifecycle CRDs]
+  Recon --> Evidence[Status/Telemetry]
+```
+
+**Project 20: Blockchain Oracle Service**
+
+```mermaid
+flowchart TD
+  Sources[External Metrics] --> Adapter[Chainlink Adapter]
+  Adapter --> Oracle[Oracle Node]
+  Oracle --> Consumer[Consumer Contracts]
+  Consumer --> Proofs[On-chain Proofs]
+```
+
+**Project 21: Quantum-Safe Cryptography**
+
+```mermaid
+flowchart LR
+  Client[Client] --> Hybrid[Kyber + ECDH]
+  Hybrid --> Handshake[Hybrid Handshake]
+  Handshake --> Session[Secure Session Keys]
+```
+
+**Project 22: Autonomous DevOps Platform**
+
+```mermaid
+flowchart TD
+  Alerts[Ops Signals] --> Events[Event Bus]
+  Events --> Runbooks[Runbooks-as-Code]
+  Runbooks --> Automation[Automated Remediation]
+  Automation --> Approvals[Policy/Approval Gates]
+```
+
+**Project 24: Portfolio Report Generator**
+
+```mermaid
+flowchart LR
+  Templates[Jinja2 Templates] --> CLI[Report CLI]
+  CLI --> CI[CI Batch Publishing]
+  CI --> Artifacts[PDF/Docs/XLSX Artifacts]
+  Artifacts --> Recruiters[Packaging for Recruiters]
+```
+
+</details>
 
 ---
 ## 🛠️ Core Skills
