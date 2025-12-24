@@ -1,71 +1,67 @@
-import React from "react";
-import "./photoCalendar.css";
+import React, { useCallback, useMemo } from 'react';
+import Calendar from 'react-calendar';
 
-type PhotoEntry = {
-  date: string; // ISO date string (YYYY-MM-DD)
-  src: string;
-  alt?: string;
-};
-
-type PhotoCalendarProps = {
+interface Photo {
+  id: string;
+  url: string;
   title?: string;
-  photos: PhotoEntry[];
-  date?: Date;
+}
+
+interface DayPhotoData {
+  /** ISO-8601 date string (YYYY-MM-DD) representing the day. */
+  date: string;
+  /** Photos associated with the date. */
+  photos: Photo[];
+}
+
+interface TileContentProps {
+  date: Date;
+}
+
+interface PhotoCalendarProps {
+  monthData: DayPhotoData[];
+  onSelectDate?: (date: Date, photos: Photo[]) => void;
+}
+
+const formatDateKey = (date: Date): string => [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-');
+
+const PhotoCalendar: React.FC<PhotoCalendarProps> = ({ monthData, onSelectDate }) => {
+  const photoLookup = useMemo(() => {
+    const lookup = new Map<string, Photo[]>();
+    monthData.forEach((day) => {
+      lookup.set(day.date, day.photos);
+    });
+    return lookup;
+  }, [monthData]);
+
+  const getPhotosForDate = useCallback(
+    (date: Date): Photo[] => photoLookup.get(formatDateKey(date)) ?? [],
+    [photoLookup],
+  );
+
+  const tileContent = useCallback(
+    ({ date }: TileContentProps) => {
+      const photos = getPhotosForDate(date);
+      if (!photos.length) return null;
+
+      return (
+        <div className="photo-count">
+          <span>{photos.length}</span>
+        </div>
+      );
+    },
+    [getPhotosForDate],
+  );
+
+  const handleClickDay = useCallback(
+    (date: Date) => {
+      const photos = getPhotosForDate(date);
+      onSelectDate?.(date, photos);
+    },
+    [getPhotosForDate, onSelectDate],
+  );
+
+  return <Calendar onClickDay={handleClickDay} tileContent={tileContent} />;
 };
 
-const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-const formatKey = (date: Date) => date.toISOString().slice(0, 10);
-
-export default function PhotoCalendar({ title = "Photo Calendar", photos, date = new Date() }: PhotoCalendarProps) {
-  const today = date;
-  const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
-  const startWeekday = firstDay.getDay();
-  const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
-
-  const photosByDate = React.useMemo(
-    () => Object.fromEntries(photos.map((entry) => [entry.date, entry])),
-    [photos]
-  );
-
-  const calendarCells = Array.from({ length: startWeekday + daysInMonth }, (_, index) => {
-    const dayNumber = index - startWeekday + 1;
-    if (dayNumber < 1) {
-      return { key: `spacer-${index}`, day: null };
-    }
-
-    const cellDate = new Date(today.getFullYear(), today.getMonth(), dayNumber);
-    const key = formatKey(cellDate);
-
-    return {
-      key,
-      day: dayNumber,
-      photo: photosByDate[key],
-    };
-  });
-
-  return (
-    <div className="photo-calendar">
-      <div className="calendar-header">
-        <h2 className="calendar-title">{title}</h2>
-        <div className="calendar-month">
-          {firstDay.toLocaleString("default", { month: "long", year: "numeric" })}
-        </div>
-      </div>
-
-      <div className="calendar-grid">
-        {daysOfWeek.map((weekday) => (
-          <div key={weekday} className="calendar-cell calendar-weekday">
-            {weekday}
-          </div>
-        ))}
-        {calendarCells.map(({ key, day, photo }) => (
-          <div key={key} className={`calendar-cell${photo ? " has-photo" : ""}`}>
-            {day && <div className="calendar-date">{day}</div>}
-            {photo && <img className="calendar-photo" src={photo.src} alt={photo.alt ?? ""} />}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+export default PhotoCalendar;
