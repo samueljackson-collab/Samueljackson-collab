@@ -1,0 +1,18 @@
+:root {
+  --primary-color: #0D47A1;
+  --text-color: #0A0A0A;
+}
+
+body {
+  color: var(--text-color);
+  background-color: #FFFFFF;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: #FFFFFF;
+  border: 0;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+}
