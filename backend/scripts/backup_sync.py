@@ -18,9 +18,15 @@ def verify_sync(source: Path, destination: Path) -> None:
         f"{destination}/",
     ]
     result = subprocess.run(verify_cmd, check=False, capture_output=True, text=True)
-    if result.returncode != 0 or result.stdout:
+    if result.returncode != 0:
         raise RuntimeError(
-            "Verification failed: destination is not in sync with source."
+            f"Verification command failed with exit code {result.returncode}.\n"
+            f"Stderr: {result.stderr}"
+        )
+    if result.stdout:
+        raise RuntimeError(
+            "Verification failed: destination is not in sync with source.\n"
+            f"Differences found:\n{result.stdout}"
         )
 
 
