@@ -17,8 +17,8 @@ const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const formatKey = (date: Date) => date.toISOString().slice(0, 10);
 
-export default function PhotoCalendar({ title = "Photo Calendar", photos }: PhotoCalendarProps) {
-  const today = new Date();
+export default function PhotoCalendar({ title = "Photo Calendar", photos, date = new Date() }: PhotoCalendarProps) {
+  const today = date;
   const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
   const startWeekday = firstDay.getDay();
   const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
