@@ -23,10 +23,10 @@ export default function PhotoCalendar({ title = "Photo Calendar", photos, date =
   const startWeekday = firstDay.getDay();
   const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
 
-  const photosByDate = photos.reduce<Record<string, PhotoEntry>>((acc, entry) => {
-    acc[entry.date] = entry;
-    return acc;
-  }, {});
+  const photosByDate = React.useMemo(
+    () => Object.fromEntries(photos.map((entry) => [entry.date, entry])),
+    [photos]
+  );
 
   const calendarCells = Array.from({ length: startWeekday + daysInMonth }, (_, index) => {
     const dayNumber = index - startWeekday + 1;
