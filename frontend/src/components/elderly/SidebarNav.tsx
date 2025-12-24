@@ -42,7 +42,17 @@ const renderNavItems = (
       .join(" ");
 
     return (
-      <li key={`${item.label}-${level}`} className={listItemClasses} style={style}>
+  return items.map((item, index) => {
+    const { className: indentationClass, style } = getIndentationProps(level);
+    const listItemClasses = [
+      "flex items-center gap-2 py-2 text-slate-800 hover:text-slate-950",
+      indentationClass,
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    return (
+      <li key={`${level}-${index}`} className={listItemClasses} style={style}>
         {item.href ? (
           <a href={item.href} className="underline-offset-2 hover:underline">
             {item.label}
