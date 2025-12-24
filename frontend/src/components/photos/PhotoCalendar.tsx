@@ -23,7 +23,7 @@ interface PhotoCalendarProps {
   onSelectDate?: (date: Date, photos: Photo[]) => void;
 }
 
-const formatDateKey = (date: Date): string => date.toISOString().slice(0, 10);
+const formatDateKey = (date: Date): string => [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-');
 
 const PhotoCalendar: React.FC<PhotoCalendarProps> = ({ monthData, onSelectDate }) => {
   const photoLookup = useMemo(() => {
