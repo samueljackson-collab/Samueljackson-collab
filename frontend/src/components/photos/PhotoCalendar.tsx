@@ -10,6 +10,7 @@ type PhotoEntry = {
 type PhotoCalendarProps = {
   title?: string;
   photos: PhotoEntry[];
+  date?: Date;
 };
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
