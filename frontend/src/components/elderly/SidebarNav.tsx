@@ -14,7 +14,7 @@ const INDENTATION_CLASSES: Record<number, string> = {
   4: "pl-20",
 };
 
-const FALLBACK_PADDING_STEP = 16;
+const FALLBACK_PADDING_STEP_REM = 1;
 
 const getIndentationProps = (
   level: number
@@ -25,7 +25,7 @@ const getIndentationProps = (
     return { className };
   }
 
-  return { style: { paddingLeft: `${(level + 1) * FALLBACK_PADDING_STEP}px` } };
+  return { style: { paddingLeft: `${(level + 1) * FALLBACK_PADDING_STEP_REM}rem` } };
 };
 
 const renderNavItems = (
