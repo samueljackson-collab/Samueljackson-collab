@@ -3,7 +3,7 @@
 import asyncio
 import logging
 
-from fastapi import APIRouter, status
+from fastapi import APIRouter, BackgroundTasks, status
 
 router = APIRouter(prefix="/backup", tags=["backup"])
 logger = logging.getLogger(__name__)
