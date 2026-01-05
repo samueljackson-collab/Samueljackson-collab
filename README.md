@@ -771,7 +771,7 @@ flowchart TD
   Docs[📖 Documentation<br/>Runbooks + Evidence]
 
   Intake --> Plan --> IaC --> CI --> CD --> Obs --> Docs
-  Docs -->|Feedback Loop| Plan
+  Docs -->|Process Improvements| Plan
   
   style Intake fill:#e3f2fd
   style Plan fill:#fff3e0
