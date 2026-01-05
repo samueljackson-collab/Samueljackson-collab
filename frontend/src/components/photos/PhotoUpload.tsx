@@ -4,7 +4,7 @@ type PhotoUploadProps = {
   handleFiles: (files: FileList | null) => void | Promise<void>;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
-const PhotoUpload: React.FC<PhotoUploadProps> = ({ handleFiles, ...inputProps }) => {
+const PhotoUpload: React.FC<PhotoUploadProps> = ({ handleFiles, onChange: _ignored, ...inputProps }) => {
   const onChange = useCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
       try {
@@ -17,7 +17,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ handleFiles, ...inputProps })
     [handleFiles]
   );
 
-  return <input type="file" onChange={onChange} {...inputProps} />;
+  return <input type="file" {...inputProps} onChange={onChange} />;
 };
 
 export default PhotoUpload;
