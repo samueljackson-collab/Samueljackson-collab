@@ -199,19 +199,19 @@ gantt
     axisFormat  %b %d
 
     section Data & Streaming
-    Real-time Data Streaming       :active, stream_p0, 2024-07-01, 21d
-    Advanced Data Lake & Analytics :datalake_p0, 2024-07-08, 21d
+    Real-time Data Streaming       :active, stream_p0, 2026-02-01, 21d
+    Advanced Data Lake & Analytics :datalake_p0, 2026-02-08, 21d
 
     section Resilience & Security
-    Multi-Region DR                :dr_p0, 2024-07-01, 21d
-    Cybersecurity Platform         :detection_p0, 2024-07-15, 21d
+    Multi-Region DR                :dr_p0, 2026-02-01, 21d
+    Cybersecurity Platform         :detection_p0, 2026-02-15, 21d
 
     section Platforms & Automation
-    Multi-Cloud Service Mesh       :mesh_p0, 2024-07-08, 21d
-    Autonomous DevOps Platform     :auto_p0, 2024-07-22, 21d
+    Multi-Cloud Service Mesh       :mesh_p0, 2026-02-08, 21d
+    Autonomous DevOps Platform     :auto_p0, 2026-02-22, 21d
 
     section Evidence & Reporting
-    Portfolio Report Generator     :report_p0, 2024-07-15, 21d
+    Portfolio Report Generator     :report_p0, 2026-02-15, 21d
 ```
 
 
@@ -520,6 +520,7 @@ flowchart LR
 *Documentation:* [Portfolio-Project › Homelab & Secure Network Build](https://github.com/samueljackson-collab/Portfolio-Project/tree/main/homelab-secure-network-build)
 
 **Architecture (logical)**
+
 ```mermaid
 flowchart LR
   Internet --> UDM[UniFi Router/Firewall]
