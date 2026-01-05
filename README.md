@@ -199,19 +199,19 @@ gantt
     axisFormat  %b %d
 
     section Data & Streaming
-    Real-time Data Streaming       :active, stream_p0, 2024-07-01, 21d
-    Advanced Data Lake & Analytics :datalake_p0, 2024-07-08, 21d
+    Real-time Data Streaming       :active, stream_p0, 2026-01-06, 21d
+    Advanced Data Lake & Analytics :datalake_p0, 2026-01-13, 21d
 
     section Resilience & Security
-    Multi-Region DR                :dr_p0, 2024-07-01, 21d
-    Cybersecurity Platform         :detection_p0, 2024-07-15, 21d
+    Multi-Region DR                :dr_p0, 2026-01-06, 21d
+    Cybersecurity Platform         :detection_p0, 2026-01-20, 21d
 
     section Platforms & Automation
-    Multi-Cloud Service Mesh       :mesh_p0, 2024-07-08, 21d
-    Autonomous DevOps Platform     :auto_p0, 2024-07-22, 21d
+    Multi-Cloud Service Mesh       :mesh_p0, 2026-01-13, 21d
+    Autonomous DevOps Platform     :auto_p0, 2026-01-27, 21d
 
     section Evidence & Reporting
-    Portfolio Report Generator     :report_p0, 2024-07-15, 21d
+    Portfolio Report Generator     :report_p0, 2026-01-20, 21d
 ```
 
 
@@ -226,62 +226,101 @@ gantt
 
 ```mermaid
 flowchart TD
-  Dev[Developer] --> CI[CI: fmt/validate/tfsec]
-  CI --> Plan[Plan & Policy Checks]
-  Plan --> Apply[Terraform/CDK/Pulumi Apply]
-  Apply --> AWS[AWS Accounts]
-  AWS --> Reports[Evidence: tfstate, SBOM, test logs]
+  Dev[👨‍💻 Developer] -->|Push Code| CI[🔍 CI Pipeline<br/>fmt/validate/tfsec]
+  CI -->|Security Scans| Plan[📋 Plan & Policy Checks<br/>Cost Estimation]
+  Plan -->|Approved| Apply[🚀 Deploy<br/>Terraform/CDK/Pulumi]
+  Apply -->|Provision| AWS[☁️ AWS Infrastructure<br/>VPC, EC2, RDS, S3]
+  AWS -->|Generate| Reports[📊 Evidence Bundle<br/>tfstate, SBOM, test logs]
+  
+  style Dev fill:#e3f2fd
+  style CI fill:#fff3e0
+  style Plan fill:#f3e5f5
+  style Apply fill:#e8f5e9
+  style AWS fill:#fff9c4
+  style Reports fill:#fce4ec
 ```
 
 **Project 2: Database Migration Platform**
 
 ```mermaid
 flowchart LR
-  SrcDB[(Source DB)] --> Debezium[Debezium Connector]
-  Debezium --> Kafka[Kafka Change Stream]
-  Kafka --> Orchestrator[Migration Orchestrator]
-  Orchestrator --> DMS[AWS DMS Tasks]
-  DMS --> Target[(Target DB)]
-  Orchestrator --> Tests[pytest + CI evidence]
+  SrcDB[(🗄️ Source Database<br/>PostgreSQL/MySQL)] -->|CDC Stream| Debezium[📡 Debezium Connector<br/>Change Data Capture]
+  Debezium -->|Publish| Kafka[📨 Kafka Topics<br/>Change Events]
+  Kafka -->|Consume| Orchestrator[🎯 Migration Orchestrator<br/>Python + 680 LOC]
+  Orchestrator -->|Schedule| DMS[🔄 AWS DMS Tasks<br/>Bulk Transfer]
+  DMS -->|Replicate| Target[(🗄️ Target Database<br/>Cloud Native)]
+  Orchestrator -->|Validate| Tests[✅ Test Suite<br/>pytest + 300 LOC]
+  
+  style SrcDB fill:#e3f2fd
+  style Debezium fill:#fff3e0
+  style Kafka fill:#f3e5f5
+  style Orchestrator fill:#e8f5e9
+  style DMS fill:#fff9c4
+  style Target fill:#e3f2fd
+  style Tests fill:#c8e6c9
 ```
 
 **Project 3: Kubernetes CI/CD Pipeline**
 
 ```mermaid
 flowchart TD
-  Commit[Repo Commit] --> GH[GitHub Actions]
-  GH --> Build[Build & Scan Images]
-  Build --> Argo[ArgoCD Sync]
-  Argo --> Cluster[Kubernetes]
-  Cluster --> Deploy[Blue/Green + Rollbacks]
-  Deploy --> Telemetry[Telemetry & Health Checks]
+  Commit[📝 Git Commit] -->|Trigger| GH[⚙️ GitHub Actions<br/>CI Workflow]
+  GH -->|Build| Build[🐳 Container Build<br/>+ Trivy Security Scan]
+  Build -->|Push| Argo[🔄 ArgoCD Sync<br/>GitOps Controller]
+  Argo -->|Deploy| Cluster[☸️ Kubernetes Cluster<br/>Multi-Node]
+  Cluster -->|Strategy| Deploy[🎯 Deployment Strategy<br/>Blue/Green + Auto-Rollback]
+  Deploy -->|Monitor| Telemetry[📊 Observability<br/>Metrics + Health Checks]
+  
+  style Commit fill:#e3f2fd
+  style GH fill:#fff3e0
+  style Build fill:#f3e5f5
+  style Argo fill:#e8f5e9
+  style Cluster fill:#fff9c4
+  style Deploy fill:#fce4ec
+  style Telemetry fill:#c8e6c9
 ```
 
 **Project 4: DevSecOps Pipeline**
 
 ```mermaid
 flowchart LR
-  Code[Code Push] --> SAST[Semgrep/Bandit]
-  Code --> SCA[Dependency Scans]
-  Code --> Secrets[Secrets Hunting]
-  SAST --> SBOM[Syft SBOM]
-  SCA --> SBOM
-  SBOM --> Container[Trivy/Dockle]
-  Container --> DAST[OWASP ZAP]
-  DAST --> Policy[Policy-as-Code Gate]
+  Code[📝 Code Push] -->|Scan| SAST[🔍 SAST<br/>Semgrep/Bandit]
+  Code -->|Check| SCA[📦 SCA<br/>Dependency Scans]
+  Code -->|Hunt| Secrets[🔐 Secrets Detection<br/>Gitleaks/TruffleHog]
+  SAST -->|Generate| SBOM[📋 SBOM<br/>Syft]
+  SCA -->|Feed| SBOM
+  SBOM -->|Scan| Container[🐳 Container Security<br/>Trivy/Dockle]
+  Container -->|Test| DAST[🌐 DAST<br/>OWASP ZAP]
+  DAST -->|Enforce| Policy[✅ Policy Gate<br/>Compliance Validation]
+  
+  style Code fill:#e3f2fd
+  style SAST fill:#ffebee
+  style SCA fill:#fff3e0
+  style Secrets fill:#f3e5f5
+  style SBOM fill:#e8f5e9
+  style Container fill:#fff9c4
+  style DAST fill:#fce4ec
+  style Policy fill:#c8e6c9
 ```
 
 **Project 23: Advanced Monitoring & Observability**
 
 ```mermaid
 flowchart TD
-  Apps[Services] --> Metrics[Prometheus]
-  Apps --> Logs[Loki]
-  Apps --> Traces[OpenTelemetry]
-  Metrics --> Grafana[Grafana Dashboards]
-  Logs --> Grafana
-  Traces --> Grafana
-  Grafana --> Alerts[Alertmanager]
+  Apps[🖥️ Microservices<br/>Application Stack] -->|Metrics| Metrics[📊 Prometheus<br/>Time-Series DB]
+  Apps -->|Logs| Logs[📝 Loki<br/>Log Aggregation]
+  Apps -->|Traces| Traces[🔍 OpenTelemetry<br/>Distributed Tracing]
+  Metrics -->|Query| Grafana[📈 Grafana<br/>Unified Dashboards]
+  Logs -->|Query| Grafana
+  Traces -->|Query| Grafana
+  Grafana -->|Alert| Alerts[🚨 Alertmanager<br/>Notification Routing]
+  
+  style Apps fill:#e3f2fd
+  style Metrics fill:#fff3e0
+  style Logs fill:#f3e5f5
+  style Traces fill:#e8f5e9
+  style Grafana fill:#fff9c4
+  style Alerts fill:#ffebee
 ```
 
 </details>
@@ -292,67 +331,109 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-  Data[Feature Store] --> Train[Training Jobs]
-  Train --> Track[Experiment Registry]
-  Track --> Gate[Promotion Gates]
-  Gate --> Serve[Model Serving Images]
-  Serve --> Telemetry[Telemetry + Drift]
+  Data[📊 Feature Store<br/>Versioned Features] -->|Feed| Train[🤖 Training Jobs<br/>GPU Clusters]
+  Train -->|Log| Track[📋 Experiment Registry<br/>MLflow/Weights & Biases]
+  Track -->|Evaluate| Gate[✅ Promotion Gates<br/>Accuracy/Performance]
+  Gate -->|Approve| Serve[🚀 Model Serving<br/>Docker Images]
+  Serve -->|Monitor| Telemetry[📈 Telemetry<br/>Drift Detection]
+  
+  style Data fill:#e3f2fd
+  style Train fill:#fff3e0
+  style Track fill:#f3e5f5
+  style Gate fill:#c8e6c9
+  style Serve fill:#fff9c4
+  style Telemetry fill:#fce4ec
 ```
 
 **Project 7: Serverless Data Processing**
 
 ```mermaid
 flowchart LR
-  Events[Ingestion Events] --> Lambda[AWS Lambda]
-  Lambda --> Steps[Step Functions]
-  Steps --> Dynamo[DynamoDB]
-  Steps --> CDC[CDC Validation]
-  Dynamo --> Reports[Evidence Buckets]
+  Events[📥 Ingestion Events<br/>S3/Kinesis] -->|Trigger| Lambda[⚡ AWS Lambda<br/>Processors]
+  Lambda -->|Orchestrate| Steps[🔄 Step Functions<br/>Workflow Engine]
+  Steps -->|Store| Dynamo[🗄️ DynamoDB<br/>NoSQL Storage]
+  Steps -->|Validate| CDC[✅ CDC Validation<br/>Data Quality]
+  Dynamo -->|Archive| Reports[📦 Evidence Buckets<br/>S3 Archives]
+  
+  style Events fill:#e3f2fd
+  style Lambda fill:#fff3e0
+  style Steps fill:#f3e5f5
+  style Dynamo fill:#e8f5e9
+  style CDC fill:#c8e6c9
+  style Reports fill:#fff9c4
 ```
 
 **Project 8: Advanced AI Chatbot**
 
 ```mermaid
 flowchart TD
-  User[User Query] --> API[Gateway/API]
-  API --> RAG[Retriever + Vector Search]
-  RAG --> LLM[Tool-using LLM]
-  LLM --> Eval[Evaluation Harness]
-  Eval --> Metrics[Quality & Latency Metrics]
+  User[👤 User Query<br/>Natural Language] -->|Request| API[🌐 API Gateway<br/>Load Balanced]
+  API -->|Search| RAG[🔍 RAG Pipeline<br/>Vector Search + Retriever]
+  RAG -->|Generate| LLM[🤖 LLM Engine<br/>Tool Execution]
+  LLM -->|Test| Eval[📊 Evaluation Harness<br/>Quality Metrics]
+  Eval -->|Track| Metrics[📈 Metrics Dashboard<br/>Quality + Latency]
+  
+  style User fill:#e3f2fd
+  style API fill:#fff3e0
+  style RAG fill:#f3e5f5
+  style LLM fill:#e8f5e9
+  style Eval fill:#fff9c4
+  style Metrics fill:#c8e6c9
 ```
 
 **Project 10: Blockchain Smart Contract Platform**
 
 ```mermaid
 flowchart LR
-  Devs[Contract Authors] --> Hardhat[Hardhat CI]
-  Hardhat --> Audits[Audit Scripts]
-  Audits --> Deploys[Network Deployments]
-  Deploys --> Staking[Staking/Rewards Contracts]
-  Deploys --> Dashboards[Monitoring + SBOM]
+  Devs[👨‍💻 Contract Authors<br/>Solidity] -->|Commit| Hardhat[⚙️ Hardhat CI<br/>Test & Build]
+  Hardhat -->|Scan| Audits[🔍 Security Audits<br/>Slither/Mythril]
+  Audits -->|Deploy| Deploys[🚀 Network Deployments<br/>Testnet/Mainnet]
+  Deploys -->|Monitor| Staking[💰 DeFi Contracts<br/>Staking + Rewards]
+  Deploys -->|Track| Dashboards[📊 Monitoring<br/>Events + SBOM]
+  
+  style Devs fill:#e3f2fd
+  style Hardhat fill:#fff3e0
+  style Audits fill:#ffebee
+  style Deploys fill:#e8f5e9
+  style Staking fill:#fff9c4
+  style Dashboards fill:#c8e6c9
 ```
 
 **Project 15: Real-time Collaborative Platform**
 
 ```mermaid
 flowchart TD
-  Clients[Clients] --> Gateway[Collaboration Gateway]
-  Gateway --> OT[OT/CRDT Engine]
-  OT --> Storage[State Store]
-  Storage --> Sync[Conflict Resolver]
-  Sync --> Clients
-  Gateway --> Telemetry[Latency Simulations]
+  Clients[💻 Client Applications<br/>Web/Mobile] -->|WebSocket| Gateway[🌐 Collaboration Gateway<br/>Real-time Sync]
+  Gateway -->|Apply| OT[🔄 OT/CRDT Engine<br/>Operational Transform]
+  OT -->|Persist| Storage[🗄️ State Store<br/>Document Snapshots]
+  Storage -->|Resolve| Sync[✅ Conflict Resolver<br/>Merge Logic]
+  Sync -->|Broadcast| Clients
+  Gateway -->|Measure| Telemetry[📊 Performance<br/>Latency Simulations]
+  
+  style Clients fill:#e3f2fd
+  style Gateway fill:#fff3e0
+  style OT fill:#f3e5f5
+  style Storage fill:#e8f5e9
+  style Sync fill:#c8e6c9
+  style Telemetry fill:#fff9c4
 ```
 
 **Project 25: Portfolio Website & Documentation Hub**
 
 ```mermaid
 flowchart LR
-  Docs[VitePress Content] --> Build[Static Build]
-  Build --> CDN[CDN/Pages]
-  Docs --> Reports[Automated Report Publishing]
-  Reports --> Badges[Status Cards & Badges]
-  CDN --> Readers[Recruiters/Reviewers]
+  Docs[📝 VitePress Content<br/>Markdown + Vue] -->|Build| Build[🔨 Static Build<br/>SSG/SSR]
+  Build -->|Deploy| CDN[🌐 CDN/GitHub Pages<br/>Global Distribution]
+  Docs -->|Generate| Reports[📊 Report Publishing<br/>Auto-generated Docs]
+  Reports -->|Display| Badges[🏷️ Status Cards<br/>Badges + Metrics]
+  CDN -->|Serve| Readers[👥 Visitors<br/>Recruiters/Reviewers]
+  
+  style Docs fill:#e3f2fd
+  style Build fill:#fff3e0
+  style CDN fill:#e8f5e9
+  style Reports fill:#f3e5f5
+  style Badges fill:#fff9c4
+  style Readers fill:#c8e6c9
 ```
 
 </details>
@@ -363,140 +444,224 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-  Producers[Producers] --> Kafka[Kafka]
-  Kafka --> Flink[Flink Jobs]
-  Flink --> Registry[Schema Registry]
-  Flink --> Sinks[OLAP/OLTP Sinks]
-  Sinks --> Dashboards[Monitoring & SLAs]
+  Producers[📡 Data Producers<br/>Apps/Services] -->|Publish| Kafka[📨 Kafka Cluster<br/>Distributed Log]
+  Kafka -->|Stream| Flink[⚡ Flink Jobs<br/>Stream Processing]
+  Flink -->|Validate| Registry[📋 Schema Registry<br/>Avro/Protobuf]
+  Flink -->|Write| Sinks[🗄️ Data Sinks<br/>OLAP/OLTP Storage]
+  Sinks -->|Monitor| Dashboards[📊 Quality Metrics<br/>SLAs + Latency]
+  
+  style Producers fill:#e3f2fd
+  style Kafka fill:#fff3e0
+  style Flink fill:#f3e5f5
+  style Registry fill:#e8f5e9
+  style Sinks fill:#fff9c4
+  style Dashboards fill:#c8e6c9
 ```
 
 **Project 9: Multi-Region Disaster Recovery**
 
 ```mermaid
 flowchart LR
-  RegionA[Primary Region] --> Replication[Cross-Region Replication]
-  Replication --> RegionB[Secondary Region]
-  RegionB --> Failover[Automated Failover]
-  Failover --> Runbooks[DR Runbooks + Tests]
+  RegionA[🌎 Primary Region<br/>US-East] -->|Replicate| Replication[🔄 Cross-Region Sync<br/>Real-time]
+  Replication -->|Backup| RegionB[🌍 Secondary Region<br/>EU-West]
+  RegionB -->|Test| Failover[🔀 Failover Automation<br/>DNS + Load Balancer]
+  Failover -->|Validate| Runbooks[📖 DR Runbooks<br/>RTO/RPO Tests]
+  
+  style RegionA fill:#e3f2fd
+  style Replication fill:#fff3e0
+  style RegionB fill:#f3e5f5
+  style Failover fill:#fff9c4
+  style Runbooks fill:#c8e6c9
 ```
 
 **Project 11: IoT Data Ingestion & Analytics**
 
 ```mermaid
 flowchart TD
-  Devices[Edge Devices] --> Gateway[MQTT/HTTP Gateway]
-  Gateway --> Stream[Stream Processing]
-  Stream --> Storage[Time-series DB]
-  Storage --> Dashboards[Real-time Dashboards]
+  Devices[📱 IoT Edge Devices<br/>Sensors + Gateways] -->|Ingest| Gateway[🌐 MQTT/HTTP Gateway<br/>Protocol Bridge]
+  Gateway -->|Stream| Stream[⚡ Stream Processing<br/>Kafka + Flink]
+  Stream -->|Store| Storage[🗄️ Time-Series DB<br/>InfluxDB/TimescaleDB]
+  Storage -->|Visualize| Dashboards[📊 Real-time Dashboards<br/>Grafana + Alerts]
+  
+  style Devices fill:#e3f2fd
+  style Gateway fill:#fff3e0
+  style Stream fill:#f3e5f5
+  style Storage fill:#e8f5e9
+  style Dashboards fill:#c8e6c9
 ```
 
 **Project 12: Quantum Computing Integration**
 
 ```mermaid
 flowchart LR
-  Optimizer[Classical Optimizer] --> QPU[Qiskit/QPU Calls]
-  QPU --> Results[Results + Error Mitigation]
-  Results --> Loop[Hybrid Feedback Loop]
+  Optimizer[🔢 Classical Optimizer<br/>Gradient Descent] -->|Submit| QPU[⚛️ Quantum Processor<br/>Qiskit/IBM QPU]
+  QPU -->|Execute| Results[📊 Quantum Results<br/>Error Mitigation]
+  Results -->|Feed| Loop[🔄 Hybrid Loop<br/>Classical + Quantum]
+  
+  style Optimizer fill:#e3f2fd
+  style QPU fill:#f3e5f5
+  style Results fill:#fff3e0
+  style Loop fill:#c8e6c9
 ```
 
 **Project 13: Advanced Cybersecurity Platform**
 
 ```mermaid
 flowchart TD
-  Alerts[SOAR Alerts] --> Enrich[Enrichment Adapters]
-  Enrich --> Playbooks[Automated Playbooks]
-  Playbooks --> Response[Response Actions]
-  Response --> Audit[Audit & Evidence]
+  Alerts[🚨 Security Alerts<br/>SIEM/IDS] -->|Enrich| Enrich[🔍 Enrichment Adapters<br/>Threat Intel]
+  Enrich -->|Trigger| Playbooks[📋 Response Playbooks<br/>Automated Actions]
+  Playbooks -->|Execute| Response[⚡ Response Engine<br/>Block/Isolate/Notify]
+  Response -->|Log| Audit[📝 Audit Trail<br/>Evidence + Compliance]
+  
+  style Alerts fill:#ffebee
+  style Enrich fill:#fff3e0
+  style Playbooks fill:#e3f2fd
+  style Response fill:#fff9c4
+  style Audit fill:#c8e6c9
 ```
 
 **Project 14: Edge AI Inference Platform**
 
 ```mermaid
 flowchart LR
-  Models[Optimized ONNX Models] --> Runtime[Jetson Runtime]
-  Runtime --> Stream[Video/Telemetry Streams]
-  Stream --> Insights[On-device Insights]
-  Insights --> CloudSync[Cloud Sync for Analytics]
+  Models[🤖 ONNX Models<br/>Optimized/Quantized] -->|Deploy| Runtime[⚙️ Jetson Runtime<br/>Edge Inference]
+  Runtime -->|Process| Stream[📹 Video/Telemetry<br/>Real-time Streams]
+  Stream -->|Analyze| Insights[📊 On-device Insights<br/>Local AI]
+  Insights -->|Sync| CloudSync[☁️ Cloud Analytics<br/>Aggregation]
+  
+  style Models fill:#e3f2fd
+  style Runtime fill:#fff3e0
+  style Stream fill:#f3e5f5
+  style Insights fill:#c8e6c9
+  style CloudSync fill:#fff9c4
 ```
 
 **Project 16: Advanced Data Lake & Analytics**
 
 ```mermaid
 flowchart TD
-  Raw[Raw Zone] --> Bronze[Bronze]
-  Bronze --> Silver[Silver]
-  Silver --> Gold[Gold]
-  Gold --> Lakehouse[Delta Lake]
-  Lakehouse --> BI[BI Dashboards]
+  Raw[📥 Raw Data Zone<br/>Landing Area] -->|Validate| Bronze[🥉 Bronze Layer<br/>Cleaned Data]
+  Bronze -->|Transform| Silver[🥈 Silver Layer<br/>Business Logic]
+  Silver -->|Aggregate| Gold[🥇 Gold Layer<br/>Analytics-Ready]
+  Gold -->|Store| Lakehouse[🏠 Delta Lake<br/>ACID Transactions]
+  Lakehouse -->|Query| BI[📊 BI Dashboards<br/>Reports + Analytics]
+  
+  style Raw fill:#e3f2fd
+  style Bronze fill:#fff3e0
+  style Silver fill:#f3e5f5
+  style Gold fill:#fff9c4
+  style Lakehouse fill:#e8f5e9
+  style BI fill:#c8e6c9
 ```
 
 **Project 17: Multi-Cloud Service Mesh**
 
 ```mermaid
 flowchart LR
-  ClusterA[K8s Cluster A] <-->|mTLS| Mesh[Istio Mesh]
-  ClusterB[K8s Cluster B] <-->|mTLS| Mesh
-  Mesh --> Policy[Network/Policy Overlay]
-  Mesh --> Observability[Tracing + Metrics]
+  ClusterA[☸️ K8s Cluster A<br/>AWS/US-East] <-->|mTLS| Mesh[🔐 Istio Service Mesh<br/>Multi-cluster]
+  ClusterB[☸️ K8s Cluster B<br/>GCP/EU-West] <-->|mTLS| Mesh
+  Mesh -->|Enforce| Policy[🛡️ Network Policy<br/>Security Overlay]
+  Mesh -->|Track| Observability[📊 Distributed Tracing<br/>Metrics + Logs]
+  
+  style ClusterA fill:#e3f2fd
+  style ClusterB fill:#e3f2fd
+  style Mesh fill:#fff3e0
+  style Policy fill:#ffebee
+  style Observability fill:#c8e6c9
 ```
 
 **Project 18: GPU-Accelerated Computing**
 
 ```mermaid
 flowchart TD
-  Jobs[Monte Carlo Jobs] --> Scheduler[GPU Scheduler]
-  Scheduler --> GPU[CUDA Nodes]
-  GPU --> Results[Results Store]
-  Results --> Reports[Performance Reports]
+  Jobs[🎲 Monte Carlo Jobs<br/>Simulations] -->|Queue| Scheduler[📋 GPU Scheduler<br/>Job Orchestration]
+  Scheduler -->|Execute| GPU[🎮 CUDA Nodes<br/>GPU Clusters]
+  GPU -->|Compute| Results[📊 Results Store<br/>Output Data]
+  Results -->|Analyze| Reports[📈 Performance Reports<br/>Cost + Metrics]
+  
+  style Jobs fill:#e3f2fd
+  style Scheduler fill:#fff3e0
+  style GPU fill:#f3e5f5
+  style Results fill:#e8f5e9
+  style Reports fill:#c8e6c9
 ```
 
 **Project 19: Advanced Kubernetes Operators**
 
 ```mermaid
 flowchart LR
-  Events[K8s Events] --> Operator[Kopf Operator]
-  Operator --> Recon[Reconciliation Logic]
-  Recon --> CRDs[Lifecycle CRDs]
-  Recon --> Evidence[Status/Telemetry]
+  Events[📢 K8s Events<br/>Cluster Activity] -->|Watch| Operator[🤖 Kopf Operator<br/>Custom Controller]
+  Operator -->|Execute| Recon[🔄 Reconciliation Logic<br/>Desired State]
+  Recon -->|Manage| CRDs[📋 Custom Resources<br/>Lifecycle Automation]
+  Recon -->|Report| Evidence[📊 Status Export<br/>Telemetry + Metrics]
+  
+  style Events fill:#e3f2fd
+  style Operator fill:#fff3e0
+  style Recon fill:#f3e5f5
+  style CRDs fill:#e8f5e9
+  style Evidence fill:#c8e6c9
 ```
 
 **Project 20: Blockchain Oracle Service**
 
 ```mermaid
 flowchart TD
-  Sources[External Metrics] --> Adapter[Chainlink Adapter]
-  Adapter --> Oracle[Oracle Node]
-  Oracle --> Consumer[Consumer Contracts]
-  Consumer --> Proofs[On-chain Proofs]
+  Sources[🌐 External Data<br/>APIs/Metrics] -->|Feed| Adapter[🔗 Chainlink Adapter<br/>External Adapter]
+  Adapter -->|Submit| Oracle[⛓️ Oracle Node<br/>Chainlink Network]
+  Oracle -->|Callback| Consumer[📜 Consumer Contracts<br/>Smart Contracts]
+  Consumer -->|Store| Proofs[✅ On-chain Proofs<br/>Verification Data]
+  
+  style Sources fill:#e3f2fd
+  style Adapter fill:#fff3e0
+  style Oracle fill:#f3e5f5
+  style Consumer fill:#e8f5e9
+  style Proofs fill:#c8e6c9
 ```
 
 **Project 21: Quantum-Safe Cryptography**
 
 ```mermaid
 flowchart LR
-  Client[Client] --> Hybrid[Kyber + ECDH]
-  Hybrid --> Handshake[Hybrid Handshake]
-  Handshake --> Session[Secure Session Keys]
+  Client[💻 Client] -->|Initiate| Hybrid[🔐 Hybrid KEX<br/>Kyber + ECDH]
+  Hybrid -->|Execute| Handshake[🤝 Handshake Protocol<br/>Post-Quantum Safe]
+  Handshake -->|Derive| Session[🔑 Session Keys<br/>Encrypted Channel]
+  
+  style Client fill:#e3f2fd
+  style Hybrid fill:#ffebee
+  style Handshake fill:#fff3e0
+  style Session fill:#c8e6c9
 ```
 
 **Project 22: Autonomous DevOps Platform**
 
 ```mermaid
 flowchart TD
-  Alerts[Ops Signals] --> Events[Event Bus]
-  Events --> Runbooks[Runbooks-as-Code]
-  Runbooks --> Automation[Automated Remediation]
-  Automation --> Approvals[Policy/Approval Gates]
+  Alerts[🚨 Ops Signals<br/>Monitoring Alerts] -->|Publish| Events[📢 Event Bus<br/>Message Queue]
+  Events -->|Trigger| Runbooks[📖 Runbooks-as-Code<br/>Automated Scripts]
+  Runbooks -->|Execute| Automation[⚡ Auto-Remediation<br/>Self-Healing]
+  Automation -->|Check| Approvals[✅ Policy Gates<br/>Approval Workflow]
+  
+  style Alerts fill:#ffebee
+  style Events fill:#e3f2fd
+  style Runbooks fill:#fff3e0
+  style Automation fill:#e8f5e9
+  style Approvals fill:#c8e6c9
 ```
 
 **Project 24: Portfolio Report Generator**
 
 ```mermaid
 flowchart LR
-  Templates[Jinja2 Templates] --> CLI[Report CLI]
-  CLI --> CI[CI Batch Publishing]
-  CI --> Artifacts[PDF/Docs/XLSX Artifacts]
-  Artifacts --> Recruiters[Packaging for Recruiters]
+  Templates[📄 Jinja2 Templates<br/>Report Layouts] -->|Generate| CLI[⚙️ Report CLI<br/>Command Tool]
+  CLI -->|Automate| CI[🔄 CI Publishing<br/>Batch Generation]
+  CI -->|Export| Artifacts[📦 Output Artifacts<br/>PDF/Docs/XLSX]
+  Artifacts -->|Package| Recruiters[👥 Distribution<br/>Recruiter Bundles]
+  
+  style Templates fill:#e3f2fd
+  style CLI fill:#fff3e0
+  style CI fill:#f3e5f5
+  style Artifacts fill:#e8f5e9
+  style Recruiters fill:#c8e6c9
 ```
 
 </details>
@@ -522,12 +687,20 @@ flowchart LR
 **Architecture (logical)**
 ```mermaid
 flowchart LR
-  Internet --> UDM[UniFi Router/Firewall]
-  UDM --> SW[UniFi Switch]
-  SW --> AP1[UniFi AP 1]
-  SW --> AP2[UniFi AP 2]
-  SW --> NAS
-  UDM -->|VPN| Admin[Remote Admin]
+  Internet[🌐 Internet<br/>ISP] -->|WAN| UDM[🛡️ UniFi Dream Machine<br/>Router + Firewall]
+  UDM -->|Trunk| SW[⚡ UniFi Switch<br/>24-Port PoE]
+  SW -->|VLAN 10| AP1[📡 UniFi AP Pro<br/>Main Floor]
+  SW -->|VLAN 10| AP2[📡 UniFi AP Lite<br/>Upper Floor]
+  SW -->|VLAN 20| NAS[🗄️ TrueNAS<br/>Network Storage]
+  UDM -->|VPN| Admin[🔐 Remote Admin<br/>WireGuard]
+  
+  style Internet fill:#e3f2fd
+  style UDM fill:#fff3e0
+  style SW fill:#f3e5f5
+  style AP1 fill:#e8f5e9
+  style AP2 fill:#e8f5e9
+  style NAS fill:#fff9c4
+  style Admin fill:#ffebee
 ```
 
 ### Virtualization & Core Services
@@ -589,16 +762,24 @@ Older commercial efforts live in cold storage while I recreate code, processes, 
 
 ```mermaid
 flowchart TD
-  Intake[Business Intake]
-  Plan[Architecture & QA Gates]
-  IaC[Infra-as-Code]
-  CI[CI: Lint/Test/SBOM]
-  CD[CD: Progressive Delivery]
-  Obs[Observability]
-  Docs[Runbooks & Evidence]
+  Intake[📋 Business Intake<br/>Requirements Gathering]
+  Plan[🎯 Architecture Design<br/>QA Gates + Acceptance Criteria]
+  IaC[⚙️ Infrastructure-as-Code<br/>Terraform/CDK]
+  CI[🔍 CI Pipeline<br/>Lint/Test/SBOM/Security]
+  CD[🚀 CD Pipeline<br/>Progressive Delivery]
+  Obs[📊 Observability<br/>Metrics/Logs/Traces]
+  Docs[📖 Documentation<br/>Runbooks + Evidence]
 
   Intake --> Plan --> IaC --> CI --> CD --> Obs --> Docs
-  Docs -->|feedback| Plan
+  Docs -->|Process Improvements| Plan
+  
+  style Intake fill:#e3f2fd
+  style Plan fill:#fff3e0
+  style IaC fill:#f3e5f5
+  style CI fill:#ffebee
+  style CD fill:#e8f5e9
+  style Obs fill:#fff9c4
+  style Docs fill:#c8e6c9
 ```
 
 ---
