@@ -220,6 +220,8 @@ gantt
 
 > High-level diagrams synthesized from the [Portfolio-Project](https://github.com/samueljackson-collab/Portfolio-Project) repository to show architecture and delivery patterns. Each blueprint is intentionally concise for quick recruiter review and will be accompanied by deeper runbooks and artifacts as they are published.
 
+> **📊 Viewing Diagrams:** This README contains 28 interactive Mermaid diagrams. If diagrams don't appear, try viewing this page on [GitHub's website](https://github.com/samueljackson-collab/Samueljackson-collab/blob/main/README.md) rather than in edit mode, and ensure JavaScript is enabled in your browser. Diagrams may take a moment to render on first load.
+
 <details><summary><strong>🟢 Completed Blueprints</strong></summary>
 
 **Project 1: AWS Infrastructure Automation**
