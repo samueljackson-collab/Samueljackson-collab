@@ -15,7 +15,7 @@ An AI-powered web application that generates customized, production-ready Ansibl
   - [Service Playbooks](#service-playbooks)
   - [Application Deployments](#application-deployments)
   - [Automation Features](#automation-features)
-  - [Testing](#testing)
+  - Testing (configuration category)
   - [Documentation](#documentation)
   - [Advanced Configuration](#advanced-configuration)
 - [Generated Output](#generated-output)
