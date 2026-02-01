@@ -17,7 +17,7 @@ An AI-powered web application that generates customized, production-ready Ansibl
   - [Automation Features](#automation-features)
   - Testing (configuration category)
   - [Documentation](#documentation)
-  - [Advanced Configuration](#advanced-configuration)
+- [Advanced Configuration](#advanced-configuration)
 - [Generated Output](#generated-output)
 - [Project Structure](#project-structure)
 - [Technology Stack](#technology-stack)
