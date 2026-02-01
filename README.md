@@ -73,7 +73,7 @@ The application leverages AI to produce intelligent, context-aware Ansible code 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/samueljackson-collab/Playbook-Generator.git
+   git clone https://github.com/<your-username>/Playbook-Generator.git
    cd Playbook-Generator
    ```
 
