@@ -86,9 +86,12 @@ The application leverages AI to produce intelligent, context-aware Ansible code 
 
    Create a `.env.local` file in the project root:
    ```bash
-   API_KEY=your_api_key_here
-   ```
-
+   # Set the API key for your AI provider.
+   # This application uses an OpenAI-compatible chat/completions API.
+   # You can generate an API key from providers such as:
+   # - OpenAI: https://platform.openai.com/api-keys
+   # - Anthropic (via an OpenAI-compatible gateway): https://docs.anthropic.com/
+   API_KEY=your_provider_api_key_here
 4. **Start the development server**
    ```bash
    npm run dev
