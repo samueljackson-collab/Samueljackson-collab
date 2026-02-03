@@ -125,6 +125,7 @@ npm run preview
 
 ### Example Workflow
 
+The following example illustrates how to use the generator to configure a common homelab scenario from start to finish.
 **Goal**: Set up a Docker-based media server with monitoring
 
 1. **Base Configuration**:
