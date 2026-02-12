@@ -193,25 +193,26 @@ The following projects represent planned portfolio work demonstrating various te
 ### Planned Project Timeline Snapshot
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#4a90e2','secondaryColor':'#50C878','tertiaryColor':'#f39c12'}}}%%
 gantt
-    title Planned Portfolio Delivery Timeline
+    title Planned Portfolio Delivery Timeline (Q1 2026)
     dateFormat  YYYY-MM-DD
     axisFormat  %b %d
 
     section Data & Streaming
-    Real-time Data Streaming       :active, stream_p0, 2026-01-06, 21d
-    Advanced Data Lake & Analytics :datalake_p0, 2026-01-13, 21d
+    Real-time Data Streaming (Kafka/Flink)       :active, stream_p0, 2026-02-01, 21d
+    Advanced Data Lake & Analytics (Delta)       :datalake_p0, 2026-02-08, 21d
 
     section Resilience & Security
-    Multi-Region DR                :dr_p0, 2026-01-06, 21d
-    Cybersecurity Platform         :detection_p0, 2026-01-20, 21d
+    Multi-Region DR (Failover/Replication)       :dr_p0, 2026-02-01, 21d
+    Cybersecurity Platform (SOAR/Detection)      :detection_p0, 2026-02-15, 21d
 
     section Platforms & Automation
-    Multi-Cloud Service Mesh       :mesh_p0, 2026-01-13, 21d
-    Autonomous DevOps Platform     :auto_p0, 2026-01-27, 21d
+    Multi-Cloud Service Mesh (Istio)             :mesh_p0, 2026-02-08, 21d
+    Autonomous DevOps Platform (Event-Driven)    :auto_p0, 2026-02-22, 21d
 
     section Evidence & Reporting
-    Portfolio Report Generator     :report_p0, 2026-01-20, 21d
+    Portfolio Report Generator (Jinja2/CI)       :report_p0, 2026-02-15, 21d
 ```
 
 
@@ -220,107 +221,134 @@ gantt
 
 > High-level diagrams synthesized from the [Portfolio-Project](https://github.com/samueljackson-collab/Portfolio-Project) repository to show architecture and delivery patterns. Each blueprint is intentionally concise for quick recruiter review and will be accompanied by deeper runbooks and artifacts as they are published.
 
+> **📊 Viewing Diagrams:** This README contains 28 interactive Mermaid diagrams. If diagrams don't appear, try viewing this page on [GitHub's website](https://github.com/samueljackson-collab/Samueljackson-collab/blob/main/README.md) rather than in edit mode, and ensure JavaScript is enabled in your browser. Diagrams may take a moment to render on first load.
+
 <details><summary><strong>🟢 Completed Blueprints</strong></summary>
 
 **Project 1: AWS Infrastructure Automation**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#FF9900','primaryTextColor':'#fff','primaryBorderColor':'#232F3E','lineColor':'#FF9900','secondaryColor':'#50C878','tertiaryColor':'#f39c12'}}}%%
 flowchart TD
-  Dev[👨‍💻 Developer] -->|Push Code| CI[🔍 CI Pipeline<br/>fmt/validate/tfsec]
-  CI -->|Security Scans| Plan[📋 Plan & Policy Checks<br/>Cost Estimation]
-  Plan -->|Approved| Apply[🚀 Deploy<br/>Terraform/CDK/Pulumi]
-  Apply -->|Provision| AWS[☁️ AWS Infrastructure<br/>VPC, EC2, RDS, S3]
-  AWS -->|Generate| Reports[📊 Evidence Bundle<br/>tfstate, SBOM, test logs]
+  Dev[👨‍💻 Developer<br/>Writes IaC Code] --> |Push to Git| CI[🔄 CI Pipeline<br/>fmt/validate/tfsec/checkov]
+  CI --> |Security Pass| Plan[📋 Terraform Plan<br/>& Policy Validation<br/>OPA/Sentinel]
+  Plan --> |Approval| Apply[🚀 Multi-Tool Apply<br/>Terraform/CDK/Pulumi]
+  Apply --> |Deploy| AWS[☁️ AWS Infrastructure<br/>VPC/EC2/RDS/S3]
+  AWS --> |Generate| Reports[📊 Evidence Bundle<br/>tfstate/SBOM/pytest logs<br/>250+ test assertions]
   
-  style Dev fill:#e3f2fd
-  style CI fill:#fff3e0
-  style Plan fill:#f3e5f5
-  style Apply fill:#e8f5e9
-  style AWS fill:#fff9c4
-  style Reports fill:#fce4ec
+  CI -.->|Fail| Fix[🔧 Fix Issues]
+  Fix -.-> Dev
+  
+  style Dev fill:#4a90e2,stroke:#333,stroke-width:2px,color:#fff
+  style CI fill:#50C878,stroke:#333,stroke-width:2px,color:#fff
+  style Plan fill:#f39c12,stroke:#333,stroke-width:2px,color:#fff
+  style Apply fill:#9b59b6,stroke:#333,stroke-width:2px,color:#fff
+  style AWS fill:#FF9900,stroke:#232F3E,stroke-width:3px,color:#fff
+  style Reports fill:#3498db,stroke:#333,stroke-width:2px,color:#fff
 ```
 
 **Project 2: Database Migration Platform**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#4a90e2','primaryTextColor':'#fff','primaryBorderColor':'#333','lineColor':'#50C878','secondaryColor':'#f39c12','tertiaryColor':'#9b59b6'}}}%%
 flowchart LR
-  SrcDB[(🗄️ Source Database<br/>PostgreSQL/MySQL)] -->|CDC Stream| Debezium[📡 Debezium Connector<br/>Change Data Capture]
-  Debezium -->|Publish| Kafka[📨 Kafka Topics<br/>Change Events]
-  Kafka -->|Consume| Orchestrator[🎯 Migration Orchestrator<br/>Python + 680 LOC]
-  Orchestrator -->|Schedule| DMS[🔄 AWS DMS Tasks<br/>Bulk Transfer]
-  DMS -->|Replicate| Target[(🗄️ Target Database<br/>Cloud Native)]
-  Orchestrator -->|Validate| Tests[✅ Test Suite<br/>pytest + 300 LOC]
+  SrcDB[(💾 Source Database<br/>PostgreSQL/MySQL<br/>Production Data)] --> |CDC Events| Debezium[📡 Debezium Connector<br/>Change Data Capture<br/>Real-time Streaming]
+  Debezium --> |Publish| Kafka[📨 Kafka Topics<br/>Change Event Stream<br/>Ordered/Partitioned]
+  Kafka --> |Consume| Orchestrator[🎯 Migration Orchestrator<br/>680 Lines Python<br/>Validation Engine]
+  Orchestrator --> |Coordinate| DMS[🔄 AWS DMS Tasks<br/>Bulk Data Transfer<br/>Schema Conversion]
+  DMS --> |Replicate| Target[(💾 Target Database<br/>Zero-Downtime<br/>Validated Migration)]
+  Orchestrator --> |Verify| Tests[✅ pytest Suite<br/>300+ Test Lines<br/>CI/CD Evidence]
   
-  style SrcDB fill:#e3f2fd
-  style Debezium fill:#fff3e0
-  style Kafka fill:#f3e5f5
-  style Orchestrator fill:#e8f5e9
-  style DMS fill:#fff9c4
-  style Target fill:#e3f2fd
-  style Tests fill:#c8e6c9
+  Orchestrator -.->|Monitor| Metrics[📊 Migration Metrics<br/>Lag/Throughput/Errors]
+  
+  style SrcDB fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+  style Debezium fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+  style Kafka fill:#231F20,stroke:#000,stroke-width:2px,color:#fff
+  style Orchestrator fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
+  style DMS fill:#FF9900,stroke:#232F3E,stroke-width:2px,color:#fff
+  style Target fill:#27ae60,stroke:#229954,stroke-width:2px,color:#fff
+  style Tests fill:#50C878,stroke:#333,stroke-width:2px,color:#fff
 ```
 
 **Project 3: Kubernetes CI/CD Pipeline**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#326CE5','primaryTextColor':'#fff','primaryBorderColor':'#333','lineColor':'#4a90e2','secondaryColor':'#50C878','tertiaryColor':'#f39c12'}}}%%
 flowchart TD
-  Commit[📝 Git Commit] -->|Trigger| GH[⚙️ GitHub Actions<br/>CI Workflow]
-  GH -->|Build| Build[🐳 Container Build<br/>+ Trivy Security Scan]
-  Build -->|Push| Argo[🔄 ArgoCD Sync<br/>GitOps Controller]
-  Argo -->|Deploy| Cluster[☸️ Kubernetes Cluster<br/>Multi-Node]
-  Cluster -->|Strategy| Deploy[🎯 Deployment Strategy<br/>Blue/Green + Auto-Rollback]
-  Deploy -->|Monitor| Telemetry[📊 Observability<br/>Metrics + Health Checks]
+  Commit[📝 Git Commit<br/>Code Changes] --> |Trigger| GH[🔄 GitHub Actions<br/>YAML/K8s Validation<br/>Lint & Format]
+  GH --> |Build| Build[🐳 Docker Build<br/>Multi-stage Images<br/>Trivy Security Scan]
+  Build --> |Security Pass| Argo[🔁 ArgoCD Sync<br/>GitOps Reconciliation<br/>Automated Deployment]
+  Argo --> |Deploy to| Cluster[☸️ Kubernetes Cluster<br/>Namespaced Resources<br/>RBAC Policies]
+  Cluster --> |Strategy| Deploy[🔵🟢 Blue/Green Deploy<br/>Traffic Switching<br/>Auto-Rollback on Fail]
+  Deploy --> |Monitor| Telemetry[📊 Observability<br/>Health Checks/Probes<br/>Prometheus Metrics]
   
-  style Commit fill:#e3f2fd
-  style GH fill:#fff3e0
-  style Build fill:#f3e5f5
-  style Argo fill:#e8f5e9
-  style Cluster fill:#fff9c4
-  style Deploy fill:#fce4ec
-  style Telemetry fill:#c8e6c9
+  Build -.->|Fail| Notify[🚨 Failure Alerts<br/>Slack/Email]
+  Deploy -.->|Rollback| Previous[⏮️ Previous Version<br/>Instant Recovery]
+  
+  style Commit fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style GH fill:#2088FF,stroke:#0969da,stroke-width:2px,color:#fff
+  style Build fill:#2496ED,stroke:#0db7ed,stroke-width:2px,color:#fff
+  style Argo fill:#EF7B4D,stroke:#e14c29,stroke-width:2px,color:#fff
+  style Cluster fill:#326CE5,stroke:#2559c7,stroke-width:3px,color:#fff
+  style Deploy fill:#50C878,stroke:#3aa65d,stroke-width:2px,color:#fff
+  style Telemetry fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
 ```
 
 **Project 4: DevSecOps Pipeline**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#e74c3c','primaryTextColor':'#fff','primaryBorderColor':'#c0392b','lineColor':'#e74c3c','secondaryColor':'#50C878','tertiaryColor':'#f39c12'}}}%%
 flowchart LR
-  Code[📝 Code Push] -->|Scan| SAST[🔍 SAST<br/>Semgrep/Bandit]
-  Code -->|Check| SCA[📦 SCA<br/>Dependency Scans]
-  Code -->|Hunt| Secrets[🔐 Secrets Detection<br/>Gitleaks/TruffleHog]
-  SAST -->|Generate| SBOM[📋 SBOM<br/>Syft]
-  SCA -->|Feed| SBOM
-  SBOM -->|Scan| Container[🐳 Container Security<br/>Trivy/Dockle]
-  Container -->|Test| DAST[🌐 DAST<br/>OWASP ZAP]
-  DAST -->|Enforce| Policy[✅ Policy Gate<br/>Compliance Validation]
+  Code[📝 Code Push<br/>Developer Commit] --> SAST[🔍 SAST Scanning<br/>Semgrep/Bandit<br/>CodeQL Analysis]
+  Code --> SCA[📦 SCA Scanning<br/>Dependency Check<br/>Vulnerability DB]
+  Code --> Secrets[🔐 Secret Detection<br/>Gitleaks/TruffleHog<br/>Credential Scanning]
   
-  style Code fill:#e3f2fd
-  style SAST fill:#ffebee
-  style SCA fill:#fff3e0
-  style Secrets fill:#f3e5f5
-  style SBOM fill:#e8f5e9
-  style Container fill:#fff9c4
-  style DAST fill:#fce4ec
-  style Policy fill:#c8e6c9
+  SAST --> |Findings| SBOM[📋 SBOM Generation<br/>Syft/CycloneDX<br/>Component Catalog]
+  SCA --> |Dependencies| SBOM
+  Secrets --> |Clear| SBOM
+  
+  SBOM --> |Scan Image| Container[🐳 Container Security<br/>Trivy/Dockle/Grype<br/>CVE Detection]
+  Container --> |Deploy Test| DAST[🌐 DAST Scanning<br/>OWASP ZAP<br/>Runtime Testing]
+  DAST --> |Results| Policy[✅ Policy-as-Code<br/>OPA/Sentinel Gates<br/>Compliance Check]
+  
+  Policy --> |Pass| Release[🚀 Approved Release]
+  Policy -.->|Fail| Block[🚫 Blocked Deployment]
+  
+  style Code fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style SAST fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+  style SCA fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
+  style Secrets fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
+  style SBOM fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+  style Container fill:#2496ED,stroke:#0db7ed,stroke-width:2px,color:#fff
+  style DAST fill:#1abc9c,stroke:#16a085,stroke-width:2px,color:#fff
+  style Policy fill:#27ae60,stroke:#229954,stroke-width:2px,color:#fff
+  style Release fill:#50C878,stroke:#3aa65d,stroke-width:3px,color:#fff
 ```
 
 **Project 23: Advanced Monitoring & Observability**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#FF6B35','primaryTextColor':'#fff','primaryBorderColor':'#333','lineColor':'#4a90e2','secondaryColor':'#50C878','tertiaryColor':'#9b59b6'}}}%%
 flowchart TD
-  Apps[🖥️ Microservices<br/>Application Stack] -->|Metrics| Metrics[📊 Prometheus<br/>Time-Series DB]
-  Apps -->|Logs| Logs[📝 Loki<br/>Log Aggregation]
-  Apps -->|Traces| Traces[🔍 OpenTelemetry<br/>Distributed Tracing]
-  Metrics -->|Query| Grafana[📈 Grafana<br/>Unified Dashboards]
-  Logs -->|Query| Grafana
-  Traces -->|Query| Grafana
-  Grafana -->|Alert| Alerts[🚨 Alertmanager<br/>Notification Routing]
+  Apps[🎯 Microservices<br/>Instrumented Apps<br/>Service Mesh] --> |/metrics| Metrics[📊 Prometheus<br/>Time-Series DB<br/>Scrape Targets]
+  Apps --> |Logs| Logs[📝 Grafana Loki<br/>Log Aggregation<br/>Label Indexing]
+  Apps --> |Traces| Traces[🔍 OpenTelemetry<br/>Distributed Tracing<br/>Spans & Context]
   
-  style Apps fill:#e3f2fd
-  style Metrics fill:#fff3e0
-  style Logs fill:#f3e5f5
-  style Traces fill:#e8f5e9
-  style Grafana fill:#fff9c4
-  style Alerts fill:#ffebee
+  Metrics --> |Visualize| Grafana[📈 Grafana Dashboards<br/>Golden Signals<br/>SLO/SLI Tracking]
+  Logs --> |Query| Grafana
+  Traces --> |Analyze| Grafana
+  
+  Grafana --> |Trigger| Alerts[🚨 Alertmanager<br/>Alert Routing<br/>PagerDuty/Slack]
+  
+  Metrics -.->|Scrape| Exporters[📡 Exporters<br/>Node/Blackbox/Custom]
+  Alerts -.->|Notify| OnCall[👨‍💻 On-Call Engineer<br/>Incident Response]
+  
+  style Apps fill:#4a90e2,stroke:#2980b9,stroke-width:2px,color:#fff
+  style Metrics fill:#E6522C,stroke:#c0392b,stroke-width:2px,color:#fff
+  style Logs fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
+  style Traces fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+  style Grafana fill:#FF6B35,stroke:#e74c3c,stroke-width:3px,color:#fff
+  style Alerts fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
 ```
 
 </details>
@@ -330,110 +358,138 @@ flowchart TD
 **Project 6: Machine Learning Pipeline**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#4a90e2','primaryTextColor':'#fff','primaryBorderColor':'#333','lineColor':'#50C878','secondaryColor':'#f39c12','tertiaryColor':'#9b59b6'}}}%%
 flowchart TD
-  Data[📊 Feature Store<br/>Versioned Features] -->|Feed| Train[🤖 Training Jobs<br/>GPU Clusters]
-  Train -->|Log| Track[📋 Experiment Registry<br/>MLflow/Weights & Biases]
-  Track -->|Evaluate| Gate[✅ Promotion Gates<br/>Accuracy/Performance]
-  Gate -->|Approve| Serve[🚀 Model Serving<br/>Docker Images]
-  Serve -->|Monitor| Telemetry[📈 Telemetry<br/>Drift Detection]
+  Data[📊 Feature Store<br/>Feast/Tecton<br/>Online/Offline] --> |Features| Train[🎓 Training Jobs<br/>Distributed GPU<br/>Hyperparameter Tuning]
+  Train --> |Log Metrics| Track[📈 Experiment Registry<br/>MLflow/W&B<br/>Model Versioning]
+  Track --> |Evaluate| Gate[🚦 Promotion Gates<br/>Accuracy/Latency<br/>A/B Testing Results]
+  Gate --> |Approved| Serve[🚀 Model Serving<br/>Docker/Triton<br/>REST/gRPC Endpoints]
+  Serve --> |Monitor| Telemetry[📡 Telemetry & Drift<br/>Data/Model Drift<br/>Performance Metrics]
   
-  style Data fill:#e3f2fd
-  style Train fill:#fff3e0
-  style Track fill:#f3e5f5
-  style Gate fill:#c8e6c9
-  style Serve fill:#fff9c4
-  style Telemetry fill:#fce4ec
+  Telemetry -.->|Retrain Signal| Train
+  Gate -.->|Reject| Archive[📦 Model Archive<br/>Version History]
+  
+  style Data fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+  style Train fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
+  style Track fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
+  style Gate fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+  style Serve fill:#27ae60,stroke:#229954,stroke-width:3px,color:#fff
+  style Telemetry fill:#1abc9c,stroke:#16a085,stroke-width:2px,color:#fff
 ```
 
 **Project 7: Serverless Data Processing**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#FF9900','primaryTextColor':'#fff','primaryBorderColor':'#232F3E','lineColor':'#FF9900','secondaryColor':'#50C878','tertiaryColor':'#4a90e2'}}}%%
 flowchart LR
-  Events[📥 Ingestion Events<br/>S3/Kinesis] -->|Trigger| Lambda[⚡ AWS Lambda<br/>Processors]
-  Lambda -->|Orchestrate| Steps[🔄 Step Functions<br/>Workflow Engine]
-  Steps -->|Store| Dynamo[🗄️ DynamoDB<br/>NoSQL Storage]
-  Steps -->|Validate| CDC[✅ CDC Validation<br/>Data Quality]
-  Dynamo -->|Archive| Reports[📦 Evidence Buckets<br/>S3 Archives]
+  Events[📥 Ingestion Events<br/>S3/Kinesis/SQS<br/>Event-Driven] --> |Trigger| Lambda[⚡ AWS Lambda<br/>Python/Node Handlers<br/>Concurrent Execution]
+  Lambda --> |Orchestrate| Steps[🔄 Step Functions<br/>State Machine<br/>Error Handling]
+  Steps --> |Write| Dynamo[💾 DynamoDB<br/>NoSQL Storage<br/>Auto-Scaling]
+  Steps --> |Validate| CDC[✅ CDC Validation<br/>Change Stream<br/>Consistency Checks]
+  Dynamo --> |Export| Reports[📊 S3 Evidence Buckets<br/>Parquet/JSON<br/>Athena Queryable]
   
-  style Events fill:#e3f2fd
-  style Lambda fill:#fff3e0
-  style Steps fill:#f3e5f5
-  style Dynamo fill:#e8f5e9
-  style CDC fill:#c8e6c9
-  style Reports fill:#fff9c4
+  Lambda -.->|Dead Letter| DLQ[📮 DLQ Processing<br/>Failure Recovery]
+  Steps -.->|Monitor| Metrics[📈 CloudWatch<br/>Duration/Errors/Throttles]
+  
+  style Events fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style Lambda fill:#FF9900,stroke:#232F3E,stroke-width:2px,color:#fff
+  style Steps fill:#CC2264,stroke:#991b4d,stroke-width:2px,color:#fff
+  style Dynamo fill:#4053D6,stroke:#2a3889,stroke-width:2px,color:#fff
+  style CDC fill:#50C878,stroke:#3aa65d,stroke-width:2px,color:#fff
+  style Reports fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
 ```
 
 **Project 8: Advanced AI Chatbot**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#10a37f','primaryTextColor':'#fff','primaryBorderColor':'#0d8a6a','lineColor':'#4a90e2','secondaryColor':'#50C878','tertiaryColor':'#9b59b6'}}}%%
 flowchart TD
-  User[👤 User Query<br/>Natural Language] -->|Request| API[🌐 API Gateway<br/>Load Balanced]
-  API -->|Search| RAG[🔍 RAG Pipeline<br/>Vector Search + Retriever]
-  RAG -->|Generate| LLM[🤖 LLM Engine<br/>Tool Execution]
-  LLM -->|Test| Eval[📊 Evaluation Harness<br/>Quality Metrics]
-  Eval -->|Track| Metrics[📈 Metrics Dashboard<br/>Quality + Latency]
+  User[👤 User Query<br/>Natural Language<br/>Intent Recognition] --> |Request| API[🌐 API Gateway<br/>Auth/Rate Limiting<br/>Request Routing]
+  API --> |Search Context| RAG[🔍 RAG Retriever<br/>Vector Database<br/>Semantic Search]
+  RAG --> |Augmented Context| LLM[🤖 Tool-using LLM<br/>GPT-4/Claude<br/>Function Calling]
+  LLM --> |Execute| Tools[🛠️ Tool Execution<br/>API Calls/DB Queries<br/>External Services]
+  Tools --> |Results| LLM
+  LLM --> |Evaluate| Eval[📊 Evaluation Harness<br/>Response Quality<br/>Accuracy Metrics]
+  Eval --> |Track| Metrics[📈 Quality Metrics<br/>Latency P95/P99<br/>User Satisfaction]
   
-  style User fill:#e3f2fd
-  style API fill:#fff3e0
-  style RAG fill:#f3e5f5
-  style LLM fill:#e8f5e9
-  style Eval fill:#fff9c4
-  style Metrics fill:#c8e6c9
+  RAG -.->|Embeddings| VectorDB[🗄️ Pinecone/Weaviate<br/>Document Chunks]
+  Metrics -.->|Feedback| Training[🎯 Fine-tuning Loop<br/>RLHF/DPO]
+  
+  style User fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style API fill:#4a90e2,stroke:#2980b9,stroke-width:2px,color:#fff
+  style RAG fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
+  style LLM fill:#10a37f,stroke:#0d8a6a,stroke-width:3px,color:#fff
+  style Tools fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
+  style Eval fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+  style Metrics fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
 ```
 
 **Project 10: Blockchain Smart Contract Platform**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#627EEA','primaryTextColor':'#fff','primaryBorderColor':'#4a5fb8','lineColor':'#50C878','secondaryColor':'#f39c12','tertiaryColor':'#9b59b6'}}}%%
 flowchart LR
-  Devs[👨‍💻 Contract Authors<br/>Solidity] -->|Commit| Hardhat[⚙️ Hardhat CI<br/>Test & Build]
-  Hardhat -->|Scan| Audits[🔍 Security Audits<br/>Slither/Mythril]
-  Audits -->|Deploy| Deploys[🚀 Network Deployments<br/>Testnet/Mainnet]
-  Deploys -->|Monitor| Staking[💰 DeFi Contracts<br/>Staking + Rewards]
-  Deploys -->|Track| Dashboards[📊 Monitoring<br/>Events + SBOM]
+  Devs[👨‍💻 Contract Developers<br/>Solidity Code<br/>Unit Tests] --> |Push| Hardhat[⚙️ Hardhat CI<br/>Compile/Test/Coverage<br/>Gas Optimization]
+  Hardhat --> |Security| Audits[🔍 Audit Scripts<br/>Slither/Mythril<br/>Manual Review]
+  Audits --> |Verified| Deploys[🚀 Network Deployments<br/>Testnet→Mainnet<br/>Multi-sig Control]
+  Deploys --> |Live Contracts| Staking[🪙 Staking Contracts<br/>Rewards Distribution<br/>Governance Tokens]
+  Deploys --> |Monitor| Dashboards[📊 Monitoring<br/>SBOM/Dependencies<br/>On-chain Analytics]
   
-  style Devs fill:#e3f2fd
-  style Hardhat fill:#fff3e0
-  style Audits fill:#ffebee
-  style Deploys fill:#e8f5e9
-  style Staking fill:#fff9c4
-  style Dashboards fill:#c8e6c9
+  Audits -.->|Issues Found| Fix[🔧 Remediation<br/>Re-audit Required]
+  Fix -.-> Devs
+  Staking -.->|Events| Indexer[🔎 The Graph<br/>Event Indexing]
+  
+  style Devs fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style Hardhat fill:#FFF100,stroke:#d4b500,stroke-width:2px,color:#333
+  style Audits fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+  style Deploys fill:#627EEA,stroke:#4a5fb8,stroke-width:3px,color:#fff
+  style Staking fill:#50C878,stroke:#3aa65d,stroke-width:2px,color:#fff
+  style Dashboards fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
 ```
 
 **Project 15: Real-time Collaborative Platform**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#4a90e2','primaryTextColor':'#fff','primaryBorderColor':'#2980b9','lineColor':'#50C878','secondaryColor':'#f39c12','tertiaryColor':'#9b59b6'}}}%%
 flowchart TD
-  Clients[💻 Client Applications<br/>Web/Mobile] -->|WebSocket| Gateway[🌐 Collaboration Gateway<br/>Real-time Sync]
-  Gateway -->|Apply| OT[🔄 OT/CRDT Engine<br/>Operational Transform]
-  OT -->|Persist| Storage[🗄️ State Store<br/>Document Snapshots]
-  Storage -->|Resolve| Sync[✅ Conflict Resolver<br/>Merge Logic]
-  Sync -->|Broadcast| Clients
-  Gateway -->|Measure| Telemetry[📊 Performance<br/>Latency Simulations]
+  Clients[👥 Multiple Clients<br/>Web/Mobile Apps<br/>Concurrent Edits] --> |WebSocket| Gateway[🌐 Collaboration Gateway<br/>Connection Pool<br/>Load Balancer]
+  Gateway --> |Operations| OT[🔄 OT/CRDT Engine<br/>Operational Transform<br/>Conflict Resolution]
+  OT --> |Persist| Storage[💾 State Store<br/>Redis/PostgreSQL<br/>Version History]
+  Storage --> |Reconcile| Sync[🔀 Conflict Resolver<br/>3-way Merge<br/>Causal Ordering]
+  Sync --> |Broadcast| Clients
+  Gateway --> |Measure| Telemetry[📊 Latency Simulations<br/>Network Delay Testing<br/>Performance Metrics]
   
-  style Clients fill:#e3f2fd
-  style Gateway fill:#fff3e0
-  style OT fill:#f3e5f5
-  style Storage fill:#e8f5e9
-  style Sync fill:#c8e6c9
-  style Telemetry fill:#fff9c4
+  OT -.->|Transform| Queue[📮 Operation Queue<br/>FIFO/Priority]
+  Telemetry -.->|Alert| Monitor[🚨 High Latency Alert<br/>> 100ms P95]
+  
+  style Clients fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style Gateway fill:#4a90e2,stroke:#2980b9,stroke-width:2px,color:#fff
+  style OT fill:#9b59b6,stroke:#8e44ad,stroke-width:3px,color:#fff
+  style Storage fill:#27ae60,stroke:#229954,stroke-width:2px,color:#fff
+  style Sync fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
+  style Telemetry fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
 ```
 
 **Project 25: Portfolio Website & Documentation Hub**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#42b883','primaryTextColor':'#fff','primaryBorderColor':'#35495e','lineColor':'#4a90e2','secondaryColor':'#50C878','tertiaryColor':'#f39c12'}}}%%
 flowchart LR
-  Docs[📝 VitePress Content<br/>Markdown + Vue] -->|Build| Build[🔨 Static Build<br/>SSG/SSR]
-  Build -->|Deploy| CDN[🌐 CDN/GitHub Pages<br/>Global Distribution]
-  Docs -->|Generate| Reports[📊 Report Publishing<br/>Auto-generated Docs]
-  Reports -->|Display| Badges[🏷️ Status Cards<br/>Badges + Metrics]
-  CDN -->|Serve| Readers[👥 Visitors<br/>Recruiters/Reviewers]
+  Docs[📝 VitePress Content<br/>Markdown Docs<br/>Code Examples] --> |Build| Build[⚙️ Static Build<br/>Vue SSR/SSG<br/>Optimized Assets]
+  Build --> |Deploy| CDN[🌐 CDN/GitHub Pages<br/>Global Distribution<br/>HTTPS Enabled]
+  Docs --> |Generate| Reports[📊 Automated Reports<br/>Jinja2 Templates<br/>CI Batch Publishing]
+  Reports --> |Render| Badges[🏆 Status Cards<br/>Coverage Badges<br/>Project Timeline]
+  CDN --> |Serve| Readers[👔 Recruiters/Reviewers<br/>Portfolio Viewers<br/>Technical Audience]
   
-  style Docs fill:#e3f2fd
-  style Build fill:#fff3e0
-  style CDN fill:#e8f5e9
-  style Reports fill:#f3e5f5
-  style Badges fill:#fff9c4
-  style Readers fill:#c8e6c9
+  Build -.->|Cache| Cache[⚡ Edge Caching<br/>Fast Global Access]
+  Reports -.->|Archive| Artifacts[📦 PDF/HTML Exports<br/>Version History]
+  
+  style Docs fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style Build fill:#42b883,stroke:#35495e,stroke-width:2px,color:#fff
+  style CDN fill:#4a90e2,stroke:#2980b9,stroke-width:2px,color:#fff
+  style Reports fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
+  style Badges fill:#50C878,stroke:#3aa65d,stroke-width:2px,color:#fff
+  style Readers fill:#9b59b6,stroke:#8e44ad,stroke-width:3px,color:#fff
 ```
 
 </details>
@@ -443,225 +499,293 @@ flowchart LR
 **Project 5: Real-time Data Streaming**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#231F20','primaryTextColor':'#fff','primaryBorderColor':'#000','lineColor':'#4a90e2','secondaryColor':'#50C878','tertiaryColor':'#e25a1c'}}}%%
 flowchart TD
-  Producers[📡 Data Producers<br/>Apps/Services] -->|Publish| Kafka[📨 Kafka Cluster<br/>Distributed Log]
-  Kafka -->|Stream| Flink[⚡ Flink Jobs<br/>Stream Processing]
-  Flink -->|Validate| Registry[📋 Schema Registry<br/>Avro/Protobuf]
-  Flink -->|Write| Sinks[🗄️ Data Sinks<br/>OLAP/OLTP Storage]
-  Sinks -->|Monitor| Dashboards[📊 Quality Metrics<br/>SLAs + Latency]
+  Producers[📡 Data Producers<br/>Microservices/IoT<br/>Event Sources] --> |Publish| Kafka[📨 Apache Kafka<br/>Distributed Streaming<br/>Topic Partitions]
+  Kafka --> |Stream| Flink[🌊 Apache Flink<br/>Stream Processing<br/>Windowing/Joins]
+  Flink --> |Validate Schema| Registry[📋 Schema Registry<br/>Avro/Protobuf<br/>Evolution Rules]
+  Flink --> |Write| Sinks[💾 OLAP/OLTP Sinks<br/>Cassandra/PostgreSQL<br/>S3/Snowflake]
+  Sinks --> |Visualize| Dashboards[📊 Monitoring<br/>SLA Tracking<br/>Lag/Throughput]
   
-  style Producers fill:#e3f2fd
-  style Kafka fill:#fff3e0
-  style Flink fill:#f3e5f5
-  style Registry fill:#e8f5e9
-  style Sinks fill:#fff9c4
-  style Dashboards fill:#c8e6c9
+  Kafka -.->|Replicate| Backup[🔄 Cross-Region<br/>Disaster Recovery]
+  Registry -.->|Compatibility| Check[✅ Schema Check<br/>Backward/Forward]
+  
+  style Producers fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style Kafka fill:#231F20,stroke:#000,stroke-width:2px,color:#fff
+  style Flink fill:#e25a1c,stroke:#c44a15,stroke-width:3px,color:#fff
+  style Registry fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+  style Sinks fill:#27ae60,stroke:#229954,stroke-width:2px,color:#fff
+  style Dashboards fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
 ```
 
 **Project 9: Multi-Region Disaster Recovery**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#e74c3c','primaryTextColor':'#fff','primaryBorderColor':'#c0392b','lineColor':'#3498db','secondaryColor':'#50C878','tertiaryColor':'#f39c12'}}}%%
 flowchart LR
-  RegionA[🌎 Primary Region<br/>US-East] -->|Replicate| Replication[🔄 Cross-Region Sync<br/>Real-time]
-  Replication -->|Backup| RegionB[🌍 Secondary Region<br/>EU-West]
-  RegionB -->|Test| Failover[🔀 Failover Automation<br/>DNS + Load Balancer]
-  Failover -->|Validate| Runbooks[📖 DR Runbooks<br/>RTO/RPO Tests]
+  RegionA[🌍 Primary Region<br/>us-east-1<br/>Active Traffic] --> |Continuous Sync| Replication[🔄 Cross-Region Replication<br/>DB/Storage/State<br/>RPO < 1min]
+  Replication --> |Standby| RegionB[🌏 Secondary Region<br/>us-west-2<br/>Hot Standby]
+  RegionB --> |Automated| Failover[🚨 Failover Process<br/>DNS/Route53 Switch<br/>RTO < 5min]
+  Failover --> |Execute| Runbooks[📖 DR Runbooks<br/>Testing Procedures<br/>Validation Checks]
   
-  style RegionA fill:#e3f2fd
-  style Replication fill:#fff3e0
-  style RegionB fill:#f3e5f5
-  style Failover fill:#fff9c4
-  style Runbooks fill:#c8e6c9
+  RegionA -.->|Health Check| Monitor[📊 Health Monitoring<br/>Synthetic Tests]
+  Monitor -.->|Trigger| Failover
+  Runbooks -.->|Game Day| Drills[🎯 DR Drills<br/>Quarterly Testing<br/>Evidence Reports]
+  
+  style RegionA fill:#27ae60,stroke:#229954,stroke-width:3px,color:#fff
+  style Replication fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+  style RegionB fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
+  style Failover fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+  style Runbooks fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
 ```
 
 **Project 11: IoT Data Ingestion & Analytics**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#4a90e2','primaryTextColor':'#fff','primaryBorderColor':'#2980b9','lineColor':'#50C878','secondaryColor':'#f39c12','tertiaryColor':'#9b59b6'}}}%%
 flowchart TD
-  Devices[📱 IoT Edge Devices<br/>Sensors + Gateways] -->|Ingest| Gateway[🌐 MQTT/HTTP Gateway<br/>Protocol Bridge]
-  Gateway -->|Stream| Stream[⚡ Stream Processing<br/>Kafka + Flink]
-  Stream -->|Store| Storage[🗄️ Time-Series DB<br/>InfluxDB/TimescaleDB]
-  Storage -->|Visualize| Dashboards[📊 Real-time Dashboards<br/>Grafana + Alerts]
+  Devices[📱 Edge Devices<br/>Sensors/Cameras<br/>Telemetry Data] --> |MQTT/HTTP| Gateway[🌐 IoT Gateway<br/>AWS IoT Core<br/>TLS Authentication]
+  Gateway --> |Ingest| Stream[🌊 Stream Processing<br/>Kinesis/Kafka<br/>Real-time ETL]
+  Stream --> |Store| Storage[💾 Time-Series DB<br/>InfluxDB/TimescaleDB<br/>Retention Policies]
+  Storage --> |Query| Dashboards[📊 Real-time Dashboards<br/>Grafana/Kibana<br/>Anomaly Detection]
   
-  style Devices fill:#e3f2fd
-  style Gateway fill:#fff3e0
-  style Stream fill:#f3e5f5
-  style Storage fill:#e8f5e9
-  style Dashboards fill:#c8e6c9
+  Stream -.->|Alert| Rules[🚨 Alert Rules<br/>Threshold Breaches<br/>ML Anomalies]
+  Dashboards -.->|Analyze| ML[🤖 ML Models<br/>Predictive Maintenance]
+  Gateway -.->|Shadow| Shadow[👥 Device Shadow<br/>State Sync]
+  
+  style Devices fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style Gateway fill:#4a90e2,stroke:#2980b9,stroke-width:2px,color:#fff
+  style Stream fill:#1abc9c,stroke:#16a085,stroke-width:2px,color:#fff
+  style Storage fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
+  style Dashboards fill:#f39c12,stroke:#e67e22,stroke-width:3px,color:#fff
 ```
 
 **Project 12: Quantum Computing Integration**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#6929C4','primaryTextColor':'#fff','primaryBorderColor':'#4a1f8f','lineColor':'#4a90e2','secondaryColor':'#50C878','tertiaryColor':'#f39c12'}}}%%
 flowchart LR
-  Optimizer[🔢 Classical Optimizer<br/>Gradient Descent] -->|Submit| QPU[⚛️ Quantum Processor<br/>Qiskit/IBM QPU]
-  QPU -->|Execute| Results[📊 Quantum Results<br/>Error Mitigation]
-  Results -->|Feed| Loop[🔄 Hybrid Loop<br/>Classical + Quantum]
+  Optimizer[🎯 Classical Optimizer<br/>Scipy/PyTorch<br/>Parameter Tuning] --> |Submit Circuits| QPU[⚛️ Qiskit/QPU Calls<br/>IBM Quantum<br/>Circuit Execution]
+  QPU --> |Measure| Results[📊 Quantum Results<br/>+ Error Mitigation<br/>Readout Correction]
+  Results --> |Feedback| Loop[🔄 Hybrid Loop<br/>VQE/QAOA<br/>Convergence Check]
   
-  style Optimizer fill:#e3f2fd
-  style QPU fill:#f3e5f5
-  style Results fill:#fff3e0
-  style Loop fill:#c8e6c9
+  Loop -.->|Iterate| Optimizer
+  Results -.->|Validate| Classical[💻 Classical Verification<br/>Benchmark Solutions]
+  QPU -.->|Noise Model| Simulator[🖥️ Qiskit Aer<br/>Noise Simulation]
+  
+  style Optimizer fill:#4a90e2,stroke:#2980b9,stroke-width:2px,color:#fff
+  style QPU fill:#6929C4,stroke:#4a1f8f,stroke-width:3px,color:#fff
+  style Results fill:#50C878,stroke:#3aa65d,stroke-width:2px,color:#fff
+  style Loop fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
 ```
 
 **Project 13: Advanced Cybersecurity Platform**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#e74c3c','primaryTextColor':'#fff','primaryBorderColor':'#c0392b','lineColor':'#4a90e2','secondaryColor':'#50C878','tertiaryColor':'#f39c12'}}}%%
 flowchart TD
-  Alerts[🚨 Security Alerts<br/>SIEM/IDS] -->|Enrich| Enrich[🔍 Enrichment Adapters<br/>Threat Intel]
-  Enrich -->|Trigger| Playbooks[📋 Response Playbooks<br/>Automated Actions]
-  Playbooks -->|Execute| Response[⚡ Response Engine<br/>Block/Isolate/Notify]
-  Response -->|Log| Audit[📝 Audit Trail<br/>Evidence + Compliance]
+  Alerts[🚨 SOAR Alerts<br/>SIEM Events<br/>Threat Indicators] --> |Enrich| Enrich[🔍 Enrichment Adapters<br/>VirusTotal/MISP<br/>Threat Intel]
+  Enrich --> |Trigger| Playbooks[📖 Automated Playbooks<br/>Splunk SOAR/Cortex<br/>Decision Trees]
+  Playbooks --> |Execute| Response[⚡ Response Actions<br/>Isolate/Block/Notify<br/>Containment]
+  Response --> |Log| Audit[📝 Audit & Evidence<br/>SIEM Integration<br/>Compliance Reports]
   
-  style Alerts fill:#ffebee
-  style Enrich fill:#fff3e0
-  style Playbooks fill:#e3f2fd
-  style Response fill:#fff9c4
-  style Audit fill:#c8e6c9
+  Alerts -.->|Correlate| Rules[🎯 Detection Rules<br/>Sigma/YARA<br/>Custom Logic]
+  Playbooks -.->|Approve| Human[👤 Security Analyst<br/>Manual Review]
+  Audit -.->|Export| Report[📊 Executive Reports<br/>Metrics Dashboard]
+  
+  style Alerts fill:#e74c3c,stroke:#c0392b,stroke-width:3px,color:#fff
+  style Enrich fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
+  style Playbooks fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+  style Response fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
+  style Audit fill:#27ae60,stroke:#229954,stroke-width:2px,color:#fff
 ```
 
 **Project 14: Edge AI Inference Platform**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#76B900','primaryTextColor':'#fff','primaryBorderColor':'#5a8c00','lineColor':'#4a90e2','secondaryColor':'#50C878','tertiaryColor':'#f39c12'}}}%%
 flowchart LR
-  Models[🤖 ONNX Models<br/>Optimized/Quantized] -->|Deploy| Runtime[⚙️ Jetson Runtime<br/>Edge Inference]
-  Runtime -->|Process| Stream[📹 Video/Telemetry<br/>Real-time Streams]
-  Stream -->|Analyze| Insights[📊 On-device Insights<br/>Local AI]
-  Insights -->|Sync| CloudSync[☁️ Cloud Analytics<br/>Aggregation]
+  Models[🤖 Optimized ONNX Models<br/>Quantized INT8<br/>TensorRT Optimized] --> |Deploy| Runtime[⚡ Jetson Runtime<br/>ONNX Runtime<br/>CUDA Acceleration]
+  Runtime --> |Process| Stream[📹 Video/Telemetry<br/>RTSP/Camera Feeds<br/>Sensor Data]
+  Stream --> |Inference| Insights[💡 On-device Insights<br/>Object Detection<br/>Real-time Decisions]
+  Insights --> |Sync| CloudSync[☁️ Cloud Sync<br/>S3/IoT Core<br/>Batch Analytics]
   
-  style Models fill:#e3f2fd
-  style Runtime fill:#fff3e0
-  style Stream fill:#f3e5f5
-  style Insights fill:#c8e6c9
-  style CloudSync fill:#fff9c4
+  Runtime -.->|Monitor| Perf[📊 Performance Metrics<br/>FPS/Latency/Power<br/>Thermal Throttling]
+  CloudSync -.->|Trigger| OTA[🔄 OTA Updates<br/>Model Versioning]
+  
+  style Models fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+  style Runtime fill:#76B900,stroke:#5a8c00,stroke-width:3px,color:#fff
+  style Stream fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style Insights fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
+  style CloudSync fill:#4a90e2,stroke:#2980b9,stroke-width:2px,color:#fff
 ```
 
 **Project 16: Advanced Data Lake & Analytics**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#4a90e2','primaryTextColor':'#fff','primaryBorderColor':'#2980b9','lineColor':'#50C878','secondaryColor':'#f39c12','tertiaryColor':'#9b59b6'}}}%%
 flowchart TD
-  Raw[📥 Raw Data Zone<br/>Landing Area] -->|Validate| Bronze[🥉 Bronze Layer<br/>Cleaned Data]
-  Bronze -->|Transform| Silver[🥈 Silver Layer<br/>Business Logic]
-  Silver -->|Aggregate| Gold[🥇 Gold Layer<br/>Analytics-Ready]
-  Gold -->|Store| Lakehouse[🏠 Delta Lake<br/>ACID Transactions]
-  Lakehouse -->|Query| BI[📊 BI Dashboards<br/>Reports + Analytics]
+  Raw[📥 Raw Zone<br/>Ingestion Layer<br/>Unprocessed Data] --> |Validate| Bronze[🥉 Bronze Layer<br/>Cleansed Data<br/>Schema Applied]
+  Bronze --> |Transform| Silver[🥈 Silver Layer<br/>Enriched Data<br/>Business Logic]
+  Silver --> |Aggregate| Gold[🥇 Gold Layer<br/>Analytics-Ready<br/>Curated Datasets]
+  Gold --> |Store| Lakehouse[🏛️ Delta Lake<br/>ACID Transactions<br/>Time Travel]
+  Lakehouse --> |Query| BI[📊 BI Dashboards<br/>Tableau/PowerBI<br/>Business Insights]
   
-  style Raw fill:#e3f2fd
-  style Bronze fill:#fff3e0
-  style Silver fill:#f3e5f5
-  style Gold fill:#fff9c4
-  style Lakehouse fill:#e8f5e9
-  style BI fill:#c8e6c9
+  Bronze -.->|Quality Check| DQ[✅ Data Quality<br/>Great Expectations<br/>Validation Rules]
+  Silver -.->|Catalog| Catalog[📚 Data Catalog<br/>Metadata/Lineage]
+  Gold -.->|ML Features| Features[🎯 Feature Store<br/>ML Ready Data]
+  
+  style Raw fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style Bronze fill:#CD7F32,stroke:#8B5A2B,stroke-width:2px,color:#fff
+  style Silver fill:#C0C0C0,stroke:#A8A8A8,stroke-width:2px,color:#333
+  style Gold fill:#FFD700,stroke:#DAA520,stroke-width:3px,color:#333
+  style Lakehouse fill:#4a90e2,stroke:#2980b9,stroke-width:2px,color:#fff
+  style BI fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
 ```
 
 **Project 17: Multi-Cloud Service Mesh**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#326CE5','primaryTextColor':'#fff','primaryBorderColor':'#2559c7','lineColor':'#4a90e2','secondaryColor':'#50C878','tertiaryColor':'#466BB0'}}}%%
 flowchart LR
-  ClusterA[☸️ K8s Cluster A<br/>AWS/US-East] <-->|mTLS| Mesh[🔐 Istio Service Mesh<br/>Multi-cluster]
-  ClusterB[☸️ K8s Cluster B<br/>GCP/EU-West] <-->|mTLS| Mesh
-  Mesh -->|Enforce| Policy[🛡️ Network Policy<br/>Security Overlay]
-  Mesh -->|Track| Observability[📊 Distributed Tracing<br/>Metrics + Logs]
+  ClusterA[☸️ K8s Cluster A<br/>AWS EKS<br/>Production Services] <-->|mTLS Encrypted| Mesh[🕸️ Istio Service Mesh<br/>Envoy Proxies<br/>Traffic Management]
+  ClusterB[☸️ K8s Cluster B<br/>GCP GKE<br/>DR Services] <-->|mTLS Encrypted| Mesh
+  Mesh --> |Apply| Policy[🛡️ Network Policies<br/>AuthZ/AuthN<br/>Rate Limiting]
+  Mesh --> |Collect| Observability[📊 Tracing + Metrics<br/>Jaeger/Prometheus<br/>Service Graph]
   
-  style ClusterA fill:#e3f2fd
-  style ClusterB fill:#e3f2fd
-  style Mesh fill:#fff3e0
-  style Policy fill:#ffebee
-  style Observability fill:#c8e6c9
+  Mesh -.->|Gateway| Ingress[🌐 Istio Gateway<br/>External Traffic<br/>TLS Termination]
+  Policy -.->|Enforce| Security[🔒 mTLS Certificates<br/>Automatic Rotation]
+  Observability -.->|Visualize| Kiali[📈 Kiali Dashboard<br/>Topology View]
+  
+  style ClusterA fill:#326CE5,stroke:#2559c7,stroke-width:2px,color:#fff
+  style ClusterB fill:#4285F4,stroke:#3367d6,stroke-width:2px,color:#fff
+  style Mesh fill:#466BB0,stroke:#344d80,stroke-width:3px,color:#fff
+  style Policy fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+  style Observability fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
 ```
 
 **Project 18: GPU-Accelerated Computing**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#76B900','primaryTextColor':'#fff','primaryBorderColor':'#5a8c00','lineColor':'#4a90e2','secondaryColor':'#50C878','tertiaryColor':'#f39c12'}}}%%
 flowchart TD
-  Jobs[🎲 Monte Carlo Jobs<br/>Simulations] -->|Queue| Scheduler[📋 GPU Scheduler<br/>Job Orchestration]
-  Scheduler -->|Execute| GPU[🎮 CUDA Nodes<br/>GPU Clusters]
-  GPU -->|Compute| Results[📊 Results Store<br/>Output Data]
-  Results -->|Analyze| Reports[📈 Performance Reports<br/>Cost + Metrics]
+  Jobs[🎲 Monte Carlo Jobs<br/>Risk Simulations<br/>10M+ Samples] --> |Submit| Scheduler[📅 GPU Job Scheduler<br/>SLURM/K8s<br/>Resource Allocation]
+  Scheduler --> |Execute| GPU[⚡ CUDA GPU Nodes<br/>NVIDIA A100/V100<br/>CuPy Kernels]
+  GPU --> |Store| Results[💾 Results Store<br/>Distributed FS<br/>HDF5/Parquet]
+  Results --> |Analyze| Reports[📊 Performance Reports<br/>Cost/Performance<br/>Optimization Insights]
   
-  style Jobs fill:#e3f2fd
-  style Scheduler fill:#fff3e0
-  style GPU fill:#f3e5f5
-  style Results fill:#e8f5e9
-  style Reports fill:#c8e6c9
+  GPU -.->|Profile| Profiler[🔍 NVIDIA Profiler<br/>nsys/nvprof<br/>Kernel Analysis]
+  Scheduler -.->|Monitor| Metrics[📈 Utilization Metrics<br/>GPU Memory/Compute<br/>Queue Depth]
+  Results -.->|Compare| Baseline[📉 CPU Baseline<br/>Speedup Factor]
+  
+  style Jobs fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style Scheduler fill:#4a90e2,stroke:#2980b9,stroke-width:2px,color:#fff
+  style GPU fill:#76B900,stroke:#5a8c00,stroke-width:3px,color:#fff
+  style Results fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+  style Reports fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
 ```
 
 **Project 19: Advanced Kubernetes Operators**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#326CE5','primaryTextColor':'#fff','primaryBorderColor':'#2559c7','lineColor':'#4a90e2','secondaryColor':'#50C878','tertiaryColor':'#f39c12'}}}%%
 flowchart LR
-  Events[📢 K8s Events<br/>Cluster Activity] -->|Watch| Operator[🤖 Kopf Operator<br/>Custom Controller]
-  Operator -->|Execute| Recon[🔄 Reconciliation Logic<br/>Desired State]
-  Recon -->|Manage| CRDs[📋 Custom Resources<br/>Lifecycle Automation]
-  Recon -->|Report| Evidence[📊 Status Export<br/>Telemetry + Metrics]
+  Events[⚡ K8s Events<br/>Resource Changes<br/>API Server Watch] --> |Trigger| Operator[🤖 Kopf Operator<br/>Python Framework<br/>Event Handlers]
+  Operator --> |Execute| Recon[🔄 Reconciliation Logic<br/>Desired vs Actual<br/>Healing Actions]
+  Recon --> |Manage| CRDs[📋 Lifecycle CRDs<br/>Custom Resources<br/>Portfolio Stack]
+  Recon --> |Report| Evidence[📊 Status/Telemetry<br/>Conditions/Events<br/>Metrics Export]
   
-  style Events fill:#e3f2fd
-  style Operator fill:#fff3e0
-  style Recon fill:#f3e5f5
-  style CRDs fill:#e8f5e9
-  style Evidence fill:#c8e6c9
+  Operator -.->|Validate| Admission[✅ Admission Webhook<br/>Resource Validation]
+  CRDs -.->|Status| Conditions[🏷️ Status Conditions<br/>Ready/Degraded/Failed]
+  Evidence -.->|Alert| Prometheus[📈 Prometheus Metrics<br/>Operator Health]
+  
+  style Events fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style Operator fill:#326CE5,stroke:#2559c7,stroke-width:3px,color:#fff
+  style Recon fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
+  style CRDs fill:#50C878,stroke:#3aa65d,stroke-width:2px,color:#fff
+  style Evidence fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
 ```
 
 **Project 20: Blockchain Oracle Service**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#375BD2','primaryTextColor':'#fff','primaryBorderColor':'#2a4aa8','lineColor':'#4a90e2','secondaryColor':'#50C878','tertiaryColor':'#627EEA'}}}%%
 flowchart TD
-  Sources[🌐 External Data<br/>APIs/Metrics] -->|Feed| Adapter[🔗 Chainlink Adapter<br/>External Adapter]
-  Adapter -->|Submit| Oracle[⛓️ Oracle Node<br/>Chainlink Network]
-  Oracle -->|Callback| Consumer[📜 Consumer Contracts<br/>Smart Contracts]
-  Consumer -->|Store| Proofs[✅ On-chain Proofs<br/>Verification Data]
+  Sources[🌐 External Metrics<br/>APIs/Sensors<br/>Market Data] --> |Fetch| Adapter[🔌 Chainlink Adapter<br/>External Initiator<br/>Data Bridge]
+  Adapter --> |Submit| Oracle[🔮 Oracle Node<br/>Chainlink Core<br/>Job Spec Runner]
+  Oracle --> |Invoke| Consumer[📜 Consumer Contracts<br/>Solidity Smart Contracts<br/>Data Requests]
+  Consumer --> |Generate| Proofs[✅ On-chain Proofs<br/>Cryptographic Signatures<br/>Audit Trail]
   
-  style Sources fill:#e3f2fd
-  style Adapter fill:#fff3e0
-  style Oracle fill:#f3e5f5
-  style Consumer fill:#e8f5e9
-  style Proofs fill:#c8e6c9
+  Oracle -.->|Aggregate| MultiNode[🔗 Multi-Node Consensus<br/>Decentralized Oracle<br/>Median Calculation]
+  Consumer -.->|Event| Listener[👂 Event Listener<br/>RequestCreated<br/>Fulfillment Tracking]
+  Proofs -.->|Verify| Blockchain[⛓️ Ethereum/Polygon<br/>Transaction Logs]
+  
+  style Sources fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style Adapter fill:#4a90e2,stroke:#2980b9,stroke-width:2px,color:#fff
+  style Oracle fill:#375BD2,stroke:#2a4aa8,stroke-width:3px,color:#fff
+  style Consumer fill:#627EEA,stroke:#4a5fb8,stroke-width:2px,color:#fff
+  style Proofs fill:#50C878,stroke:#3aa65d,stroke-width:2px,color:#fff
 ```
 
 **Project 21: Quantum-Safe Cryptography**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#6929C4','primaryTextColor':'#fff','primaryBorderColor':'#4a1f8f','lineColor':'#4a90e2','secondaryColor':'#50C878','tertiaryColor':'#f39c12'}}}%%
 flowchart LR
-  Client[💻 Client] -->|Initiate| Hybrid[🔐 Hybrid KEX<br/>Kyber + ECDH]
-  Hybrid -->|Execute| Handshake[🤝 Handshake Protocol<br/>Post-Quantum Safe]
-  Handshake -->|Derive| Session[🔑 Session Keys<br/>Encrypted Channel]
+  Client[👤 Client Application<br/>TLS 1.3 Support<br/>Post-Quantum Ready] --> |Initiate| Hybrid[🔐 Hybrid Key Exchange<br/>Kyber-768 + ECDH<br/>Dual Protection]
+  Hybrid --> |Establish| Handshake[🤝 Hybrid Handshake<br/>PQ + Classical<br/>Forward Secrecy]
+  Handshake --> |Derive| Session[🔑 Secure Session Keys<br/>AES-256-GCM<br/>Quantum-Resistant]
   
-  style Client fill:#e3f2fd
-  style Hybrid fill:#ffebee
-  style Handshake fill:#fff3e0
-  style Session fill:#c8e6c9
+  Hybrid -.->|Fallback| Classical[🔙 Classical Only<br/>Backward Compatible<br/>ECDH P-256]
+  Session -.->|Test| Interop[✅ Interoperability<br/>Cross-Platform Tests<br/>Compatibility Matrix]
+  Handshake -.->|Benchmark| Perf[📊 Performance<br/>Handshake Latency<br/>vs Classical]
+  
+  style Client fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style Hybrid fill:#6929C4,stroke:#4a1f8f,stroke-width:3px,color:#fff
+  style Handshake fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
+  style Session fill:#50C878,stroke:#3aa65d,stroke-width:2px,color:#fff
 ```
 
 **Project 22: Autonomous DevOps Platform**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#4a90e2','primaryTextColor':'#fff','primaryBorderColor':'#2980b9','lineColor':'#50C878','secondaryColor':'#f39c12','tertiaryColor':'#9b59b6'}}}%%
 flowchart TD
-  Alerts[🚨 Ops Signals<br/>Monitoring Alerts] -->|Publish| Events[📢 Event Bus<br/>Message Queue]
-  Events -->|Trigger| Runbooks[📖 Runbooks-as-Code<br/>Automated Scripts]
-  Runbooks -->|Execute| Automation[⚡ Auto-Remediation<br/>Self-Healing]
-  Automation -->|Check| Approvals[✅ Policy Gates<br/>Approval Workflow]
+  Alerts[🚨 Ops Signals<br/>Monitoring Alerts<br/>Incident Detection] --> |Publish| Events[📨 Event Bus<br/>Kafka/NATS<br/>Event Routing]
+  Events --> |Trigger| Runbooks[📖 Runbooks-as-Code<br/>YAML/Python DSL<br/>Versioned Procedures]
+  Runbooks --> |Execute| Automation[🤖 Automated Remediation<br/>Ansible/Terraform<br/>Self-Healing]
+  Automation --> |Check| Approvals[✅ Policy/Approval Gates<br/>Risk Assessment<br/>Human-in-Loop]
   
-  style Alerts fill:#ffebee
-  style Events fill:#e3f2fd
-  style Runbooks fill:#fff3e0
-  style Automation fill:#e8f5e9
-  style Approvals fill:#c8e6c9
+  Approvals -.->|Reject| Manual[👤 Manual Intervention<br/>On-Call Review]
+  Approvals -.->|Approve| Execute[⚡ Execute Action<br/>Automated Fix]
+  Automation -.->|Audit| Trail[📝 Audit Trail<br/>Action Log<br/>Compliance]
+  
+  style Alerts fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+  style Events fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+  style Runbooks fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
+  style Automation fill:#50C878,stroke:#3aa65d,stroke-width:3px,color:#fff
+  style Approvals fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
 ```
 
 **Project 24: Portfolio Report Generator**
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#4a90e2','primaryTextColor':'#fff','primaryBorderColor':'#2980b9','lineColor':'#50C878','secondaryColor':'#f39c12','tertiaryColor':'#9b59b6'}}}%%
 flowchart LR
-  Templates[📄 Jinja2 Templates<br/>Report Layouts] -->|Generate| CLI[⚙️ Report CLI<br/>Command Tool]
-  CLI -->|Automate| CI[🔄 CI Publishing<br/>Batch Generation]
-  CI -->|Export| Artifacts[📦 Output Artifacts<br/>PDF/Docs/XLSX]
-  Artifacts -->|Package| Recruiters[👥 Distribution<br/>Recruiter Bundles]
+  Templates[📄 Jinja2 Templates<br/>Resume/Reports<br/>Parameterized] --> |Render| CLI[⚙️ Report CLI<br/>Python Click<br/>Config-Driven]
+  CLI --> |Automate| CI[🔄 CI Batch Publishing<br/>GitHub Actions<br/>Scheduled Runs]
+  CI --> |Generate| Artifacts[📦 Output Artifacts<br/>PDF/DOCX/XLSX<br/>Multi-Format]
+  Artifacts --> |Package| Recruiters[🎁 Recruiter Packages<br/>Evidence Bundles<br/>Portfolio Exports]
   
-  style Templates fill:#e3f2fd
-  style CLI fill:#fff3e0
-  style CI fill:#f3e5f5
-  style Artifacts fill:#e8f5e9
-  style Recruiters fill:#c8e6c9
+  Templates -.->|Data Source| Data[📊 Portfolio Data<br/>JSON/YAML<br/>Metrics/Stats]
+  CI -.->|Upload| Storage[☁️ S3/GitHub Releases<br/>Versioned Artifacts]
+  Artifacts -.->|Preview| HTML[🌐 HTML Preview<br/>Interactive Reports]
+  
+  style Templates fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style CLI fill:#4a90e2,stroke:#2980b9,stroke-width:2px,color:#fff
+  style CI fill:#2088FF,stroke:#0969da,stroke-width:2px,color:#fff
+  style Artifacts fill:#50C878,stroke:#3aa65d,stroke-width:2px,color:#fff
+  style Recruiters fill:#9b59b6,stroke:#8e44ad,stroke-width:3px,color:#fff
 ```
 
 </details>
@@ -685,22 +809,27 @@ flowchart LR
 *Documentation:* [Portfolio-Project › Homelab & Secure Network Build](https://github.com/samueljackson-collab/Portfolio-Project/tree/main/homelab-secure-network-build)
 
 **Architecture (logical)**
+
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#0559C9','primaryTextColor':'#fff','primaryBorderColor':'#003d8f','lineColor':'#4a90e2','secondaryColor':'#50C878','tertiaryColor':'#f39c12'}}}%%
 flowchart LR
-  Internet[🌐 Internet<br/>ISP] -->|WAN| UDM[🛡️ UniFi Dream Machine<br/>Router + Firewall]
-  UDM -->|Trunk| SW[⚡ UniFi Switch<br/>24-Port PoE]
-  SW -->|VLAN 10| AP1[📡 UniFi AP Pro<br/>Main Floor]
-  SW -->|VLAN 10| AP2[📡 UniFi AP Lite<br/>Upper Floor]
-  SW -->|VLAN 20| NAS[🗄️ TrueNAS<br/>Network Storage]
-  UDM -->|VPN| Admin[🔐 Remote Admin<br/>WireGuard]
+  Internet[🌐 Internet<br/>WAN Connection<br/>Fiber/Cable] --> |Incoming| UDM[🛡️ UniFi Dream Machine<br/>Router/Firewall<br/>DPI/IDS]
+  UDM --> |Switched| SW[🔀 UniFi Switch<br/>24-Port PoE<br/>VLAN Trunking]
+  SW --> |Wireless| AP1[📡 UniFi AP 1<br/>WiFi 6<br/>Trusted VLAN]
+  SW --> |Wireless| AP2[📡 UniFi AP 2<br/>WiFi 6<br/>Guest/IoT VLANs]
+  SW --> |Wired| NAS[💾 TrueNAS<br/>Storage Pool<br/>SMB/NFS Shares]
+  UDM --> |Encrypted| Admin[👨‍💻 Remote Admin<br/>WireGuard VPN<br/>Secure Access]
   
-  style Internet fill:#e3f2fd
-  style UDM fill:#fff3e0
-  style SW fill:#f3e5f5
-  style AP1 fill:#e8f5e9
-  style AP2 fill:#e8f5e9
-  style NAS fill:#fff9c4
-  style Admin fill:#ffebee
+  UDM -.->|Firewall Rules| Segmentation[🔒 VLAN Segmentation<br/>IoT/Guest/Trusted<br/>Inter-VLAN Policies]
+  SW -.->|Monitor| Controller[📊 UniFi Controller<br/>Network Analytics]
+  
+  style Internet fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style UDM fill:#0559C9,stroke:#003d8f,stroke-width:3px,color:#fff
+  style SW fill:#0559C9,stroke:#003d8f,stroke-width:2px,color:#fff
+  style AP1 fill:#0559C9,stroke:#003d8f,stroke-width:2px,color:#fff
+  style AP2 fill:#0559C9,stroke:#003d8f,stroke-width:2px,color:#fff
+  style NAS fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+  style Admin fill:#50C878,stroke:#3aa65d,stroke-width:2px,color:#fff
 ```
 
 ### Virtualization & Core Services
@@ -761,25 +890,36 @@ Older commercial efforts live in cold storage while I recreate code, processes, 
 ## 🛡️ Delivery Pipeline (snapshot)
 
 ```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#4a90e2','primaryTextColor':'#fff','primaryBorderColor':'#2980b9','lineColor':'#50C878','secondaryColor':'#f39c12','tertiaryColor':'#9b59b6'}}}%%
 flowchart TD
-  Intake[📋 Business Intake<br/>Requirements Gathering]
-  Plan[🎯 Architecture Design<br/>QA Gates + Acceptance Criteria]
-  IaC[⚙️ Infrastructure-as-Code<br/>Terraform/CDK]
-  CI[🔍 CI Pipeline<br/>Lint/Test/SBOM/Security]
-  CD[🚀 CD Pipeline<br/>Progressive Delivery]
-  Obs[📊 Observability<br/>Metrics/Logs/Traces]
-  Docs[📖 Documentation<br/>Runbooks + Evidence]
+  Intake[📋 Business Intake<br/>Requirements Gathering<br/>Stakeholder Alignment]
+  Plan[🎯 Architecture & QA Gates<br/>Design Reviews<br/>Acceptance Criteria]
+  IaC[🏗️ Infrastructure-as-Code<br/>Terraform/Pulumi<br/>Immutable Infrastructure]
+  CI[🔄 CI Pipeline<br/>Lint/Test/SBOM<br/>Security Scanning]
+  CD[🚀 CD: Progressive Delivery<br/>Canary/Blue-Green<br/>Automated Rollbacks]
+  Obs[📊 Observability<br/>Metrics/Logs/Traces<br/>SLO Monitoring]
+  Docs[📖 Runbooks & Evidence<br/>Documentation<br/>Post-Mortems]
 
-  Intake --> Plan --> IaC --> CI --> CD --> Obs --> Docs
-  Docs -->|Process Improvements| Plan
+  Intake --> Plan
+  Plan --> IaC
+  IaC --> CI
+  CI --> CD
+  CD --> Obs
+  Obs --> Docs
+  Docs -.->|Continuous Improvement| Plan
   
-  style Intake fill:#e3f2fd
-  style Plan fill:#fff3e0
-  style IaC fill:#f3e5f5
-  style CI fill:#ffebee
-  style CD fill:#e8f5e9
-  style Obs fill:#fff9c4
-  style Docs fill:#c8e6c9
+  CI -.->|Gate Failed| Fix[🔧 Fix Issues]
+  Fix -.-> IaC
+  CD -.->|Deploy Failed| Rollback[⏮️ Automatic Rollback]
+  Rollback -.-> Obs
+  
+  style Intake fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style Plan fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+  style IaC fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
+  style CI fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
+  style CD fill:#50C878,stroke:#3aa65d,stroke-width:2px,color:#fff
+  style Obs fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+  style Docs fill:#1abc9c,stroke:#16a085,stroke-width:2px,color:#fff
 ```
 
 ---
