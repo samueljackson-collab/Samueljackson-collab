@@ -23,6 +23,47 @@ System-minded engineer specializing in building, securing, and operating infrast
 </details>
 
 ---
+## 🧩 Repository Coverage Update (Current GitHub + Local Portfolio)
+
+To keep this profile aligned with the latest build activity, this section maps active repositories/projects to their current purpose and evidence location.
+
+> **Scope note:** The portfolio implementation evidence lives in `Portfolio-Project`, while this profile repository tracks roadmap context, diagrams, and project indexing. The ElderPhoto full-stack implementation currently lives in this repository under `frontend/` and `backend/`.
+
+### Repository Index
+
+| Repository / Project | Status | Purpose | Evidence / Source |
+|---|---|---|---|
+| `Samueljackson-collab` (this repository) | 🟠 Active | Profile README, roadmap/status views, architecture diagrams, and active product implementation scaffolding. | [README.md](./README.md), [ELDERPHOTO_README.md](./ELDERPHOTO_README.md), [IMPLEMENTATION_SUMMARY.md](./IMPLEMENTATION_SUMMARY.md) |
+| `Portfolio-Project` | 🟢 Active | Centralized technical evidence bundles for all numbered portfolio projects (IaC, runbooks, tests, CI, screenshots). | <https://github.com/samueljackson-collab/Portfolio-Project> |
+| `ElderPhoto` (project workspace in this repo) | 🟠 In Progress | Accessibility-first family photo platform with React frontend + Python backend services + backup synchronization tooling. | [`frontend/src/pages/Photos/PhotosPage.tsx`](./frontend/src/pages/Photos/PhotosPage.tsx), [`backend/app/routers/backup.py`](./backend/app/routers/backup.py), [`backend/scripts/backup_sync.py`](./backend/scripts/backup_sync.py) |
+
+### Cross-Repository Delivery Flow
+
+```mermaid
+flowchart LR
+  A[Profile Repository<br/>
+Samueljackson-collab] -->|Roadmap + Blueprints| B[Portfolio-Project]
+  A -->|Active App Workstreams| C[ElderPhoto Frontend/Backend]
+  C -->|Runbooks, test evidence, release artifacts| B
+  B -->|Proof for recruiters + technical review| D[Public Portfolio Narrative]
+
+  style A fill:#4a90e2,stroke:#333,stroke-width:2px,color:#fff
+  style B fill:#50C878,stroke:#333,stroke-width:2px,color:#fff
+  style C fill:#f39c12,stroke:#333,stroke-width:2px,color:#fff
+  style D fill:#9b59b6,stroke:#333,stroke-width:2px,color:#fff
+```
+
+### Newly Reflected Build Tracks
+
+- **ElderPhoto product track (newly reflected):**
+  - Frontend photo experience and upload/calendar components.
+  - Backend backup APIs and synchronization script coverage.
+  - Accessibility/color-contrast documentation and implementation summary.
+- **Portfolio alignment track:**
+  - Maintains explicit connection between profile roadmap content and evidence hosted in `Portfolio-Project`.
+  - Preserves deep-dive architecture content while adding a clearer "where each project lives" index.
+
+---
 ## 📦 Portfolio Projects (Planned)
 
 The following projects represent planned portfolio work demonstrating various technical skills:
@@ -59,6 +100,40 @@ The following projects represent planned portfolio work demonstrating various te
 > **Note:** This Status Board tracks the actual implementation and delivery progress of portfolio projects. The [Portfolio Blueprints](#-portfolio-blueprints) section provides the corresponding architectural references and planned structures.
 
 🟢 Done · 🟠 In Progress · 🔵 Planned
+
+### Full Portfolio Project Status Matrix (All 25 Projects)
+
+This matrix gives a single, at-a-glance update for every project and its current delivery phase.
+
+| # | Project | Current Status | Current Phase | Next Milestone |
+|---|---|---|---|---|
+| 1 | AWS Infrastructure Automation | 🟢 Done | Evidence hardening | Publish final runbook index + release tag |
+| 2 | Database Migration Platform | 🟢 Done | Stabilization complete | Add migration playbook examples |
+| 3 | Kubernetes CI/CD Pipeline | 🟢 Done | Production-pattern validation | Expand rollback game-day report |
+| 4 | DevSecOps Pipeline | 🟢 Done | Security controls complete | Add compliance mapping appendix |
+| 5 | Real-time Data Streaming | 🔵 Planned | P0 foundation planning | Producer/consumer harness baseline |
+| 6 | Machine Learning Pipeline | 🟠 In Progress | Phase 2 expansion | Experiment registry + promotion gates |
+| 7 | Serverless Data Processing | 🟠 In Progress | IaC + orchestration build | Failure-path unit tests + validation harness |
+| 8 | Advanced AI Chatbot | 🟠 In Progress | RAG/tooling integration | Retrieval eval suite + telemetry wiring |
+| 9 | Multi-Region Disaster Recovery | 🔵 Planned | RPO/RTO definition | Replication validation automation |
+| 10 | Blockchain Smart Contract Platform | 🟠 In Progress | Contract + CI hardening | Audit scripts + release automation |
+| 11 | IoT Data Ingestion & Analytics | 🔵 Planned | Simulator architecture | Gateway + ingestion baseline |
+| 12 | Quantum Computing Integration | 🔵 Planned | Optimization target design | Hybrid classical/quantum loop prototype |
+| 13 | Advanced Cybersecurity Platform | 🔵 Planned | SOAR pipeline design | Enrichment adapters + response playbooks |
+| 14 | Edge AI Inference Platform | 🔵 Planned | Edge runtime planning | ONNX service baseline on Jetson-class profile |
+| 15 | Real-time Collaborative Platform | 🟠 In Progress | Conflict handling build | CRDT/OT resolution and latency testing |
+| 16 | Advanced Data Lake & Analytics | 🔵 Planned | Medallion architecture planning | Bronze/Silver/Gold transformation skeleton |
+| 17 | Multi-Cloud Service Mesh | 🔵 Planned | Multi-cluster design | Istio mTLS + policy baseline |
+| 18 | GPU-Accelerated Computing | 🔵 Planned | Runner and scheduler planning | GPU job orchestration proof-of-concept |
+| 19 | Advanced Kubernetes Operators | 🔵 Planned | CRD + reconciliation design | Operator lifecycle automation v1 |
+| 20 | Blockchain Oracle Service | 🔵 Planned | Adapter design | Chainlink adapter + consumer contract tests |
+| 21 | Quantum-Safe Cryptography | 🔵 Planned | Handshake architecture | Kyber + ECDH interoperability harness |
+| 22 | Autonomous DevOps Platform | 🔵 Planned | Event taxonomy design | Runbooks-as-code automation MVP |
+| 23 | Advanced Monitoring & Observability | 🟢 Done | Monitoring baseline operational | Dashboard pack + alert verification report |
+| 24 | Portfolio Report Generator | 🔵 Planned | Template/CLI design | Batch report publishing pipeline |
+| 25 | Portfolio Website & Documentation Hub | 🟠 In Progress | Docs platform refinement | Automated publishing + status cards |
+
+**Status totals:** 🟢 Done = 5 · 🟠 In Progress = 6 · 🔵 Planned = 14
 
 **🟢 Done**
 - **Project 1: AWS Infrastructure Automation**
