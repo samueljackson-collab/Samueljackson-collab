@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import Calendar from 'react-calendar';
+import './photoCalendar.css';
 
 interface Photo {
   id: string;

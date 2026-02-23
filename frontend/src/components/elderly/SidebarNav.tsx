@@ -32,16 +32,6 @@ const renderNavItems = (
   items: SidebarNavItem[],
   level = 0
 ): React.ReactElement[] => {
-  return items.map((item) => {
-    const { className: indentationClass, style } = getIndentationProps(level);
-    const listItemClasses = [
-      "flex items-center gap-2 py-2 text-slate-800 hover:text-slate-950",
-      indentationClass,
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-    return (
   return items.map((item, index) => {
     const { className: indentationClass, style } = getIndentationProps(level);
     const listItemClasses = [
