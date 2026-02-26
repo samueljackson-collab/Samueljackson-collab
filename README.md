@@ -1065,7 +1065,7 @@ flowchart TD
   style A fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
   style B fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
   style C fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
-  style D fill:#50C878,stroke:#3aa65d,stroke-width:2px,color:#fff
+  style D fill:#50c878,stroke:#3aa65d,stroke-width:2px,color:#fff
   style E fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
   style F fill:#1abc9c,stroke:#16a085,stroke-width:2px,color:#fff
   style G fill:#27ae60,stroke:#229954,stroke-width:3px,color:#fff
