@@ -28,15 +28,21 @@ def configure_logging() -> None:
 
 
 def confirm_action(assume_yes: bool) -> bool:
-    if not sys.stdin.isatty() and not assume_yes:
-        logger.error("Refusing to run without --yes/--assume-yes because stdin is not a TTY.")
-        return False
-
     if assume_yes:
         logger.info("--yes supplied; skipping interactive confirmation.")
         return True
 
-    response = input(DEFAULT_PROMPT).strip().lower()
+    if not sys.stdin.isatty():
+        logger.error("Refusing to run without --yes/--assume-yes because stdin is not a TTY.")
+        return False
+
+    try:
+        response = input(DEFAULT_PROMPT).strip().lower()
+    except EOFError:
+        # When the user presses Ctrl+D, input() raises an EOFError.
+        # We can treat this as an intentional abort.
+        response = ""
+
     if response in {"y", "yes"}:
         return True
 
