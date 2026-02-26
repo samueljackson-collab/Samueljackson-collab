@@ -64,6 +64,22 @@ Samueljackson-collab] -->|Roadmap + Blueprints| B[Portfolio-Project]
   - Maintains explicit connection between profile roadmap content and evidence hosted in `Portfolio-Project`.
   - Preserves deep-dive architecture content while adding a clearer "where each project lives" index.
 
+## 🔐 Local Environment Setup
+
+1. Copy the environment template:
+
+```bash
+cp .env.local.example .env.local
+```
+
+2. Add your API key to `.env.local`:
+
+```dotenv
+GEMINI_API_KEY=your_api_key_here
+```
+
+If you prefer, you can create `.env.local` manually and include the same variable.
+
 ---
 ## 📦 Portfolio Projects (Planned)
 
@@ -94,6 +110,24 @@ The following projects represent planned portfolio work demonstrating various te
 - **Project 23: Advanced Monitoring & Observability** — Grafana dashboards, alerting rules, and distributed tracing config.
 - **Project 24: Portfolio Report Generator** — Automated report templating with Jinja2.
 - **Project 25: Portfolio Website & Documentation Hub** — VitePress-powered portal aggregating all documentation and guides.
+- **Project 26: Homelab & Secure Network Build** — Rack-based segmented network with VLAN isolation, secure Wi-Fi zones, and remote admin VPN.
+- **Project 27: Virtualization & Core Services** — Proxmox/TrueNAS platform hosting Wiki.js, Home Assistant, and Immich with TLS reverse proxy.
+- **Project 28: Observability & Backups Stack** — Prometheus/Grafana/Loki/Alertmanager integrated with Proxmox backup workflows.
+- **Project 29: Commercial E-commerce & Booking Systems Recovery** — Rebuild effort for prior production systems and operational documentation.
+- **Project 30: Database Infrastructure Module (Terraform RDS)** — Modular Terraform baseline for resilient relational database provisioning.
+- **Project 31: Resume Set (SDE/Cloud/QA/Net/Cyber)** — Role-targeted resume suite and supporting content automation workflow.
+- **Project 32: GitOps Platform with IaC (Terraform + ArgoCD)** — End-to-end GitOps control plane with declarative environment promotion.
+- **Project 33: AWS Landing Zone (Organizations + SSO)** — Multi-account security baseline using AWS Organizations and centralized identity.
+- **Project 34: Active Directory Design & Automation (DSC/Ansible)** — Domain architecture templates and repeatable configuration automation.
+- **Project 35: SIEM Pipeline** — Security telemetry ingest and detection pipeline with dashboarded blue-team workflows.
+- **Project 36: Adversary Emulation** — Safe ATT&CK-aligned emulation suite for validating detection and response quality.
+- **Project 37: Incident Response Playbook** — Structured ransomware-focused IR runbook and escalation framework.
+- **Project 38: Web App Login Test Plan** — Functional, security, and performance testing blueprint for authentication systems.
+- **Project 39: Selenium + PyTest CI** — Automated UI validation pipeline integrated with GitHub Actions.
+- **Project 40: Multi-OS Lab** — Comparative lab environment spanning Kali, Slacko Puppy, and Ubuntu.
+- **Project 41: Document Packaging Pipeline** — Prompt-to-document automation for Docs/PDF/XLSX publication.
+- **Project 42: IT Playbook (E2E Lifecycle)** — Cross-functional service lifecycle playbook from intake through operations.
+- **Project 43: Engineer's Handbook (Standards/QA Gates)** — Practical engineering standards and quality gate reference.
 
 ---
 ## 📊 Portfolio Status Board
@@ -102,7 +136,7 @@ The following projects represent planned portfolio work demonstrating various te
 
 🟢 Done · 🟠 In Progress · 🔵 Planned
 
-### Full Portfolio Project Status Matrix (All 25 Projects)
+### Full Portfolio Project Status Matrix (All 43 Projects)
 
 This matrix gives a single, at-a-glance update for every project and its current delivery phase.
 
@@ -133,8 +167,26 @@ This matrix gives a single, at-a-glance update for every project and its current
 | 23 | Advanced Monitoring & Observability | 🟢 Done | Monitoring baseline operational | Dashboard pack + alert verification report |
 | 24 | Portfolio Report Generator | 🔵 Planned | Template/CLI design | Batch report publishing pipeline |
 | 25 | Portfolio Website & Documentation Hub | 🟠 In Progress | Docs platform refinement | Automated publishing + status cards |
+| 26 | Homelab & Secure Network Build | 🟢 Done | Implementation complete (docs pending) | Publish full topology and operations runbook |
+| 27 | Virtualization & Core Services | 🟢 Done | Platform operational (docs pending) | Publish deployment architecture and service runbooks |
+| 28 | Observability & Backups Stack | 🟢 Done | Monitoring + backup stack operational | Publish validation evidence and restore drills |
+| 29 | Commercial E-commerce & Booking Systems Recovery | 🟠 In Progress | Artifact recovery and publication rebuild | Restore SQL/process docs and republish core assets |
+| 30 | Database Infrastructure Module (Terraform RDS) | 🟠 In Progress | Module baseline complete, stack expansion active | Integrate module into full-stack deployment pipeline |
+| 31 | Resume Set (SDE/Cloud/QA/Net/Cyber) | 🟠 In Progress | Portfolio-aligned resume content drafting | Finalize role packs and publishing automation |
+| 32 | GitOps Platform with IaC (Terraform + ArgoCD) | 🔵 Planned | Roadmap defined | Build platform bootstrap and environment promotion flow |
+| 33 | AWS Landing Zone (Organizations + SSO) | 🔵 Planned | Research phase | Deliver baseline account architecture and identity guardrails |
+| 34 | Active Directory Design & Automation (DSC/Ansible) | 🔵 Planned | Planning phase | Publish AD topology templates and automation baseline |
+| 35 | SIEM Pipeline | 🔵 Planned | Detection architecture planning | Implement ingest-to-detection baseline with dashboards |
+| 36 | Adversary Emulation | 🔵 Planned | ATT&CK scenario planning | Build safe emulation scenarios tied to detection controls |
+| 37 | Incident Response Playbook | 🔵 Planned | Operational readiness planning | Publish ransomware-focused IR playbook v1 |
+| 38 | Web App Login Test Plan | 🔵 Planned | Test strategy definition | Produce executable test matrix and acceptance criteria |
+| 39 | Selenium + PyTest CI | 🔵 Planned | Automation framework planning | Ship CI-integrated UI sanity suite |
+| 40 | Multi-OS Lab | 🔵 Planned | Homelab expansion design | Stand up comparative environment and baseline checks |
+| 41 | Document Packaging Pipeline | 🔵 Planned | Documentation automation design | Build one-click Docs/PDF/XLSX packaging workflow |
+| 42 | IT Playbook (E2E Lifecycle) | 🔵 Planned | Process framework design | Publish intake-to-operations playbook draft |
+| 43 | Engineer's Handbook (Standards/QA Gates) | 🔵 Planned | Standards framework planning | Publish engineering standards and QA gate definitions |
 
-**Status totals:** 🟢 Done = 5 · 🟠 In Progress = 6 · 🔵 Planned = 14
+**Status totals:** 🟢 Done = 8 · 🟠 In Progress = 9 · 🔵 Planned = 26
 
 **🟢 Done**
 - **Project 1: AWS Infrastructure Automation**
@@ -1031,10 +1083,10 @@ This merged addendum combines the **README standardization governance** content 
 
 | Metric | Count | Notes |
 |---|---:|---|
-| Total numbered projects | 25 | Portfolio-wide roadmap baseline |
-| 🟢 Done | 5 | Delivery complete with active maintenance/evidence hardening |
-| 🟠 In Progress | 6 | Active build tracks with current sprint milestones |
-| 🔵 Planned | 14 | Sequenced backlog tracks queued for implementation |
+| Total numbered projects | 43 | Portfolio-wide roadmap baseline expanded with newly tracked workstreams |
+| 🟢 Done | 8 | Delivery complete with active maintenance/evidence hardening plus recently documented completed tracks |
+| 🟠 In Progress | 9 | Active build tracks including recovery and publication workstreams |
+| 🔵 Planned | 26 | Sequenced backlog tracks queued for implementation across infrastructure, security, QA, and process domains |
 | 🔄 Recovery/Rebuild | Contextual | Legacy commercial rebuild stream retained in this README |
 
 ### Status Transition Rules (Portfolio Governance)
@@ -1146,7 +1198,7 @@ flowchart TD
   style G fill:#27ae60,stroke:#229954,stroke-width:3px,color:#fff
   style H fill:#f39c12,stroke:#e67e22,stroke-width:3px,color:#fff
   style I fill:#3498db,stroke:#2980b9,stroke-width:3px,color:#fff
-  style J fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+  style J fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
 ```
 
 ### Additional Visualization: Portfolio Delivery Control Loop
@@ -1173,8 +1225,3 @@ flowchart TD
 ### Documentation Integrity Commitment
 
 This merged refresh intentionally **extends** the original README without deleting sections, preserving all prior context, diagrams, links, iconography, and color-coded status conventions while improving clarity, governance, and portfolio progress visibility.
-
-
-### Reusable Artifact
-
-A copy-ready project documentation baseline is available at [`README_TEMPLATE.md`](./README_TEMPLATE.md), including section-by-section prompts and expected detail levels.
