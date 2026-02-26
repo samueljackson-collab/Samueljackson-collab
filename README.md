@@ -64,6 +64,22 @@ Samueljackson-collab] -->|Roadmap + Blueprints| B[Portfolio-Project]
   - Maintains explicit connection between profile roadmap content and evidence hosted in `Portfolio-Project`.
   - Preserves deep-dive architecture content while adding a clearer "where each project lives" index.
 
+## 🔐 Local Environment Setup
+
+1. Copy the environment template:
+
+```bash
+cp .env.local.example .env.local
+```
+
+2. Add your API key to `.env.local`:
+
+```dotenv
+GEMINI_API_KEY=your_api_key_here
+```
+
+If you prefer, you can create `.env.local` manually and include the same variable.
+
 ---
 ## 📦 Portfolio Projects (Planned)
 
