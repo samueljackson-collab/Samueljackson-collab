@@ -1,9 +1,10 @@
-# Hi, I'm Sam Jackson!
-**[System Development Engineer](https://github.com/samueljackson-collab)** · **[DevOps & QA Enthusiast](https://www.linkedin.com/in/sams-jackson)** · **Homelab Builder**
+# README
 
-***Building reliable systems, documenting clearly, and sharing what I learn. I turn ambiguous requirements into runbooks, dashboards, and repeatable processes.***
+## Summary
+This is the existing summary of the README file.
 
-**Status key:** 🟢 Done · 🟠 In Progress · 🔵 Planned · 🔄 Recovery/Rebuild · 📝 Documentation Pending
+## Ansible Playbook Generator
+A tool to generate Ansible playbooks based on user inputs. It aims to simplify the creation of playbooks and make automation easier for everyone. This project includes features such as customizable templates and guided prompts to help users get started with Ansible quickly.
 
 **Documentation:** Evidence for every project is now centralized in the [Portfolio-Project repository](https://github.com/samueljackson-collab/Portfolio-Project). Each project entry below links directly to its evidence bundle (design docs, runbooks, IaC, tests, and screenshots).
 
