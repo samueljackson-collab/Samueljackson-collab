@@ -1146,7 +1146,7 @@ flowchart TD
   style G fill:#27ae60,stroke:#229954,stroke-width:3px,color:#fff
   style H fill:#f39c12,stroke:#e67e22,stroke-width:3px,color:#fff
   style I fill:#3498db,stroke:#2980b9,stroke-width:3px,color:#fff
-  style J fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+  style J fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
 ```
 
 ### Additional Visualization: Portfolio Delivery Control Loop
