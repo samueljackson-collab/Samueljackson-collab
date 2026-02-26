@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 interface PhotoUploadProps {
   uploadUrl: string;
@@ -25,9 +25,8 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ uploadUrl, onUploadSuccess, o
       const uploadedUrl: string = response.data?.url ?? "";
       onUploadSuccess?.(uploadedUrl);
     } catch (error) {
-      const uploadError = error as AxiosError<{ detail?: string }>;
-      const specificMessage = axios.isAxiosError(uploadError)
-        ? uploadError.response?.data?.detail ?? uploadError.message
+      const specificMessage = axios.isAxiosError<{ detail?: string }>(error)
+        ? error.response?.data?.detail ?? error.message
         : (error as Error).message;
       onUploadError?.(specificMessage);
     } finally {
