@@ -21,9 +21,8 @@ def sync_backup_file(source: str, destination: str) -> bool:
     success.
     """
     sync_succeeded = sync_file_via_rsync(source, destination)
-    if not sync_succeeded:
+    if sync_succeeded:
+        logger.info("Successfully synced %s -> %s", source, destination)
+    else:
         logger.error("sync_file_via_rsync failed for %s -> %s", source, destination)
-        return False
-
-    logger.info("Successfully synced %s -> %s", source, destination)
-    return True
+    return sync_succeeded
