@@ -1042,9 +1042,9 @@ This section is an explicit progress refresh added **without removing any existi
 
 | Workstream | Source Location | Why it matters |
 |---|---|---|
-| ElderPhoto frontend progress | `frontend/src/pages/Photos/PhotosPage.tsx` and related components | Demonstrates active product UX implementation in this repo |
-| ElderPhoto backup capabilities | `backend/app/routers/backup.py`, `backend/scripts/backup_sync.py` | Shows backend reliability and operational tooling work |
-| Accessibility and contrast updates | `ELDERPHOTO_README.md`, `IMPLEMENTATION_SUMMARY.md` | Provides inclusive UX evidence and implementation notes |
+| ElderPhoto frontend progress | [`frontend/src/pages/Photos/PhotosPage.tsx`](./frontend/src/pages/Photos/PhotosPage.tsx) and related components | Demonstrates active product UX implementation in this repo |
+| ElderPhoto backup capabilities | [`backend/app/routers/backup.py`](./backend/app/routers/backup.py), [`backend/scripts/backup_sync.py`](./backend/scripts/backup_sync.py) | Shows backend reliability and operational tooling work |
+| Accessibility and contrast updates | [`ELDERPHOTO_README.md`](./ELDERPHOTO_README.md), [`IMPLEMENTATION_SUMMARY.md`](./IMPLEMENTATION_SUMMARY.md) | Provides inclusive UX evidence and implementation notes |
 
 ### Portfolio Status Flow (Expanded Visualization)
 
