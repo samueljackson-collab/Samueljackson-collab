@@ -1014,18 +1014,28 @@ flowchart TD
 [![GitHub Profile](https://img.shields.io/badge/GitHub-Portfolio-181717?style=flat&logo=github)](https://github.com/samueljackson-collab)
 
 ---
-## 🧠 README Standardization Addendum (Expanded, No Content Removed)
+## 🧠 README Governance + 2026 Progress Refresh (Merged, Expanded, No Content Removed)
 
-This addendum is intentionally appended to preserve all original portfolio context while adding a stronger template baseline for future project READMEs.
+This merged addendum combines the **README standardization governance** content with the **2026 progress refresh** into one additive section. It preserves legacy structure, iconography, color coding, diagrams, and project context while improving readability and reducing duplicated headings.
 
-### What this addendum improves
+### What this merged section improves
 
 | Area | Improvement | Why it helps |
 |---|---|---|
 | README quality standard | Adds explicit minimum structure/checklist for all project READMEs | Keeps documentation depth consistent across repos |
-| Status traceability | Adds status governance and update cadence | Prevents drift between implementation and docs |
-| Diagram quality | Adds rendering guidance and standardized Mermaid formatting recommendations | Reduces broken diagram issues in GitHub markdown viewers |
-| Project management signal | Adds status transition rules and quality gates | Makes project progression criteria explicit |
+| Status traceability | Adds status governance plus current delivery snapshot and milestones | Prevents drift between implementation and docs |
+| Diagram quality | Keeps color-styled Mermaid diagrams and adds rendering guidance | Reduces broken diagram issues in GitHub markdown viewers |
+| Project management signal | Defines transitions, quality gates, and active track health | Makes progression criteria and priorities explicit |
+
+### Current Portfolio Delivery Snapshot (2026)
+
+| Metric | Count | Notes |
+|---|---:|---|
+| Total numbered projects | 25 | Portfolio-wide roadmap baseline |
+| 🟢 Done | 5 | Delivery complete with active maintenance/evidence hardening |
+| 🟠 In Progress | 6 | Active build tracks with current sprint milestones |
+| 🔵 Planned | 14 | Sequenced backlog tracks queued for implementation |
+| 🔄 Recovery/Rebuild | Contextual | Legacy commercial rebuild stream retained in this README |
 
 ### Status Transition Rules (Portfolio Governance)
 
@@ -1035,6 +1045,35 @@ This addendum is intentionally appended to preserve all original portfolio conte
 | 🟠 In Progress | 🟢 Done | Test evidence, runbook/update notes, and linkable artifacts |
 | 🟢 Done | 🔄 Recovery/Rebuild | Incident/root-cause summary and rebuild plan |
 | Any | 📝 Documentation Pending | Working implementation exists; docs queued with ETA |
+
+### In-Progress Projects — Immediate Next Milestones
+
+| Project | Status | Current Focus | Next Milestone |
+|---|---|---|---|
+| Project 6: Machine Learning Pipeline | 🟠 In Progress | Experiment tracking + promotion readiness | Integrate promotion gates into CI |
+| Project 7: Serverless Data Processing | 🟠 In Progress | Lambda/Step Functions orchestration hardening | Add failure-path validation tests |
+| Project 8: Advanced AI Chatbot | 🟠 In Progress | RAG + tool execution quality | Add retrieval eval + telemetry scorecard |
+| Project 10: Blockchain Smart Contract Platform | 🟠 In Progress | Contract hardening + deployment automation | Expand audit automation + release workflow |
+| Project 15: Real-time Collaborative Platform | 🟠 In Progress | CRDT/OT conflict handling | Complete latency + reconciliation test suite |
+| Project 25: Portfolio Website & Documentation Hub | 🟠 In Progress | Docs hub structure and publishing | Auto-publish status cards/reports |
+
+### Additional Table: Current Active Track Health
+
+| Track | Status | Momentum | Immediate next checkpoint |
+|---|---|---|---|
+| ElderPhoto frontend and UX | 🟠 In Progress | High | Complete accessibility + upload workflow validation |
+| ElderPhoto backend backup/sync | 🟠 In Progress | Medium-High | Add broader reliability and failure-path verification |
+| Project 6: ML pipeline | 🟠 In Progress | Medium | Finalize promotion gates and experiment traceability |
+| Project 25: Portfolio docs hub | 🟠 In Progress | High | Automate publishing and status card generation |
+| Project 23: Observability | 🟢 Done | Stable | Keep dashboards and alerts current with future projects |
+
+### Recently Reflected Build Context (Expanded)
+
+| Workstream | Source Location | Why it matters |
+|---|---|---|
+| ElderPhoto frontend progress | [`frontend/src/pages/Photos/PhotosPage.tsx`](./frontend/src/pages/Photos/PhotosPage.tsx) and related components | Demonstrates active product UX implementation in this repo |
+| ElderPhoto backup capabilities | [`backend/app/routers/backup.py`](./backend/app/routers/backup.py), [`backend/scripts/backup_sync.py`](./backend/scripts/backup_sync.py) | Shows backend reliability and operational tooling work |
+| Accessibility and contrast updates | [`ELDERPHOTO_README.md`](./ELDERPHOTO_README.md), [`IMPLEMENTATION_SUMMARY.md`](./IMPLEMENTATION_SUMMARY.md) | Provides inclusive UX evidence and implementation notes |
 
 ### README Quality Gate (Template to reuse per project)
 
@@ -1048,13 +1087,16 @@ This addendum is intentionally appended to preserve all original portfolio conte
 | Roadmap | Current milestone and next 2 phases | Gantt or phase table |
 | FAQ/Troubleshooting | Top failure modes and resolution paths | Decision table |
 
-### Diagram Reliability Checklist
+### README Template Reuse Checklist (For Other Repositories)
 
-1. Keep Mermaid node labels concise (< 80 chars preferred).
-2. Use consistent `flowchart LR/TD` direction by section purpose.
-3. Avoid nested markdown/HTML inside Mermaid labels when possible.
-4. Keep style definitions grouped at bottom of each diagram block.
-5. Test rendering directly in GitHub markdown preview before merge.
+| Checklist Item | Minimum Bar | Recommended Bar |
+|---|---|---|
+| Status legend | Include icon-coded legend | Include legend + totals table + monthly snapshot |
+| Repository context | Include repo purpose and scope | Include cross-repo map with evidence links |
+| Project board | Include status table | Include status table + milestone/next-action columns |
+| Architecture diagrams | At least 1 mermaid diagram | 3+ diagrams (system, lifecycle, delivery pipeline) |
+| Evidence links | Link one proof artifact per project | Link runbook, tests, CI evidence, and screenshots |
+| Troubleshooting | Include top 3 issues | Include failure matrix + recovery playbook |
 
 ### Documentation Freshness SLA
 
@@ -1063,6 +1105,49 @@ This addendum is intentionally appended to preserve all original portfolio conte
 | Per major merge | Update project status + milestone notes in README | Project owner |
 | Weekly | Validate links + status board alignment | Repo maintainer |
 | Monthly | README quality audit against template gate | Portfolio owner |
+
+### Diagram Reliability Checklist
+
+1. Keep Mermaid node labels concise (< 80 chars preferred).
+2. Use consistent `flowchart LR/TD` direction by section purpose.
+3. Avoid nested markdown/HTML inside Mermaid labels when possible.
+4. Keep style definitions grouped at bottom of each diagram block.
+5. Test rendering directly in GitHub markdown preview before merge.
+
+### Diagram Rendering Safety Notes
+
+- Use GitHub markdown preview to validate Mermaid rendering before merge.
+- Keep labels compact and avoid over-nested HTML when possible.
+- Preserve color-coded node styles to maintain visual consistency across diagrams.
+- Prefer deterministic flow names and stable section anchors to avoid broken TOC links.
+
+### Portfolio Status Flow (Expanded Visualization)
+
+```mermaid
+flowchart TD
+  A[📥 Project Backlog Entry] --> B[🧭 Architecture + Scope Definition]
+  B --> C[🛠️ Implementation Sprint]
+  C --> D[✅ Validation + Evidence Capture]
+  D --> E[📚 README + Portfolio Update]
+  E --> F{Status Decision}
+  F -->|All gates met| G[🟢 Done]
+  F -->|More work needed| H[🟠 In Progress]
+  F -->|Future sequencing| I[🔵 Planned]
+  G --> J[🔁 Maintenance / Iteration]
+  H --> C
+  I --> B
+
+  style A fill:#6c757d,stroke:#495057,stroke-width:2px,color:#fff
+  style B fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
+  style C fill:#f39c12,stroke:#e67e22,stroke-width:2px,color:#fff
+  style D fill:#50C878,stroke:#3aa65d,stroke-width:2px,color:#fff
+  style E fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
+  style F fill:#1abc9c,stroke:#16a085,stroke-width:2px,color:#fff
+  style G fill:#27ae60,stroke:#229954,stroke-width:3px,color:#fff
+  style H fill:#f39c12,stroke:#e67e22,stroke-width:3px,color:#fff
+  style I fill:#3498db,stroke:#2980b9,stroke-width:3px,color:#fff
+  style J fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
+```
 
 ### Additional Visualization: Portfolio Delivery Control Loop
 
@@ -1085,16 +1170,11 @@ flowchart TD
   style G fill:#1abc9c,stroke:#333,stroke-width:2px,color:#fff
 ```
 
-### Additional Table: Current Active Track Health
+### Documentation Integrity Commitment
 
-| Track | Status | Momentum | Immediate next checkpoint |
-|---|---|---|---|
-| ElderPhoto frontend and UX | 🟠 In Progress | High | Complete accessibility + upload workflow validation |
-| ElderPhoto backend backup/sync | 🟠 In Progress | Medium-High | Add broader reliability and failure-path verification |
-| Project 6: ML pipeline | 🟠 In Progress | Medium | Finalize promotion gates and experiment traceability |
-| Project 25: Portfolio docs hub | 🟠 In Progress | High | Automate publishing and status card generation |
-| Project 23: Observability | 🟢 Done | Stable | Keep dashboards and alerts current with future projects |
+This merged refresh intentionally **extends** the original README without deleting sections, preserving all prior context, diagrams, links, iconography, and color-coded status conventions while improving clarity, governance, and portfolio progress visibility.
 
-### Closing Addendum Note
 
-This addendum intentionally **extends** the original README without deleting sections, preserving all prior context, diagrams, links, iconography, and color-coded status conventions while raising documentation quality standards for future repositories.
+### Reusable Artifact
+
+A copy-ready project documentation baseline is available at [`README_TEMPLATE.md`](./README_TEMPLATE.md), including section-by-section prompts and expected detail levels.
