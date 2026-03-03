@@ -1225,3 +1225,69 @@ flowchart TD
 ### Documentation Integrity Commitment
 
 This merged refresh intentionally **extends** the original README without deleting sections, preserving all prior context, diagrams, links, iconography, and color-coded status conventions while improving clarity, governance, and portfolio progress visibility.
+
+
+---
+## 📊 Portfolio-Wide Current Progress Snapshot (All Projects)
+
+This section adds a single at-a-glance tracker for **all 43 projects** with a normalized progress band and immediate action focus. It is additive and preserves all previously documented sections.
+
+| # | Project | Status | Progress Band | Current Focus | Next Checkpoint |
+|---|---|---|---|---|---|
+| 1 | AWS Infrastructure Automation | 🟢 Done | 100% | Evidence hardening | Publish final runbook index + release tag |
+| 2 | Database Migration Platform | 🟢 Done | 100% | Stabilization complete | Add migration playbook examples |
+| 3 | Kubernetes CI/CD Pipeline | 🟢 Done | 100% | Production-pattern validation | Expand rollback game-day report |
+| 4 | DevSecOps Pipeline | 🟢 Done | 100% | Security controls complete | Add compliance mapping appendix |
+| 5 | Real-time Data Streaming | 🔵 Planned | 0-25% | P0 foundation planning | Producer/consumer harness baseline |
+| 6 | Machine Learning Pipeline | 🟠 In Progress | 60-85% | Phase 2 expansion | Experiment registry + promotion gates |
+| 7 | Serverless Data Processing | 🟠 In Progress | 60-85% | IaC + orchestration build | Failure-path unit tests + validation harness |
+| 8 | Advanced AI Chatbot | 🟠 In Progress | 60-85% | RAG/tooling integration | Retrieval eval suite + telemetry wiring |
+| 9 | Multi-Region Disaster Recovery | 🔵 Planned | 0-25% | RPO/RTO definition | Replication validation automation |
+| 10 | Blockchain Smart Contract Platform | 🟠 In Progress | 60-85% | Contract + CI hardening | Audit scripts + release automation |
+| 11 | IoT Data Ingestion & Analytics | 🔵 Planned | 0-25% | Simulator architecture | Gateway + ingestion baseline |
+| 12 | Quantum Computing Integration | 🔵 Planned | 0-25% | Optimization target design | Hybrid classical/quantum loop prototype |
+| 13 | Advanced Cybersecurity Platform | 🔵 Planned | 0-25% | SOAR pipeline design | Enrichment adapters + response playbooks |
+| 14 | Edge AI Inference Platform | 🔵 Planned | 0-25% | Edge runtime planning | ONNX service baseline on Jetson-class profile |
+| 15 | Real-time Collaborative Platform | 🟠 In Progress | 60-85% | Conflict handling build | CRDT/OT resolution and latency testing |
+| 16 | Advanced Data Lake & Analytics | 🔵 Planned | 0-25% | Medallion architecture planning | Bronze/Silver/Gold transformation skeleton |
+| 17 | Multi-Cloud Service Mesh | 🔵 Planned | 0-25% | Multi-cluster design | Istio mTLS + policy baseline |
+| 18 | GPU-Accelerated Computing | 🔵 Planned | 0-25% | Runner and scheduler planning | GPU job orchestration proof-of-concept |
+| 19 | Advanced Kubernetes Operators | 🔵 Planned | 0-25% | CRD + reconciliation design | Operator lifecycle automation v1 |
+| 20 | Blockchain Oracle Service | 🔵 Planned | 0-25% | Adapter design | Chainlink adapter + consumer contract tests |
+| 21 | Quantum-Safe Cryptography | 🔵 Planned | 0-25% | Handshake architecture | Kyber + ECDH interoperability harness |
+| 22 | Autonomous DevOps Platform | 🔵 Planned | 0-25% | Event taxonomy design | Runbooks-as-code automation MVP |
+| 23 | Advanced Monitoring & Observability | 🟢 Done | 100% | Monitoring baseline operational | Dashboard pack + alert verification report |
+| 24 | Portfolio Report Generator | 🔵 Planned | 0-25% | Template/CLI design | Batch report publishing pipeline |
+| 25 | Portfolio Website & Documentation Hub | 🟠 In Progress | 60-85% | Docs platform refinement | Automated publishing + status cards |
+| 26 | Homelab & Secure Network Build | 🟢 Done | 100% | Implementation complete (docs pending) | Publish full topology and operations runbook |
+| 27 | Virtualization & Core Services | 🟢 Done | 100% | Platform operational (docs pending) | Publish deployment architecture and service runbooks |
+| 28 | Observability & Backups Stack | 🟢 Done | 100% | Monitoring + backup stack operational | Publish validation evidence and restore drills |
+| 29 | Commercial E-commerce & Booking Systems Recovery | 🟠 In Progress | 60-85% | Artifact recovery and publication rebuild | Restore SQL/process docs and republish core assets |
+| 30 | Database Infrastructure Module (Terraform RDS) | 🟠 In Progress | 60-85% | Module baseline complete, stack expansion active | Integrate module into full-stack deployment pipeline |
+| 31 | Resume Set (SDE/Cloud/QA/Net/Cyber) | 🟠 In Progress | 60-85% | Portfolio-aligned resume content drafting | Finalize role packs and publishing automation |
+| 32 | GitOps Platform with IaC (Terraform + ArgoCD) | 🔵 Planned | 0-25% | Roadmap defined | Build platform bootstrap and environment promotion flow |
+| 33 | AWS Landing Zone (Organizations + SSO) | 🔵 Planned | 0-25% | Research phase | Deliver baseline account architecture and identity guardrails |
+| 34 | Active Directory Design & Automation (DSC/Ansible) | 🔵 Planned | 0-25% | Planning phase | Publish AD topology templates and automation baseline |
+| 35 | SIEM Pipeline | 🔵 Planned | 0-25% | Detection architecture planning | Implement ingest-to-detection baseline with dashboards |
+| 36 | Adversary Emulation | 🔵 Planned | 0-25% | ATT&CK scenario planning | Build safe emulation scenarios tied to detection controls |
+| 37 | Incident Response Playbook | 🔵 Planned | 0-25% | Operational readiness planning | Publish ransomware-focused IR playbook v1 |
+| 38 | Web App Login Test Plan | 🔵 Planned | 0-25% | Test strategy definition | Produce executable test matrix and acceptance criteria |
+| 39 | Selenium + PyTest CI | 🔵 Planned | 0-25% | Automation framework planning | Ship CI-integrated UI sanity suite |
+| 40 | Multi-OS Lab | 🔵 Planned | 0-25% | Homelab expansion design | Stand up comparative environment and baseline checks |
+| 41 | Document Packaging Pipeline | 🔵 Planned | 0-25% | Documentation automation design | Build one-click Docs/PDF/XLSX packaging workflow |
+| 42 | IT Playbook (E2E Lifecycle) | 🔵 Planned | 0-25% | Process framework design | Publish intake-to-operations playbook draft |
+| 43 | Engineer's Handbook (Standards/QA Gates) | 🔵 Planned | 0-25% | Standards framework planning | Publish engineering standards and QA gate definitions |
+
+### Progress Band Legend (Normalization)
+
+- **100%** = Core implementation complete; only maintenance/documentation optimization remains.
+- **60–85%** = Active implementation underway with core paths built and hardening/testing in progress.
+- **0–25%** = Planned/research phase with architecture, scope, and sequencing being finalized.
+
+### Current Portfolio Mix (All Projects)
+
+- **🟢 Done: 8/43 (18.6%)**
+- **🟠 In Progress: 9/43 (20.9%)**
+- **🔵 Planned: 26/43 (60.5%)**
+
+> Snapshot intent: provide recruiters/collaborators a single progress lens while maintaining the existing per-project deep-dive sections and evidence links already present above.
