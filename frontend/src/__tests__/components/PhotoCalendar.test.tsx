@@ -107,30 +107,21 @@ describe('PhotoCalendar', () => {
 });
 
 // ---------------------------------------------------------------------------
-// formatDateKey (internal utility — tested indirectly through the component)
+// formatDateKey (internal utility — tested indirectly via the calendar mock)
+// The mock always renders tileContent for 2024-03-15; data keyed with that
+// date must produce a badge. Data keyed with a different date must not.
 // ---------------------------------------------------------------------------
 
 describe('formatDateKey (via tileContent)', () => {
-  it('correctly keys photos using YYYY-MM-DD format', () => {
-    // Provide data with a zero-padded month/day to confirm padding logic
-    const data = [
-      { date: '2024-01-05', photos: [{ id: 'x', url: 'https://example.com/x.jpg' }] },
-    ];
+  it('matches the YYYY-MM-DD key used in monthData', () => {
+    // Data keyed for the mock date (2024-03-15) → badge should appear
+    render(<PhotoCalendar monthData={[MARCH_15]} />);
+    expect(screen.getByTestId('tile-content').textContent).toBe('2');
+  });
 
-    // Override the mock to use January 5
-    vi.mock('react-calendar', () => ({
-      default: ({
-        tileContent,
-      }: {
-        tileContent: ({ date }: { date: Date }) => React.ReactNode;
-      }) => {
-        const jan5 = new Date('2024-01-05T00:00:00');
-        return <div data-testid="tile-content">{tileContent({ date: jan5 })}</div>;
-      },
-    }));
-
-    render(<PhotoCalendar monthData={data} />);
-    // If formatDateKey pads correctly we get count=1; otherwise we get nothing
-    // (This test relies on the module mock being re-evaluated — it documents intent)
+  it('produces no badge when the key does not match the displayed date', () => {
+    const differentDay = { date: '2024-03-16', photos: [{ id: 'y', url: 'https://example.com/y.jpg' }] };
+    render(<PhotoCalendar monthData={[differentDay]} />);
+    expect(screen.getByTestId('tile-content').textContent).toBe('');
   });
 });

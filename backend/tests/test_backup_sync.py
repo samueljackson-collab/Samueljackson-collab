@@ -13,7 +13,6 @@ import pytest
 
 # Import individual functions to test them in isolation.
 from scripts.backup_sync import (
-    formatDateKey,  # noqa: F401 – deliberately absent to fail loudly
     parse_args,
     run_full_sync,
     run_incremental_sync,
@@ -29,8 +28,6 @@ class TestParseArgs:
     def test_full_sync_defaults(self, tmp_path):
         src = tmp_path / "src"
         dst = tmp_path / "dst"
-        args = parse_args.__wrapped__(["str(src)", "str(dst)"]) if hasattr(parse_args, "__wrapped__") else None
-        # parse_args uses sys.argv; patch it
         with patch("sys.argv", ["backup_sync.py", str(src), str(dst)]):
             args = parse_args()
         assert args.mode == "full"

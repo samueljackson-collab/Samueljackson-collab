@@ -14,7 +14,9 @@ import { fetchImageObjectUrl, fetchSignedImageUrl } from '../../api/services';
 // MSW server setup
 // ---------------------------------------------------------------------------
 
-const BASE = '/api';
+// MSW in Node.js/vitest requires absolute URLs.
+// apiClient baseURL is '/api', which jsdom resolves to http://localhost/api.
+const BASE = 'http://localhost/api';
 
 const server = setupServer(
   http.get(`${BASE}/images/:path/signed-url`, () =>
