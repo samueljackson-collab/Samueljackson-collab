@@ -2,8 +2,14 @@
 from __future__ import annotations
 
 import argparse
+import logging
 import subprocess
+import sys
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
+
+DEFAULT_PROMPT = "Run backup sync? [y/N] "
 
 
 def verify_sync(source: Path, destination: Path) -> None:
@@ -81,6 +87,13 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Verify the sync via checksum-based dry run",
     )
+    parser.add_argument(
+        "--yes",
+        "--assume-yes",
+        dest="yes",
+        action="store_true",
+        help="Skip interactive confirmation prompt",
+    )
     return parser.parse_args()
 
 
@@ -114,28 +127,9 @@ def confirm_action(assume_yes: bool) -> bool:
     return False
 
 
-def perform_backup_sync() -> None:
-    # Placeholder implementation. Replace with actual backup synchronization logic.
+def perform_backup_sync(args: argparse.Namespace) -> None:
+    """Run the appropriate sync based on CLI arguments."""
     logger.info("Running backup synchronization tasks...")
-    logger.info("Backup synchronization completed successfully.")
-
-
-def main() -> int:
-    configure_logging()
-    args = parse_args()
-
-    if not confirm_action(args.yes):
-        return 1
-
-    perform_backup_sync()
-    return 0
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
-def main() -> None:
-    args = parse_args()
-
     if args.mode == "incremental":
         if args.previous_backup is None:
             raise ValueError("Incremental mode requires --previous-backup")
@@ -147,7 +141,19 @@ def main() -> None:
         )
     else:
         run_full_sync(args.source, args.destination, verify=args.verify)
+    logger.info("Backup synchronization completed successfully.")
+
+
+def main() -> int:
+    configure_logging()
+    args = parse_args()
+
+    if not confirm_action(args.yes):
+        return 1
+
+    perform_backup_sync(args)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

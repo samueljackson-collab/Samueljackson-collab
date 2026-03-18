@@ -6,7 +6,6 @@ These tests verify:
 - The response body has the expected shape
 - The no-op stub (asyncio.sleep(0)) is detected and documented
 """
-import asyncio
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
@@ -48,27 +47,26 @@ class TestTriggerPhotoBackupEndpoint:
         assert response.status_code == 405
 
 
-class TestSyncAllPhotosStub:
-    """Document and detect the no-op placeholder implementation."""
+class TestSyncAllPhotos:
+    """Tests for the implemented sync_all_photos background task."""
 
     @pytest.mark.asyncio
-    async def test_sync_all_photos_is_a_noop(self):
-        """
-        sync_all_photos() currently does nothing (asyncio.sleep(0)).
-        This test documents the placeholder and will guide a real implementation.
-        """
+    async def test_sync_all_photos_does_not_raise_on_success(self):
+        """sync_all_photos() completes without raising when sync succeeds."""
         from app.routers.backup import sync_all_photos
-        import inspect
-
-        source = inspect.getsource(sync_all_photos)
-        assert "asyncio.sleep(0)" in source, (
-            "sync_all_photos() is expected to be a no-op placeholder. "
-            "If this assertion fails the implementation has been updated — "
-            "remove or update this test accordingly."
-        )
+        with patch("app.routers.backup.sync_backup_file", return_value=True):
+            await sync_all_photos()
 
     @pytest.mark.asyncio
-    async def test_sync_all_photos_does_not_raise(self):
-        """The stub must not raise even though it does nothing."""
+    async def test_sync_all_photos_does_not_raise_on_failure(self):
+        """sync_all_photos() does not raise even when the underlying sync fails."""
         from app.routers.backup import sync_all_photos
-        await sync_all_photos()  # Should complete without error
+        with patch("app.routers.backup.sync_backup_file", return_value=False):
+            await sync_all_photos()
+
+    @pytest.mark.asyncio
+    async def test_sync_all_photos_swallows_unexpected_exceptions(self):
+        """sync_all_photos() catches and logs unexpected errors rather than crashing."""
+        from app.routers.backup import sync_all_photos
+        with patch("app.routers.backup.sync_backup_file", side_effect=RuntimeError("disk full")):
+            await sync_all_photos()  # Must not re-raise

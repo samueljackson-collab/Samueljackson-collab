@@ -1,12 +1,12 @@
 """Tests for backend/app/services/backup_service.py.
 
 These tests:
-- Document the NotImplementedError in sync_file_via_rsync (drives implementation)
+- Verify sync_file_via_rsync calls rsync and returns True/False based on exit code
 - Verify sync_backup_file correctly propagates the result
 - Verify logging on success and failure
 """
 import logging
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 
@@ -14,14 +14,21 @@ from app.services.backup_service import sync_backup_file, sync_file_via_rsync
 
 
 class TestSyncFileViaRsync:
-    def test_raises_not_implemented(self):
-        """
-        sync_file_via_rsync() currently raises NotImplementedError.
-        This test documents the missing implementation.
-        When the function is implemented, replace this test with behavioural tests.
-        """
-        with pytest.raises(NotImplementedError):
-            sync_file_via_rsync("/source/photo.jpg", "/backup/photo.jpg")
+    def test_returns_true_on_successful_rsync(self):
+        """sync_file_via_rsync() returns True when rsync exits with code 0."""
+        with patch("subprocess.run") as mock_run:
+            mock_run.return_value = MagicMock(returncode=0)
+            result = sync_file_via_rsync("/source/photo.jpg", "/backup/photo.jpg")
+        assert result is True
+        cmd = mock_run.call_args[0][0]
+        assert "rsync" in cmd
+
+    def test_returns_false_on_rsync_failure(self):
+        """sync_file_via_rsync() returns False when rsync exits non-zero."""
+        with patch("subprocess.run") as mock_run:
+            mock_run.return_value = MagicMock(returncode=1)
+            result = sync_file_via_rsync("/source/photo.jpg", "/backup/photo.jpg")
+        assert result is False
 
     def test_signature_accepts_source_and_destination(self):
         """The function signature should accept exactly two string parameters."""

@@ -9,7 +9,7 @@ import userEvent from '@testing-library/user-event';
 import axios from 'axios';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import PhotoUpload from '../../../components/photos/PhotoUpload';
+import PhotoUpload from '../../components/photos/PhotoUpload';
 
 vi.mock('axios');
 const mockedAxios = vi.mocked(axios, true);
@@ -27,8 +27,6 @@ describe('PhotoUpload', () => {
 
   it('renders a file input that accepts images', () => {
     render(<PhotoUpload uploadUrl={uploadUrl} />);
-    const input = screen.getByRole('button', { hidden: true }) as HTMLInputElement
-      ?? (screen.queryByDisplayValue('') as HTMLInputElement);
     const fileInput = document.querySelector<HTMLInputElement>('input[type="file"]');
     expect(fileInput).not.toBeNull();
     expect(fileInput?.accept).toBe('image/*');

@@ -1,5 +1,6 @@
 """Backup service helpers."""
 import logging
+import subprocess
 
 logger = logging.getLogger(__name__)
 
@@ -7,10 +8,16 @@ logger = logging.getLogger(__name__)
 def sync_file_via_rsync(source: str, destination: str) -> bool:
     """Synchronize a file using rsync.
 
-    This function is expected to return ``True`` when the synchronization
-    succeeds and ``False`` when it fails.
+    Returns ``True`` when the synchronization succeeds and ``False`` when it
+    fails (non-zero rsync exit code).
     """
-    raise NotImplementedError
+    result = subprocess.run(
+        ["rsync", "-av", source, destination],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    return result.returncode == 0
 
 
 def sync_backup_file(source: str, destination: str) -> bool:

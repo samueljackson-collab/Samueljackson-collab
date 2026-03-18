@@ -12,15 +12,19 @@ import { fetchImageObjectUrl, fetchSignedImageUrl } from '../../api/services';
 
 // ---------------------------------------------------------------------------
 // MSW server setup
+//
+// Use RegExp patterns so that multi-segment image paths (e.g.
+// "photos/sunset.jpg") are matched correctly.  The signed-url handler must be
+// registered BEFORE the blob handler so the more-specific route wins.
 // ---------------------------------------------------------------------------
 
-const BASE = '/api';
-
 const server = setupServer(
-  http.get(`${BASE}/images/:path/signed-url`, () =>
+  // Signed URL endpoint  — matches /api/images/<any-path>/signed-url
+  http.get(/\/api\/images\/.+\/signed-url$/, () =>
     HttpResponse.json({ url: 'https://cdn.example.com/photo.jpg?sig=abc' }),
   ),
-  http.get(`${BASE}/images/:path`, () =>
+  // Blob (image data) endpoint — matches /api/images/<any-path>
+  http.get(/\/api\/images\/.+/, () =>
     new HttpResponse(new Blob(['fake-image-data'], { type: 'image/jpeg' }), {
       headers: { 'Content-Type': 'image/jpeg' },
     }),
@@ -42,22 +46,22 @@ describe('fetchSignedImageUrl', () => {
   });
 
   it('encodes special characters in the image path', async () => {
-    let capturedPath = '';
+    let capturedPathname = '';
     server.use(
-      http.get(`${BASE}/images/:path/signed-url`, ({ params }) => {
-        capturedPath = params.path as string;
+      http.get(/\/api\/images\/.+\/signed-url$/, ({ request }) => {
+        capturedPathname = new URL(request.url).pathname;
         return HttpResponse.json({ url: 'https://cdn.example.com/encoded.jpg' });
       }),
     );
 
     await fetchSignedImageUrl('my photos/file name.jpg');
     // Path segments should be URI-encoded
-    expect(capturedPath).toContain('my%20photos');
+    expect(capturedPathname).toContain('my%20photos');
   });
 
   it('throws when the server responds with 401', async () => {
     server.use(
-      http.get(`${BASE}/images/:path/signed-url`, () =>
+      http.get(/\/api\/images\/.+\/signed-url$/, () =>
         new HttpResponse(null, { status: 401 }),
       ),
     );
@@ -67,7 +71,7 @@ describe('fetchSignedImageUrl', () => {
 
   it('throws when the server responds with 500', async () => {
     server.use(
-      http.get(`${BASE}/images/:path/signed-url`, () =>
+      http.get(/\/api\/images\/.+\/signed-url$/, () =>
         new HttpResponse(null, { status: 500 }),
       ),
     );
@@ -103,7 +107,7 @@ describe('fetchImageObjectUrl', () => {
 
   it('throws when the server responds with 404', async () => {
     server.use(
-      http.get(`${BASE}/images/:path`, () =>
+      http.get(/\/api\/images\/.+/, () =>
         new HttpResponse(null, { status: 404 }),
       ),
     );
@@ -124,7 +128,7 @@ describe('auth token injection', () => {
 
     let capturedAuth = '';
     server.use(
-      http.get(`${BASE}/images/:path/signed-url`, ({ request }) => {
+      http.get(/\/api\/images\/.+\/signed-url$/, ({ request }) => {
         capturedAuth = request.headers.get('Authorization') ?? '';
         return HttpResponse.json({ url: 'https://cdn.example.com/photo.jpg' });
       }),
@@ -137,7 +141,7 @@ describe('auth token injection', () => {
   it('omits Authorization header when no token is stored', async () => {
     let capturedAuth: string | null = 'present';
     server.use(
-      http.get(`${BASE}/images/:path/signed-url`, ({ request }) => {
+      http.get(/\/api\/images\/.+\/signed-url$/, ({ request }) => {
         capturedAuth = request.headers.get('Authorization');
         return HttpResponse.json({ url: 'https://cdn.example.com/photo.jpg' });
       }),
