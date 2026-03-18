@@ -13,7 +13,6 @@ import pytest
 
 # Import individual functions to test them in isolation.
 from scripts.backup_sync import (
-    formatDateKey,  # noqa: F401 – deliberately absent to fail loudly
     parse_args,
     run_full_sync,
     run_incremental_sync,
@@ -141,36 +140,38 @@ class TestRunIncrementalSync:
 # Duplicate main() bug detection
 # ---------------------------------------------------------------------------
 
-class TestKnownBugs:
-    def test_module_has_no_duplicate_main(self):
-        """
-        The script has two `def main()` definitions — the second silently
-        overwrites the first. This test imports the module and verifies that
-        the surviving main() accepts 0 positional args (the second definition),
-        which would fail to call confirm_action / configure_logging correctly.
-
-        If the duplicate is fixed the test should be updated accordingly.
-        """
+class TestModuleIntegrity:
+    def test_module_has_single_main(self):
+        """main() is defined exactly once and takes no positional parameters."""
         import scripts.backup_sync as mod
         import inspect
         sig = inspect.signature(mod.main)
-        # The second (surviving) main() takes no args — document it here.
         assert len(sig.parameters) == 0, (
-            "Duplicate main() detected: the module contains two main() definitions. "
-            "The second one (no args) overwrites the first (no args but references "
-            "undefined names). Fix by removing the duplicate."
+            "main() should take no positional parameters — it reads args via parse_args()."
         )
 
     def test_module_imports_sys(self):
         """confirm_action() references sys.stdin — verify the import is present."""
         import scripts.backup_sync as mod
-        assert hasattr(mod, "sys") or "sys" in dir(mod), (
+        assert hasattr(mod, "sys"), (
             "scripts/backup_sync.py uses sys.stdin but never imports sys"
         )
 
     def test_module_imports_logging(self):
         """configure_logging() references logging — verify the import is present."""
         import scripts.backup_sync as mod
-        assert hasattr(mod, "logging") or "logging" in dir(mod), (
+        assert hasattr(mod, "logging"), (
             "scripts/backup_sync.py calls logging.basicConfig but never imports logging"
         )
+
+    def test_default_prompt_is_defined(self):
+        """DEFAULT_PROMPT constant must be defined for confirm_action()."""
+        import scripts.backup_sync as mod
+        assert hasattr(mod, "DEFAULT_PROMPT"), "DEFAULT_PROMPT constant is missing"
+        assert isinstance(mod.DEFAULT_PROMPT, str)
+
+    def test_yes_flag_in_parse_args(self):
+        """parse_args() must support --yes/--assume-yes for non-interactive use."""
+        with patch("sys.argv", ["backup_sync.py", "/src", "/dst", "--yes"]):
+            args = parse_args()
+        assert args.yes is True

@@ -8,7 +8,7 @@ import { render, screen } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { describe, expect, it } from 'vitest';
 
-import SidebarNav, { type SidebarNavItem } from '../../../components/elderly/SidebarNav';
+import SidebarNav, { type SidebarNavItem } from '../../components/elderly/SidebarNav';
 
 expect.extend(toHaveNoViolations);
 

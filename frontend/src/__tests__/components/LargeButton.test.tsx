@@ -9,7 +9,7 @@ import userEvent from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { describe, expect, it, vi } from 'vitest';
 
-import LargeButton from '../../../components/elderly/LargeButton';
+import LargeButton from '../../components/elderly/LargeButton';
 
 expect.extend(toHaveNoViolations);
 
