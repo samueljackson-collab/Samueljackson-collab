@@ -48,11 +48,11 @@ async def upload_photo(file: UploadFile = File(...)) -> dict[str, str]:
 
 
 @router.get("", status_code=status.HTTP_200_OK)
-async def list_photos() -> dict:
+async def list_photos(offset: int = 0, limit: int = 50) -> dict:
     """Return metadata for all stored photos."""
+    photo_files = sorted([f for f in UPLOAD_DIR.iterdir() if f.is_file()], key=lambda p: p.stat().st_mtime, reverse=True)
     photos = [
         {"filename": f.name, "url": f"/images/{f.name}"}
-        for f in sorted(UPLOAD_DIR.iterdir(), key=lambda p: p.stat().st_mtime, reverse=True)
-        if f.is_file()
+        for f in photo_files[offset:offset+limit]
     ]
     return {"photos": photos}
