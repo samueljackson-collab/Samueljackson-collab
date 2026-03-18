@@ -52,4 +52,4 @@ async def get_signed_image_url(image_path: str) -> dict[str, str]:
 async def get_image(image_path: str) -> FileResponse:
     """Serve an image file directly (used with Authorization header via fetch)."""
     resolved = _resolve_safe_path(image_path)
-    return FileResponse(path=str(resolved), media_type="image/*")
+    return FileResponse(path=str(resolved))
