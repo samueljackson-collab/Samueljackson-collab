@@ -41,7 +41,7 @@ async def upload_photo(file: UploadFile = File(...)) -> dict[str, str]:
 
     filename = f"{uuid.uuid4().hex}.{image_type}"
     file_path = UPLOAD_DIR / filename
-    file_path.write_bytes(contents)
+    await run_in_threadpool(file_path.write_bytes, contents)
 
     logger.info("Stored uploaded photo: %s", filename)
     return {"url": f"/images/{filename}"}
