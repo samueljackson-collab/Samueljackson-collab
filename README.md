@@ -72,7 +72,7 @@ Samueljackson-collab] -->|Roadmap + Blueprints| B[Portfolio-Project]
   - Maintains explicit connection between profile roadmap content and evidence hosted in `Portfolio-Project`.
   - Preserves deep-dive architecture content while adding a clearer "where each project lives" index.
 - **Independent application repositories (newly reflected):**
-  - Several standalone React/TypeScript apps built with Google Gemini AI now live as their own repositories: `Ai-Job-Agent`, `AstraDup-Cross-Storage-Video-Files-duplication-tracker`, `BugJaeger`, `Download-Command-Center`, `Secure-Deployer`, and `Tab-Sorter`.
+  - Several standalone React/TypeScript apps (including those built with Google Gemini AI) now live as their own repositories: `Ai-Job-Agent`, `AstraDup-Cross-Storage-Video-Files-duplication-tracker`, `BugJaeger`, `Download-Command-Center`, `Secure-Deployer`, and `Tab-Sorter`.
   - `Portfolio-Projects-Wiki-` provides a documentation hub aggregating architecture and progress detail across these repositories.
 
 ## 🔐 Local Environment Setup
