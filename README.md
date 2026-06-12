@@ -43,7 +43,7 @@ To keep this profile aligned with the latest build activity, this section maps a
 | `BugJaeger` | 🟢 Active | Cross-platform static security vulnerability scanner for Android, iOS, Windows, macOS, and Web source code (Python + React). | <https://github.com/samueljackson-collab/BugJaeger> |
 | `Download-Command-Center` | 🟢 Active | Centralized dashboard for managing video downloads with AI (Gemini) content analysis, duplicate detection, and download queue management. | <https://github.com/samueljackson-collab/Download-Command-Center> |
 | `Secure-Deployer` | 🟠 In Progress | React + TypeScript operations dashboard for endpoint imaging handoff, compliance validation, and remote remediation workflows. | <https://github.com/samueljackson-collab/Secure-Deployer> |
-| `Tab-Sorter` | 🟢 Active | Intelligent browser tab organizer powered by Google Gemini AI. | <https://github.com/samueljackson-collab/tab-sorter> |
+| `Tab-Sorter` | 🟢 Active | Intelligent browser tab organizer powered by Google Gemini AI. | <https://github.com/samueljackson-collab/Tab-Sorter> |
 | `Reportify` | 🔵 Planned | AI Studio scaffold app; early-stage exploration project. | <https://github.com/samueljackson-collab/Reportify> |
 
 ### Cross-Repository Delivery Flow
