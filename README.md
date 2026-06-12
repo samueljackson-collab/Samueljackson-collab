@@ -35,8 +35,16 @@ To keep this profile aligned with the latest build activity, this section maps a
 | Repository / Project | Status | Purpose | Evidence / Source |
 |---|---|---|---|
 | `Samueljackson-collab` (this repository) | 🟠 Active | Profile README, roadmap/status views, architecture diagrams, and active product implementation scaffolding. | [README.md](./README.md), [ELDERPHOTO_README.md](./ELDERPHOTO_README.md), [IMPLEMENTATION_SUMMARY.md](./IMPLEMENTATION_SUMMARY.md) |
-| `Portfolio-Project` | 🟢 Active | Centralized technical evidence bundles for all numbered portfolio projects (IaC, runbooks, tests, CI, screenshots). | <https://github.com/samueljackson-collab/Portfolio-Project> |
+| `Portfolio-Project` | 🟢 Active | Centralized technical evidence bundles for all numbered portfolio projects (IaC, runbooks, tests, CI, screenshots). All 43 projects have a dedicated directory with code, tests, and demo evidence. | <https://github.com/samueljackson-collab/Portfolio-Project> |
+| `Portfolio-Projects-Wiki-` | 🟠 Active | Wiki.js-inspired portfolio documentation studio aggregating architecture context, implementation details, and progress indicators for all projects. | <https://github.com/samueljackson-collab/Portfolio-Projects-Wiki-> |
 | `ElderPhoto` (project workspace in this repo) | 🟠 In Progress | Accessibility-first family photo platform with React frontend + Python backend services + backup synchronization tooling. | [`frontend/src/pages/Photos/PhotosPage.tsx`](./frontend/src/pages/Photos/PhotosPage.tsx), [`backend/app/routers/backup.py`](./backend/app/routers/backup.py), [`backend/scripts/backup_sync.py`](./backend/scripts/backup_sync.py) |
+| `Ai-Job-Agent` | 🟢 Active | React 19 + TypeScript SPA that automates job applications — tailored cover letters, resume keyword optimization, and interview prep using Google Gemini AI. Fully client-side, no backend. | <https://github.com/samueljackson-collab/Ai-Job-Agent> |
+| `AstraDup-Cross-Storage-Video-Files-duplication-tracker` | 🟢 Active | AI-powered cross-storage de-duplication system for videos/images/documents using perceptual hashing, audio fingerprinting, and Gemini-based scene/text analysis. | <https://github.com/samueljackson-collab/AstraDup-Cross-Storage-Video-Files-duplication-tracker> |
+| `BugJaeger` | 🟢 Active | Cross-platform static security vulnerability scanner for Android, iOS, Windows, macOS, and Web source code (Python + React). | <https://github.com/samueljackson-collab/BugJaeger> |
+| `Download-Command-Center` | 🟢 Active | Centralized dashboard for managing video downloads with AI (Gemini) content analysis, duplicate detection, and download queue management. | <https://github.com/samueljackson-collab/Download-Command-Center> |
+| `Secure-Deployer` | 🟠 In Progress | React + TypeScript operations dashboard for endpoint imaging handoff, compliance validation, and remote remediation workflows. | <https://github.com/samueljackson-collab/Secure-Deployer> |
+| `Tab-Sorter` | 🟢 Active | Intelligent browser tab organizer powered by Google Gemini AI. | <https://github.com/samueljackson-collab/Tab-Sorter> |
+| `Reportify` | 🔵 Planned | AI Studio scaffold app; early-stage exploration project. | <https://github.com/samueljackson-collab/Reportify> |
 
 ### Cross-Repository Delivery Flow
 
@@ -63,6 +71,9 @@ Samueljackson-collab] -->|Roadmap + Blueprints| B[Portfolio-Project]
 - **Portfolio alignment track:**
   - Maintains explicit connection between profile roadmap content and evidence hosted in `Portfolio-Project`.
   - Preserves deep-dive architecture content while adding a clearer "where each project lives" index.
+- **Independent application repositories (newly reflected):**
+  - Several standalone React/TypeScript apps (including those built with Google Gemini AI) now live as their own repositories: `Ai-Job-Agent`, `AstraDup-Cross-Storage-Video-Files-duplication-tracker`, `BugJaeger`, `Download-Command-Center`, `Secure-Deployer`, and `Tab-Sorter`.
+  - `Portfolio-Projects-Wiki-` provides a documentation hub aggregating architecture and progress detail across these repositories.
 
 ## 🔐 Local Environment Setup
 
