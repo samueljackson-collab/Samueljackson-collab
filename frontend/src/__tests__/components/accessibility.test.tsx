@@ -23,20 +23,30 @@ vi.mock('axios');
 vi.mocked(axios).post = vi.fn().mockResolvedValue({ data: { url: '' } });
 
 import PhotoUpload from '../../components/photos/PhotoUpload';
-import SidebarNav from '../../components/elderly/SidebarNav';
+import SidebarNav, { type SidebarNavItem } from '../../components/elderly/SidebarNav';
+import type { default as PhotoCalendarType } from '../../components/photos/PhotoCalendar';
 
 // PhotoCalendar imports react-calendar which needs a DOM environment.
 // We stub it if it causes issues in jsdom.
-let PhotoCalendar: React.ComponentType<Record<string, unknown>>;
+let PhotoCalendar: typeof PhotoCalendarType;
 try {
   // Dynamic require to catch any module load errors in test environment
   PhotoCalendar = (await import('../../components/photos/PhotoCalendar')).default;
 } catch {
   // Fallback stub if PhotoCalendar cannot be loaded
-  PhotoCalendar = () => <div role="application" aria-label="Photo calendar">Calendar</div>;
+  PhotoCalendar = (() => (
+    <div role="application" aria-label="Photo calendar">Calendar</div>
+  )) as unknown as typeof PhotoCalendarType;
 }
 
-import React from 'react';
+const sidebarItems: SidebarNavItem[] = [
+  { label: 'Photos', href: '/photos' },
+  { label: 'Calendar', href: '/calendar' },
+];
+
+const monthData = [
+  { date: '2026-06-01', photos: [] },
+];
 
 describe('Accessibility — PhotoUpload', () => {
   it('has no axe violations on default render', async () => {
@@ -62,7 +72,7 @@ describe('Accessibility — PhotoUpload', () => {
 describe('Accessibility — SidebarNav', () => {
   it('has no axe violations on default render', async () => {
     const { container } = render(
-      <SidebarNav />
+      <SidebarNav items={sidebarItems} />
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
@@ -71,7 +81,7 @@ describe('Accessibility — SidebarNav', () => {
   it('has no axe violations with active state', async () => {
     const { container } = render(
       <nav>
-        <SidebarNav />
+        <SidebarNav items={sidebarItems} />
       </nav>
     );
     const results = await axe(container);
@@ -82,7 +92,7 @@ describe('Accessibility — SidebarNav', () => {
 describe('Accessibility — PhotoCalendar', () => {
   it('has no axe violations on default render', async () => {
     const { container } = render(
-      <PhotoCalendar />
+      <PhotoCalendar monthData={monthData} />
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();

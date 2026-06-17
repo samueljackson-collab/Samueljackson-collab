@@ -36,7 +36,14 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ uploadUrl, onUploadSuccess, o
 
   return (
     <div>
-      <input type="file" accept="image/*" onChange={handleUpload} disabled={isUploading} />
+      <label htmlFor="photo-upload-input">Upload a photo</label>
+      <input
+        id="photo-upload-input"
+        type="file"
+        accept="image/*"
+        onChange={handleUpload}
+        disabled={isUploading}
+      />
       {isUploading && <p>Uploading...</p>}
     </div>
   );

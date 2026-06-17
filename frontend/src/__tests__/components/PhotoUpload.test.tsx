@@ -7,7 +7,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import axios from 'axios';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import PhotoUpload from '../../components/photos/PhotoUpload';
 
@@ -45,7 +45,7 @@ describe('PhotoUpload', () => {
     let resolveUpload!: (value: unknown) => void;
     mockedAxios.post = vi.fn(
       () => new Promise((res) => { resolveUpload = res; }),
-    ) as typeof axios.post;
+    ) as unknown as typeof mockedAxios.post;
 
     render(<PhotoUpload uploadUrl={uploadUrl} />);
     const fileInput = document.querySelector<HTMLInputElement>('input[type="file"]')!;
@@ -63,7 +63,7 @@ describe('PhotoUpload', () => {
     const onSuccess = vi.fn();
     mockedAxios.post = vi.fn().mockResolvedValue({
       data: { url: 'https://cdn.example.com/photo.jpg' },
-    }) as typeof axios.post;
+    }) as unknown as typeof mockedAxios.post;
 
     render(<PhotoUpload uploadUrl={uploadUrl} onUploadSuccess={onSuccess} />);
     const fileInput = document.querySelector<HTMLInputElement>('input[type="file"]')!;
@@ -77,8 +77,8 @@ describe('PhotoUpload', () => {
     const onError = vi.fn();
     const err = new Error('Network Error');
     // Make axios.isAxiosError return false so the generic path is taken
-    mockedAxios.post = vi.fn().mockRejectedValue(err) as typeof axios.post;
-    mockedAxios.isAxiosError = vi.fn().mockReturnValue(false) as typeof axios.isAxiosError;
+    mockedAxios.post = vi.fn().mockRejectedValue(err) as unknown as typeof mockedAxios.post;
+    mockedAxios.isAxiosError = vi.fn().mockReturnValue(false) as unknown as typeof mockedAxios.isAxiosError;
 
     render(<PhotoUpload uploadUrl={uploadUrl} onUploadError={onError} />);
     const fileInput = document.querySelector<HTMLInputElement>('input[type="file"]')!;
@@ -91,8 +91,8 @@ describe('PhotoUpload', () => {
   it('calls onUploadError with the API detail message on axios error', async () => {
     const onError = vi.fn();
     const axiosErr = { response: { data: { detail: 'File too large' } }, message: 'Request failed' };
-    mockedAxios.post = vi.fn().mockRejectedValue(axiosErr) as typeof axios.post;
-    mockedAxios.isAxiosError = vi.fn().mockReturnValue(true) as typeof axios.isAxiosError;
+    mockedAxios.post = vi.fn().mockRejectedValue(axiosErr) as unknown as typeof mockedAxios.post;
+    mockedAxios.isAxiosError = vi.fn().mockReturnValue(true) as unknown as typeof mockedAxios.isAxiosError;
 
     render(<PhotoUpload uploadUrl={uploadUrl} onUploadError={onError} />);
     const fileInput = document.querySelector<HTMLInputElement>('input[type="file"]')!;
@@ -107,7 +107,7 @@ describe('PhotoUpload', () => {
   // -------------------------------------------------------------------------
 
   it('hides the uploading indicator after a successful upload', async () => {
-    mockedAxios.post = vi.fn().mockResolvedValue({ data: { url: '' } }) as typeof axios.post;
+    mockedAxios.post = vi.fn().mockResolvedValue({ data: { url: '' } }) as unknown as typeof mockedAxios.post;
 
     render(<PhotoUpload uploadUrl={uploadUrl} />);
     const fileInput = document.querySelector<HTMLInputElement>('input[type="file"]')!;
@@ -118,8 +118,8 @@ describe('PhotoUpload', () => {
   });
 
   it('hides the uploading indicator after a failed upload', async () => {
-    mockedAxios.post = vi.fn().mockRejectedValue(new Error('fail')) as typeof axios.post;
-    mockedAxios.isAxiosError = vi.fn().mockReturnValue(false) as typeof axios.isAxiosError;
+    mockedAxios.post = vi.fn().mockRejectedValue(new Error('fail')) as unknown as typeof mockedAxios.post;
+    mockedAxios.isAxiosError = vi.fn().mockReturnValue(false) as unknown as typeof mockedAxios.isAxiosError;
 
     render(<PhotoUpload uploadUrl={uploadUrl} />);
     const fileInput = document.querySelector<HTMLInputElement>('input[type="file"]')!;
@@ -130,7 +130,7 @@ describe('PhotoUpload', () => {
   });
 
   it('re-enables the file input after upload completes', async () => {
-    mockedAxios.post = vi.fn().mockResolvedValue({ data: { url: '' } }) as typeof axios.post;
+    mockedAxios.post = vi.fn().mockResolvedValue({ data: { url: '' } }) as unknown as typeof mockedAxios.post;
 
     render(<PhotoUpload uploadUrl={uploadUrl} />);
     const fileInput = document.querySelector<HTMLInputElement>('input[type="file"]')!;
