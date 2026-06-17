@@ -68,6 +68,20 @@ the criterion has been verified.
 
 ---
 
+## Access Control (go/no-go)
+
+- [ ] Confirm the deployment target is **single-household** (one backend
+      instance serves exactly one family). If so, the lack of per-user/
+      household authorization is acceptable — see `backend/SECURITY_NOTES.md`.
+- [ ] If the deployment target is **multi-household / shared** (multiple
+      families on one backend instance), **do not deploy** until
+      authentication and household/user-scoped filtering have been added to
+      `backend/app/routers/photos.py` and `backend/app/routers/images.py`.
+      The CORS allow-list and CSRF origin check are not a substitute for
+      authentication — they restrict origins, not users.
+
+---
+
 ## CORS & API
 
 - [ ] From the production frontend origin, confirm that API calls to the backend succeed without

@@ -6,6 +6,15 @@ from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 from app.routers.backup import router as backup_router
+from app.services import backup_jobs
+
+
+@pytest.fixture(autouse=True)
+def _reset_backup_jobs():
+    """Ensure in-memory backup job state doesn't leak between tests."""
+    backup_jobs._reset_for_tests()
+    yield
+    backup_jobs._reset_for_tests()
 
 
 @pytest.fixture()

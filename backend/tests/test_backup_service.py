@@ -24,8 +24,10 @@ class TestSyncFileViaRsync:
         assert "rsync" in cmd
 
     def test_returns_false_on_rsync_failure(self):
-        """sync_file_via_rsync() returns False when rsync exits non-zero."""
-        with patch("subprocess.run") as mock_run:
+        """sync_file_via_rsync() returns False when rsync exits non-zero, after retrying."""
+        with patch("subprocess.run") as mock_run, patch(
+            "app.services.backup_service.time.sleep"
+        ):
             mock_run.return_value = MagicMock(returncode=1)
             result = sync_file_via_rsync("/source/photo.jpg", "/backup/photo.jpg")
         assert result is False
@@ -36,6 +38,47 @@ class TestSyncFileViaRsync:
         sig = inspect.signature(sync_file_via_rsync)
         params = list(sig.parameters.keys())
         assert params == ["source", "destination"]
+
+    def test_retries_up_to_max_attempts_on_persistent_failure(self):
+        """sync_file_via_rsync() retries failed rsync calls up to MAX_SYNC_ATTEMPTS times."""
+        from app.services.backup_service import MAX_SYNC_ATTEMPTS
+
+        with patch("subprocess.run") as mock_run, patch(
+            "app.services.backup_service.time.sleep"
+        ) as mock_sleep:
+            mock_run.return_value = MagicMock(returncode=1)
+            result = sync_file_via_rsync("/source/photo.jpg", "/backup/photo.jpg")
+
+        assert result is False
+        assert mock_run.call_count == MAX_SYNC_ATTEMPTS
+        assert mock_sleep.call_count == MAX_SYNC_ATTEMPTS - 1
+
+    def test_recovers_after_transient_failure(self):
+        """sync_file_via_rsync() returns True if a later retry succeeds."""
+        with patch("subprocess.run") as mock_run, patch(
+            "app.services.backup_service.time.sleep"
+        ) as mock_sleep:
+            mock_run.side_effect = [
+                MagicMock(returncode=1),
+                MagicMock(returncode=0),
+            ]
+            result = sync_file_via_rsync("/source/photo.jpg", "/backup/photo.jpg")
+
+        assert result is True
+        assert mock_run.call_count == 2
+        assert mock_sleep.call_count == 1
+
+    def test_backoff_delay_increases_exponentially(self):
+        """Each retry sleep delay should be longer than the previous (exponential backoff)."""
+        with patch("subprocess.run") as mock_run, patch(
+            "app.services.backup_service.time.sleep"
+        ) as mock_sleep:
+            mock_run.return_value = MagicMock(returncode=1)
+            sync_file_via_rsync("/source/photo.jpg", "/backup/photo.jpg")
+
+        delays = [call.args[0] for call in mock_sleep.call_args_list]
+        assert delays == sorted(delays)
+        assert len(set(delays)) == len(delays), "Expected strictly increasing delays"
 
 
 class TestSyncBackupFile:
