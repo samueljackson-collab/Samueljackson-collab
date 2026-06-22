@@ -7,6 +7,7 @@ import uuid
 from pathlib import Path
 
 from fastapi import APIRouter, File, HTTPException, UploadFile, status
+from fastapi.concurrency import run_in_threadpool
 
 router = APIRouter(prefix="/photos", tags=["photos"])
 logger = logging.getLogger(__name__)

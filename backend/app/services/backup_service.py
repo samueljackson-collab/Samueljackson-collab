@@ -1,23 +1,43 @@
 """Backup service helpers."""
 import logging
 import subprocess
+import time
 
 logger = logging.getLogger(__name__)
+
+# Retry settings for transient rsync failures.
+MAX_SYNC_ATTEMPTS = 3
+RETRY_BASE_DELAY_SECONDS = 1.0
 
 
 def sync_file_via_rsync(source: str, destination: str) -> bool:
     """Synchronize a file using rsync.
 
     Returns ``True`` when the synchronization succeeds and ``False`` when it
-    fails (non-zero rsync exit code).
+    fails (non-zero rsync exit code) after retrying with exponential backoff.
     """
-    result = subprocess.run(
-        ["rsync", "-av", source, destination],
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    return result.returncode == 0
+    for attempt in range(1, MAX_SYNC_ATTEMPTS + 1):
+        result = subprocess.run(
+            ["rsync", "-av", source, destination],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode == 0:
+            return True
+
+        logger.warning(
+            "rsync attempt %d/%d failed (exit code %s) for %s -> %s",
+            attempt,
+            MAX_SYNC_ATTEMPTS,
+            result.returncode,
+            source,
+            destination,
+        )
+        if attempt < MAX_SYNC_ATTEMPTS:
+            time.sleep(RETRY_BASE_DELAY_SECONDS * (2 ** (attempt - 1)))
+
+    return False
 
 
 def sync_backup_file(source: str, destination: str) -> bool:

@@ -5,11 +5,46 @@ import argparse
 import logging
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
 DEFAULT_PROMPT = "Run backup sync? [y/N] "
+
+# Retry settings for transient rsync failures.
+MAX_SYNC_ATTEMPTS = 3
+RETRY_BASE_DELAY_SECONDS = 1.0
+
+
+def run_sync_with_retry(
+    sync_cmd: list[str],
+    max_attempts: int = MAX_SYNC_ATTEMPTS,
+    base_delay: float = RETRY_BASE_DELAY_SECONDS,
+) -> None:
+    """Run an rsync subprocess command, retrying on failure with exponential backoff.
+
+    Raises ``RuntimeError`` if all attempts fail.
+    """
+    last_result = None
+    for attempt in range(1, max_attempts + 1):
+        last_result = subprocess.run(sync_cmd, check=False)
+        if last_result.returncode == 0:
+            return
+        logger.warning(
+            "rsync attempt %d/%d failed with exit code %s.",
+            attempt,
+            max_attempts,
+            last_result.returncode,
+        )
+        if attempt < max_attempts:
+            delay = base_delay * (2 ** (attempt - 1))
+            time.sleep(delay)
+
+    raise RuntimeError(
+        f"rsync failed after {max_attempts} attempts "
+        f"(last exit code: {last_result.returncode})."
+    )
 
 
 def verify_sync(source: Path, destination: Path) -> None:
@@ -39,7 +74,7 @@ def verify_sync(source: Path, destination: Path) -> None:
 def run_full_sync(source: Path, destination: Path, verify: bool = False) -> None:
     """Perform a full backup sync and optionally verify the result."""
     sync_cmd = ["rsync", "-a", "--delete", f"{source}/", f"{destination}/"]
-    subprocess.run(sync_cmd, check=True)
+    run_sync_with_retry(sync_cmd)
 
     if verify:
         verify_sync(source, destination)
@@ -60,7 +95,7 @@ def run_incremental_sync(
         f"{source}/",
         f"{destination}/",
     ]
-    subprocess.run(sync_cmd, check=True)
+    run_sync_with_retry(sync_cmd)
 
     if verify:
         verify_sync(source, destination)

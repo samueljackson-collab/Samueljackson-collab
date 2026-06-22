@@ -1,0 +1,111 @@
+{
+  "apps": [
+    {
+      "id": "ai-job-agent",
+      "name": "Ai-Job-Agent",
+      "description": "AI-powered job application automation — generates cover letters, optimizes resumes with keywords, and creates interview prep using Google Gemini.",
+      "port": 4001,
+      "type": "spa-static",
+      "distDir": "../Ai-Job-Agent/dist",
+      "geminiRequired": true,
+      "color": "#6366f1",
+      "icon": "🤖"
+    },
+    {
+      "id": "secure-deployer",
+      "name": "Secure-Deployer",
+      "description": "Secure deployment management dashboard for reviewing, approving, and auditing infrastructure deployments with role-based access control.",
+      "port": 4002,
+      "type": "spa-static",
+      "distDir": "../Secure-Deployer/dist",
+      "geminiRequired": false,
+      "color": "#10b981",
+      "icon": "🔐"
+    },
+    {
+      "id": "bugjaeger",
+      "name": "BugJaeger",
+      "description": "Full-stack bug tracking and triage platform with FastAPI backend, SQLite persistence, and a React frontend served via nginx in Docker.",
+      "port": 80,
+      "type": "docker",
+      "composeFile": "../BugJaeger/docker-compose.yml",
+      "geminiRequired": false,
+      "color": "#ef4444",
+      "icon": "🐞"
+    },
+    {
+      "id": "download-command-center",
+      "name": "Download-Command-Center",
+      "description": "Intelligent download queue manager with AI-assisted metadata extraction, SQLite storage, and a full-stack Express + React architecture.",
+      "port": 4004,
+      "type": "node-server",
+      "serverDir": "../Download-Command-Center",
+      "startCmd": "node",
+      "startArgs": ["server.js"],
+      "geminiRequired": true,
+      "color": "#f59e0b",
+      "icon": "⬇️"
+    },
+    {
+      "id": "tab-sorter",
+      "name": "Tab-Sorter",
+      "description": "Browser tab organisation utility that groups, labels, and exports open tabs using customisable sorting rules.",
+      "port": 4005,
+      "type": "spa-static",
+      "distDir": "../Tab-Sorter/dist",
+      "geminiRequired": false,
+      "color": "#3b82f6",
+      "icon": "📑"
+    },
+    {
+      "id": "reportify",
+      "name": "Reportify",
+      "description": "AI-powered report generation tool that converts raw data and templates into polished, formatted documents using Google Gemini.",
+      "port": 4006,
+      "type": "spa-static",
+      "distDir": "../Reportify/dist",
+      "geminiRequired": true,
+      "color": "#8b5cf6",
+      "icon": "📊"
+    },
+    {
+      "id": "astradup",
+      "name": "AstraDup",
+      "description": "Cross-storage video file deduplication tracker that scans multiple drives, fingerprints video files, and surfaces duplicate content.",
+      "port": 4007,
+      "type": "spa-static",
+      "distDir": "../AstraDup-Cross-Storage-Video-Files-duplication-tracker/dist",
+      "geminiRequired": false,
+      "color": "#ec4899",
+      "icon": "🎬"
+    },
+    {
+      "id": "playbook-generator",
+      "name": "Playbook-Generator",
+      "description": "Ansible homelab playbook generator powered by Google Gemini — describe your infrastructure and get production-ready YAML playbooks instantly.",
+      "port": 4008,
+      "type": "node-server",
+      "serverDir": "../Playbook-Generator",
+      "startCmd": "node",
+      "startArgs": ["server.js"],
+      "geminiRequired": true,
+      "color": "#14b8a6",
+      "icon": "📋"
+    },
+    {
+      "id": "elderphoto",
+      "name": "ElderPhoto",
+      "description": "Accessibility-first family photo platform with large-button UI for elderly users, FastAPI backend, and React frontend for uploading and browsing photos.",
+      "port": 4009,
+      "type": "fullstack",
+      "frontendDir": "../Samueljackson-collab/frontend",
+      "backendDir": "../Samueljackson-collab/backend",
+      "backendPort": 8000,
+      "backendCmd": "python3",
+      "backendArgs": ["-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"],
+      "geminiRequired": false,
+      "color": "#f97316",
+      "icon": "📸"
+    }
+  ]
+}

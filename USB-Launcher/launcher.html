@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio Launcher</title>
+  <style>
+    /* ------------------------------------------------------------------ */
+    /* Reset & base                                                          */
+    /* ------------------------------------------------------------------ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0f0f0f;
+      --surface:   #1a1a2e;
+      --surface2:  #16213e;
+      --border:    #2a2a4a;
+      --text:      #e2e8f0;
+      --text-muted:#94a3b8;
+      --accent:    #6366f1;
+      --radius:    10px;
+      --shadow:    0 4px 24px rgba(0,0,0,.45);
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* Scrollbar                                                             */
+    /* ------------------------------------------------------------------ */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* ------------------------------------------------------------------ */
+    /* Header                                                               */
+    /* ------------------------------------------------------------------ */
+    header {
+      background: linear-gradient(135deg, #0d0d1a 0%, #1a1a3e 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-shrink: 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,.4);
+    }
+
+    .header-title { display: flex; flex-direction: column; gap: 2px; }
+
+    header h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: .01em;
+      background: linear-gradient(90deg, #a5b4fc, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    header p {
+      font-size: .8rem;
+      color: var(--text-muted);
+    }
+
+    /* Gemini key row */
+    .key-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .key-row label {
+      font-size: .78rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .key-row input {
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: .82rem;
+      padding: 6px 10px;
+      width: 260px;
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    .key-row input:focus { border-color: var(--accent); }
+
+    .key-row input.saved { border-color: #10b981; }
+
+    button.save-key {
+      background: var(--accent);
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      cursor: pointer;
+      font-size: .82rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      transition: opacity .2s, transform .1s;
+      white-space: nowrap;
+    }
+
+    button.save-key:hover { opacity: .88; }
+    button.save-key:active { transform: scale(.97); }
+
+    button.save-key.saved-flash {
+      background: #10b981;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* Main content area                                                     */
+    /* ------------------------------------------------------------------ */
+    main {
+      flex: 1;
+      padding: 24px 28px 0;
+      overflow-y: auto;
+    }
+
+    /* Stats bar */
+    .stats-bar {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .stat-chip {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: .78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stat-chip .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* App grid                                                             */
+    /* ------------------------------------------------------------------ */
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 1100px) {
+      .app-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 680px) {
+      .app-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* App card                                                             */
+    /* ------------------------------------------------------------------ */
+    .app-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow);
+      transition: transform .2s, box-shadow .2s;
+      position: relative;
+    }
+
+    .app-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,.55);
+    }
+
+    .card-top-border {
+      height: 3px;
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    .card-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .card-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .app-icon {
+      font-size: 1.4rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .app-name {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .app-desc {
+      font-size: .78rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+      flex: 1;
+    }
+
+    /* Status + port row */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: none;
+    }
+
+    .status-dot.pulse {
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .5; transform: scale(.85); }
+    }
+
+    /* Status colours */
+    .status-running  .status-dot { background: #22c55e; }
+    .status-running              { color: #22c55e; }
+
+    .status-starting .status-dot { background: #f59e0b; }
+    .status-starting             { color: #f59e0b; }
+
+    .status-offline  .status-dot { background: #ef4444; }
+    .status-offline              { color: #ef4444; }
+
+    .status-docker-required .status-dot { background: #3b82f6; }
+    .status-docker-required             { color: #3b82f6; }
+
+    .port-badge {
+      background: rgba(255,255,255,.07);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: .72rem;
+      font-family: 'Cascadia Code', 'Consolas', monospace;
+      color: var(--text-muted);
+      padding: 2px 7px;
+    }
+
+    /* Gemini indicator */
+    .gemini-badge {
+      font-size: .68rem;
+      background: rgba(99,102,241,.18);
+      border: 1px solid rgba(99,102,241,.4);
+      color: #a5b4fc;
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+
+    /* Launch button */
+    button.launch-btn {
+      border: none;
+      border-radius: 7px;
+      color: #fff;
+      cursor: pointer;
+      font-size: .82rem;
+      font-weight: 600;
+      padding: 8px 0;
+      transition: opacity .2s, transform .1s, filter .2s;
+      width: 100%;
+      margin-top: auto;
+    }
+
+    button.launch-btn:hover {
+      filter: brightness(1.12);
+    }
+
+    button.launch-btn:active {
+      transform: scale(.98);
+    }
+
+    button.launch-btn:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+      filter: none;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* Logs panel                                                           */
+    /* ------------------------------------------------------------------ */
+    .logs-section {
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+      background: #0a0a14;
+    }
+
+    .logs-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 28px;
+      cursor: pointer;
+      user-select: none;
+      background: #111122;
+      border: none;
+      width: 100%;
+      color: var(--text-muted);
+      font-size: .8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      transition: background .15s;
+    }
+
+    .logs-toggle:hover { background: #161630; }
+
+    .logs-toggle-icon { font-size: .8rem; transition: transform .2s; }
+    .logs-toggle-icon.open { transform: rotate(180deg); }
+
+    .logs-body {
+      display: none;
+      flex-direction: column;
+      padding: 0 28px 12px;
+    }
+
+    .logs-body.open { display: flex; }
+
+    .logs-filter-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0 6px;
+    }
+
+    .logs-filter-row label { font-size: .78rem; color: var(--text-muted); }
+
+    #log-app-filter {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: .78rem;
+      padding: 4px 8px;
+      outline: none;
+    }
+
+    button.clear-logs {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: .75rem;
+      padding: 3px 10px;
+      transition: border-color .2s, color .2s;
+      margin-left: auto;
+    }
+
+    button.clear-logs:hover { border-color: #ef4444; color: #ef4444; }
+
+    #log-output {
+      background: #070710;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: #a0ffa0;
+      font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+      font-size: .73rem;
+      height: 200px;
+      overflow-y: auto;
+      padding: 10px 12px;
+      resize: vertical;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* Toast                                                                */
+    /* ------------------------------------------------------------------ */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1e293b;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: .82rem;
+      padding: 10px 18px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.5);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .25s, transform .25s;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ======================================================================= -->
+<!-- Header                                                                   -->
+<!-- ======================================================================= -->
+<header>
+  <div class="header-title">
+    <h1>Samuel Jackson — Portfolio Launcher</h1>
+    <p>All 9 portfolio apps, one window. Select an app and click Launch to open it in your browser.</p>
+  </div>
+
+  <div class="key-row">
+    <label for="gemini-key-input">Gemini API Key</label>
+    <input
+      id="gemini-key-input"
+      type="password"
+      placeholder="AIza…"
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <button class="save-key" id="save-key-btn" onclick="saveGeminiKey()">Save Key</button>
+  </div>
+</header>
+
+<!-- ======================================================================= -->
+<!-- Main                                                                     -->
+<!-- ======================================================================= -->
+<main>
+  <!-- Stats bar -->
+  <div class="stats-bar" id="stats-bar">
+    <div class="stat-chip">
+      <span class="dot" style="background:#22c55e;"></span>
+      <span id="stat-running">0</span> running
+    </div>
+    <div class="stat-chip">
+      <span class="dot" style="background:#f59e0b;"></span>
+      <span id="stat-starting">0</span> starting
+    </div>
+    <div class="stat-chip">
+      <span class="dot" style="background:#ef4444;"></span>
+      <span id="stat-offline">0</span> offline
+    </div>
+    <div class="stat-chip">
+      <span class="dot" style="background:#3b82f6;"></span>
+      <span id="stat-docker">0</span> docker-required
+    </div>
+  </div>
+
+  <!-- App grid -->
+  <div class="app-grid" id="app-grid">
+    <!-- Cards injected by JS -->
+  </div>
+</main>
+
+<!-- ======================================================================= -->
+<!-- Logs panel                                                               -->
+<!-- ======================================================================= -->
+<div class="logs-section">
+  <button class="logs-toggle" id="logs-toggle-btn" onclick="toggleLogs()">
+    <span>Server Logs</span>
+    <span class="logs-toggle-icon" id="logs-toggle-icon">▼</span>
+  </button>
+  <div class="logs-body" id="logs-body">
+    <div class="logs-filter-row">
+      <label for="log-app-filter">Filter:</label>
+      <select id="log-app-filter" onchange="filterLogs()">
+        <option value="all">All apps</option>
+      </select>
+      <button class="clear-logs" onclick="clearLogs()">Clear</button>
+    </div>
+    <div id="log-output"></div>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div id="toast"></div>
+
+<!-- ======================================================================= -->
+<!-- JavaScript                                                               -->
+<!-- ======================================================================= -->
+<script>
+'use strict';
+
+// ---------------------------------------------------------------------------
+// State
+// ---------------------------------------------------------------------------
+let apps = [];
+const cardStatuses = {};   // appId → { status, port }
+const logEntries   = [];   // { id, line }
+let activeLogFilter = 'all';
+let logsOpen = false;
+
+// ---------------------------------------------------------------------------
+// Gemini key
+// ---------------------------------------------------------------------------
+async function loadGeminiKey() {
+  try {
+    const key = await window.launcher.getKey();
+    if (key) {
+      document.getElementById('gemini-key-input').value = key;
+      document.getElementById('gemini-key-input').classList.add('saved');
+    }
+  } catch (e) { /* non-fatal */ }
+}
+
+async function saveGeminiKey() {
+  const key = document.getElementById('gemini-key-input').value.trim();
+  if (!key) { showToast('Please enter a Gemini API key.'); return; }
+  try {
+    await window.launcher.setKey(key);
+    document.getElementById('gemini-key-input').classList.add('saved');
+    const btn = document.getElementById('save-key-btn');
+    btn.classList.add('saved-flash');
+    btn.textContent = 'Saved ✓';
+    setTimeout(() => { btn.classList.remove('saved-flash'); btn.textContent = 'Save Key'; }, 2000);
+    showToast('Gemini API key saved.');
+  } catch (e) {
+    showToast('Failed to save key: ' + e.message);
+  }
+}
+
+// Enter key on the input field also saves
+document.getElementById('gemini-key-input').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') saveGeminiKey();
+});
+
+// ---------------------------------------------------------------------------
+// Card rendering
+// ---------------------------------------------------------------------------
+function statusLabel(status) {
+  switch (status) {
+    case 'running':         return 'Running';
+    case 'starting':        return 'Starting…';
+    case 'offline':         return 'Offline';
+    case 'docker-required': return 'Docker Required';
+    default:                return 'Unknown';
+  }
+}
+
+function createCard(app) {
+  const card = document.createElement('div');
+  card.className = 'app-card';
+  card.id = `card-${app.id}`;
+
+  const initialStatus = 'starting';
+  const initialPort   = app.actualPort || app.port;
+
+  card.innerHTML = `
+    <div class="card-top-border" style="background:${app.color};"></div>
+    <div class="card-body">
+      <div class="card-header">
+        <div class="card-title-row">
+          <span class="app-icon">${app.icon}</span>
+          <span class="app-name">${app.name}</span>
+        </div>
+        ${app.geminiRequired ? '<span class="gemini-badge">Gemini</span>' : ''}
+      </div>
+      <p class="app-desc">${app.description}</p>
+      <div class="card-meta">
+        <div class="status-badge status-${initialStatus}" id="status-${app.id}">
+          <span class="status-dot pulse"></span>
+          <span id="status-label-${app.id}">${statusLabel(initialStatus)}</span>
+        </div>
+        <span class="port-badge" id="port-${app.id}">:${initialPort}</span>
+      </div>
+      <button
+        class="launch-btn"
+        id="launch-btn-${app.id}"
+        style="background:${app.color};"
+        onclick="launchApp('${app.id}')"
+        disabled
+      >Launch ${app.name}</button>
+    </div>
+  `;
+
+  cardStatuses[app.id] = { status: initialStatus, port: initialPort };
+  return card;
+}
+
+function renderGrid(appList) {
+  const grid = document.getElementById('app-grid');
+  grid.innerHTML = '';
+  appList.forEach((app) => {
+    grid.appendChild(createCard(app));
+  });
+
+  // Populate log filter
+  const sel = document.getElementById('log-app-filter');
+  appList.forEach((app) => {
+    const opt = document.createElement('option');
+    opt.value = app.id;
+    opt.textContent = app.name;
+    sel.appendChild(opt);
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Status updates
+// ---------------------------------------------------------------------------
+function updateCard(id, status, port) {
+  cardStatuses[id] = { status, port };
+  updateStats();
+
+  const statusEl = document.getElementById(`status-${id}`);
+  const labelEl  = document.getElementById(`status-label-${id}`);
+  const portEl   = document.getElementById(`port-${id}`);
+  const btnEl    = document.getElementById(`launch-btn-${id}`);
+  if (!statusEl) return;
+
+  // Update status class
+  statusEl.className = `status-badge status-${status}`;
+
+  // Pulse dot only while starting
+  const dot = statusEl.querySelector('.status-dot');
+  if (dot) dot.className = `status-dot${status === 'starting' ? ' pulse' : ''}`;
+
+  if (labelEl) labelEl.textContent = statusLabel(status);
+  if (portEl && port)  portEl.textContent = `:${port}`;
+
+  if (btnEl) {
+    btnEl.disabled = (status !== 'running');
+    btnEl.textContent = status === 'running'
+      ? `Launch ${apps.find(a=>a.id===id)?.name || id}`
+      : statusLabel(status);
+  }
+}
+
+function updateStats() {
+  const counts = { running: 0, starting: 0, offline: 0, 'docker-required': 0 };
+  Object.values(cardStatuses).forEach(({ status }) => {
+    if (counts[status] !== undefined) counts[status]++;
+  });
+  document.getElementById('stat-running').textContent  = counts['running'];
+  document.getElementById('stat-starting').textContent = counts['starting'];
+  document.getElementById('stat-offline').textContent  = counts['offline'];
+  document.getElementById('stat-docker').textContent   = counts['docker-required'];
+}
+
+// ---------------------------------------------------------------------------
+// Launch
+// ---------------------------------------------------------------------------
+async function launchApp(id) {
+  try {
+    const result = await window.launcher.launchApp(id);
+    if (result && result.error) {
+      showToast(`Cannot launch: ${result.error}`);
+    }
+  } catch (e) {
+    showToast(`Launch failed: ${e.message}`);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Logs
+// ---------------------------------------------------------------------------
+function toggleLogs() {
+  logsOpen = !logsOpen;
+  const body = document.getElementById('logs-body');
+  const icon = document.getElementById('logs-toggle-icon');
+  body.classList.toggle('open', logsOpen);
+  icon.classList.toggle('open', logsOpen);
+}
+
+function appendLog(data) {
+  logEntries.push(data);
+  if (activeLogFilter === 'all' || activeLogFilter === data.id) {
+    addLogLine(data.id, data.line);
+  }
+}
+
+function addLogLine(appId, line) {
+  const out = document.getElementById('log-output');
+  const appName = (apps.find(a => a.id === appId) || {}).name || appId;
+  const timestamp = new Date().toTimeString().slice(0, 8);
+  out.textContent += `[${timestamp}] [${appName}] ${line}\n`;
+  // Auto-scroll to bottom
+  out.scrollTop = out.scrollHeight;
+}
+
+function filterLogs() {
+  activeLogFilter = document.getElementById('log-app-filter').value;
+  const out = document.getElementById('log-output');
+  out.textContent = '';
+  logEntries.forEach((entry) => {
+    if (activeLogFilter === 'all' || activeLogFilter === entry.id) {
+      addLogLine(entry.id, entry.line);
+    }
+  });
+}
+
+function clearLogs() {
+  logEntries.length = 0;
+  document.getElementById('log-output').textContent = '';
+}
+
+// ---------------------------------------------------------------------------
+// Toast
+// ---------------------------------------------------------------------------
+let toastTimer = null;
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+// ---------------------------------------------------------------------------
+// Init
+// ---------------------------------------------------------------------------
+async function init() {
+  await loadGeminiKey();
+
+  try {
+    apps = await window.launcher.getApps();
+    renderGrid(apps);
+    updateStats();
+  } catch (e) {
+    document.getElementById('app-grid').innerHTML =
+      `<p style="color:#ef4444;padding:20px;">Failed to load app config: ${e.message}</p>`;
+  }
+
+  // Listen for status updates from main process
+  window.launcher.onStatus((data) => {
+    updateCard(data.id, data.status, data.port);
+  });
+
+  // Listen for log lines
+  window.launcher.onLog((data) => {
+    appendLog(data);
+  });
+}
+
+window.addEventListener('DOMContentLoaded', init);
+
+// Cleanup listeners when page unloads
+window.addEventListener('beforeunload', () => {
+  window.launcher.offAll();
+});
+</script>
+</body>
+</html>

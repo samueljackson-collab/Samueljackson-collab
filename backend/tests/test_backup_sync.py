@@ -16,6 +16,7 @@ from scripts.backup_sync import (
     parse_args,
     run_full_sync,
     run_incremental_sync,
+    run_sync_with_retry,
     verify_sync,
 )
 
@@ -98,22 +99,31 @@ class TestVerifySync:
 class TestRunFullSync:
     def test_calls_rsync_with_delete_flag(self, tmp_path):
         with patch("subprocess.run") as mock_run:
+            mock_run.return_value = MagicMock(returncode=0)
             run_full_sync(tmp_path / "src", tmp_path / "dst")
         cmd = mock_run.call_args[0][0]
         assert "rsync" in cmd
         assert "--delete" in cmd
 
     def test_verify_called_when_flag_set(self, tmp_path):
-        with patch("subprocess.run"):
+        with patch("subprocess.run") as mock_run:
+            mock_run.return_value = MagicMock(returncode=0)
             with patch("scripts.backup_sync.verify_sync") as mock_verify:
                 run_full_sync(tmp_path / "src", tmp_path / "dst", verify=True)
         mock_verify.assert_called_once()
 
     def test_verify_not_called_by_default(self, tmp_path):
-        with patch("subprocess.run"):
+        with patch("subprocess.run") as mock_run:
+            mock_run.return_value = MagicMock(returncode=0)
             with patch("scripts.backup_sync.verify_sync") as mock_verify:
                 run_full_sync(tmp_path / "src", tmp_path / "dst")
         mock_verify.assert_not_called()
+
+    def test_raises_after_exhausting_retries_on_persistent_failure(self, tmp_path):
+        with patch("subprocess.run") as mock_run, patch("scripts.backup_sync.time.sleep"):
+            mock_run.return_value = MagicMock(returncode=1)
+            with pytest.raises(RuntimeError, match="rsync failed after"):
+                run_full_sync(tmp_path / "src", tmp_path / "dst")
 
 
 # ---------------------------------------------------------------------------
@@ -124,16 +134,53 @@ class TestRunIncrementalSync:
     def test_includes_link_dest_flag(self, tmp_path):
         prev = tmp_path / "prev"
         with patch("subprocess.run") as mock_run:
+            mock_run.return_value = MagicMock(returncode=0)
             run_incremental_sync(tmp_path / "src", tmp_path / "dst", prev)
         cmd = mock_run.call_args[0][0]
         assert any("--link-dest" in arg for arg in cmd)
 
     def test_verify_called_when_flag_set(self, tmp_path):
         prev = tmp_path / "prev"
-        with patch("subprocess.run"):
+        with patch("subprocess.run") as mock_run:
+            mock_run.return_value = MagicMock(returncode=0)
             with patch("scripts.backup_sync.verify_sync") as mock_verify:
                 run_incremental_sync(tmp_path / "src", tmp_path / "dst", prev, verify=True)
         mock_verify.assert_called_once()
+
+
+# ---------------------------------------------------------------------------
+# run_sync_with_retry
+# ---------------------------------------------------------------------------
+
+class TestRunSyncWithRetry:
+    def test_succeeds_immediately_when_rsync_exits_zero(self):
+        with patch("subprocess.run") as mock_run:
+            mock_run.return_value = MagicMock(returncode=0)
+            run_sync_with_retry(["rsync", "-a", "src/", "dst/"])
+        assert mock_run.call_count == 1
+
+    def test_retries_on_failure_then_succeeds(self):
+        with patch("subprocess.run") as mock_run, patch("scripts.backup_sync.time.sleep") as mock_sleep:
+            mock_run.side_effect = [MagicMock(returncode=1), MagicMock(returncode=0)]
+            run_sync_with_retry(["rsync", "-a", "src/", "dst/"])
+        assert mock_run.call_count == 2
+        assert mock_sleep.call_count == 1
+
+    def test_raises_runtime_error_after_max_attempts(self):
+        with patch("subprocess.run") as mock_run, patch("scripts.backup_sync.time.sleep") as mock_sleep:
+            mock_run.return_value = MagicMock(returncode=1)
+            with pytest.raises(RuntimeError, match="rsync failed after 3 attempts"):
+                run_sync_with_retry(["rsync", "-a", "src/", "dst/"], max_attempts=3, base_delay=0)
+        assert mock_run.call_count == 3
+        assert mock_sleep.call_count == 2
+
+    def test_backoff_delays_are_exponential(self):
+        with patch("subprocess.run") as mock_run, patch("scripts.backup_sync.time.sleep") as mock_sleep:
+            mock_run.return_value = MagicMock(returncode=1)
+            with pytest.raises(RuntimeError):
+                run_sync_with_retry(["rsync"], max_attempts=3, base_delay=1.0)
+        delays = [call.args[0] for call in mock_sleep.call_args_list]
+        assert delays == [1.0, 2.0]
 
 
 # ---------------------------------------------------------------------------

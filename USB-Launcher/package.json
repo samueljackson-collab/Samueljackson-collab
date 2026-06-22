@@ -1,0 +1,116 @@
+{
+  "name": "portfolio-launcher",
+  "version": "1.0.0",
+  "description": "Electron launcher for Samuel Jackson's 9-app portfolio suite.",
+  "main": "electron-main.js",
+  "author": "Samuel Jackson <samuel.jackson@csuglobal.edu>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start":     "electron .",
+    "build:win": "electron-builder --win --x64",
+    "build:mac": "electron-builder --mac",
+    "build:linux":"electron-builder --linux",
+    "build:all": "electron-builder --win --mac --linux"
+  },
+  "dependencies": {
+    "electron-store": "^10.0.0"
+  },
+  "devDependencies": {
+    "electron":         "^31.0.0",
+    "electron-builder": "^24.13.0"
+  },
+  "build": {
+    "appId":       "com.samueljackson.portfolio-launcher",
+    "productName": "Portfolio Launcher",
+    "copyright":   "Copyright © 2025 Samuel Jackson",
+    "files": [
+      "electron-main.js",
+      "preload.js",
+      "launcher.html",
+      "apps-config.json",
+      "node_modules/**"
+    ],
+    "extraResources": [
+      {
+        "from": "../Ai-Job-Agent/dist",
+        "to":   "apps/ai-job-agent/dist",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "../Secure-Deployer/dist",
+        "to":   "apps/secure-deployer/dist",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "../Tab-Sorter/dist",
+        "to":   "apps/tab-sorter/dist",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "../Reportify/dist",
+        "to":   "apps/reportify/dist",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "../AstraDup-Cross-Storage-Video-Files-duplication-tracker/dist",
+        "to":   "apps/astradup/dist",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "../Download-Command-Center",
+        "to":   "apps/download-command-center",
+        "filter": ["dist/**", "dist-server/**", "package.json", "package-lock.json"]
+      },
+      {
+        "from": "../Playbook-Generator",
+        "to":   "apps/playbook-generator",
+        "filter": ["dist/**", "dist-server/**", "package.json", "package-lock.json"]
+      },
+      {
+        "from": "../BugJaeger",
+        "to":   "apps/bugjaeger",
+        "filter": ["docker-compose.yml", "backend/**", "frontend/**"]
+      },
+      {
+        "from": "../Samueljackson-collab",
+        "to":   "apps/elderphoto",
+        "filter": ["backend/**", "frontend/dist/**", "frontend/package.json"]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": ["x64"]
+        },
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick":                       false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut":          true,
+      "createStartMenuShortcut":        true,
+      "shortcutName":                   "Portfolio Launcher"
+    },
+    "portable": {
+      "artifactName": "PortfolioLauncher-Portable-${version}.exe"
+    },
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.developer-tools"
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "category": "Development"
+    },
+    "directories": {
+      "output": "dist-electron"
+    }
+  }
+}
